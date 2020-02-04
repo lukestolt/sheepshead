@@ -30,6 +30,10 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
+	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
+	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+//	implementation "com.fasterxml.jackson.module:jackson-module-jackson-module-parameter-names"
 }
 
 test {

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SheepsheadbackendApplication {
+public class SheepsheadBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SheepsheadbackendApplication.class, args);
+		SpringApplication.run(SheepsheadBackendApplication.class, args);
 	}
 
 }
