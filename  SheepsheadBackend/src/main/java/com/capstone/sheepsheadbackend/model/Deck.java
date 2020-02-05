@@ -1,28 +1,27 @@
 package com.capstone.sheepsheadbackend.model;
 
 
+import com.capstone.sheepsheadbackend.util.CardSuits;
+import com.capstone.sheepsheadbackend.util.SheepsheadCardValue;
+
 import java.util.Random;
 
 public class Deck {
-
-    private static final String[] VALUES = new String[]{"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
-    private static final String[] SUITS = new String[]{"Hearts","Clubs","Diamonds","Spades"};
 
     private Card[] deck;
 
     public Deck() {
         deck = new Card[52];
-        initDeck(deck, VALUES, SUITS);
+        initDeck(deck, SheepsheadCardValue.values(), CardSuits.values());
     }
 
-    public static void initDeck(Card[] deck, String[] values, String[] suits) {
+    public static void initDeck(Card[] deck, SheepsheadCardValue[] values, CardSuits[] suits) {
         int cnt = 0;
-        for(int i = 0; i < suits.length; ++i) {
-            for(int j = 0; j < values.length; ++j) {
+        for (CardSuits suit : suits) {
+            for (SheepsheadCardValue value : values) {
                 deck[cnt] = Card.builder()
-                            .suit(suits[i])
-                            .val(values[j]).build();
-
+                        .suit(suit)
+                        .val(value).build();
                 cnt++;
             }
         }
@@ -32,14 +31,14 @@ public class Deck {
         return deck;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        for(Card c : deck) {
-            str.append(c.toString()).append(", ");
-        }
-        return str.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder str = new StringBuilder();
+//        for(Card c : deck) {
+//            str.append(c.toString()).append(", ");
+//        }
+//        return str.toString();
+//    }
 
     /**
      * Shuffles a deck of cards

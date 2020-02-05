@@ -1,15 +1,15 @@
 package com.capstone.sheepsheadbackend.model;
 
-public class SheepsheadDeck {
+import com.capstone.sheepsheadbackend.util.CardSuits;
+import com.capstone.sheepsheadbackend.util.SheepsheadCardValue;
 
-    private static final String[] VALUES = new String[]{"7","8","9","10","J","Q","K","A"};
-    private static final String[] SUITS = new String[]{"Hearts","Clubs","Diamonds","Spades"};
+public class SheepsheadDeck {
 
     private Card[] deck;
 
     public SheepsheadDeck() {
         deck = new Card[32];
-        Deck.initDeck(deck, VALUES, SUITS);
+        Deck.initDeck(deck, SheepsheadCardValue.values(), CardSuits.values());
     }
 
     public Card[] getDeck() {
