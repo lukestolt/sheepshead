@@ -1,0 +1,8 @@
+{
+  "appId": "com.capstone.sheepshead",
+  "appName": "Sheepshead",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
