@@ -16,6 +16,7 @@ export class GameComponent implements OnInit {
     this.doRender(new PIXI.Container());
   }
 
+
   ngOnInit() {
   }
 
@@ -30,6 +31,10 @@ export class GameComponent implements OnInit {
   private initGame(): void {
     const green =  0x0abb18;
     this.renderer.backgroundColor = green;
+    // document.body.appendChild(this.renderer.view);
+  }
+
+  addToScreen(): void {
     document.body.appendChild(this.renderer.view);
   }
 }
