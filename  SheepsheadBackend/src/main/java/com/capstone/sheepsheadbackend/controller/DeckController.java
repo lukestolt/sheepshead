@@ -1,17 +1,15 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.Card;
-import com.capstone.sheepsheadbackend.model.Deck;
-import com.capstone.sheepsheadbackend.model.SheepsheadDeck;
-import com.capstone.sheepsheadbackend.util.CardStrength;
-import org.springframework.http.HttpStatus;
+import com.capstone.sheepsheadbackend.model.*;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class DeckController {
+    SheepsheadDeck deck = new SheepsheadDeck();
 
     @GetMapping(value = "/getDeck")
     public Deck getDeck() {
@@ -41,34 +39,20 @@ public class DeckController {
     public Card getRandomDeckCard() {
         SheepsheadDeck deck = new SheepsheadDeck();
         Deck.shuffle(deck.getDeck());
-        return deck.getDeck()[0];
+        return deck.getDeck().get(0);
     }
 
     @PostMapping(value = "/isTrumpSuit", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Card isTrumpSuit(@RequestBody Card jsonCard) {
-        System.out.println(jsonCard);
-        System.out.println(jsonCard.getSuit().getCardStrength());
-        System.out.println(jsonCard.getVal().getCardStrength());
-        if(jsonCard.getSuit().getCardStrength() ==
-                CardStrength.TRUMPSUIT ||
-                jsonCard.getVal().getCardStrength() ==
-                        CardStrength.TRUMPSUIT) {
-            System.out.println("True");;
-        } else {
-            System.out.println("false");
-        }
+        System.out.println(Card.isTrumpSuit(jsonCard));
         return jsonCard;
     }
 
-    public class StringResponse {
-
-        private String response;
-
-        public StringResponse(String s) {
-            this.response = s;
-        }
-
-        // get/set omitted...
+    @GetMapping(value = "/getHand")
+    public Hand getHand() {
+        Deck.shuffle(deck.getDeck());
+        Player p = new Player(null);
+        deck.dealHand(p);
+        return p.getHand();
     }
-
 }

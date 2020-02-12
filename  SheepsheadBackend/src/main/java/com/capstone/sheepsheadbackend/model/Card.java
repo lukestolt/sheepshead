@@ -1,5 +1,6 @@
 package com.capstone.sheepsheadbackend.model;
 
+import com.capstone.sheepsheadbackend.util.CardStrength;
 import com.capstone.sheepsheadbackend.util.CardSuits;
 import com.capstone.sheepsheadbackend.util.SheepsheadCardValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,8 +19,8 @@ public final class Card {
     public static final class CardBuilder {
     }
 
-//    @Override
-//    public String toString() {
-//        return "("+suit.toString()+","+val.getStrValue()+")";
-//    }
+    public static boolean isTrumpSuit(Card card) {
+        return card.getVal().getCardStrength() == CardStrength.TRUMPSUIT
+                || card.getSuit().getCardStrength() == CardStrength.TRUMPSUIT;
+    }
 }
