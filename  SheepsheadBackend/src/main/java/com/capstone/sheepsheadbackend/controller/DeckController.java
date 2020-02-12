@@ -1,17 +1,15 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.Card;
-import com.capstone.sheepsheadbackend.model.Deck;
-import com.capstone.sheepsheadbackend.model.SheepsheadDeck;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.capstone.sheepsheadbackend.model.*;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class DeckController {
+    SheepsheadDeck deck = new SheepsheadDeck();
 
     @GetMapping(value = "/getDeck")
     public Deck getDeck() {
@@ -35,5 +33,26 @@ public class DeckController {
         SheepsheadDeck deck = new SheepsheadDeck();
         Deck.shuffle(deck.getDeck());
         return deck;
+    }
+
+    @GetMapping(value = "/getRandomDeckCard")
+    public Card getRandomDeckCard() {
+        SheepsheadDeck deck = new SheepsheadDeck();
+        Deck.shuffle(deck.getDeck());
+        return deck.getDeck().get(0);
+    }
+
+    @PostMapping(value = "/isTrumpSuit", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Card isTrumpSuit(@RequestBody Card jsonCard) {
+        System.out.println(Card.isTrumpSuit(jsonCard));
+        return jsonCard;
+    }
+
+    @GetMapping(value = "/getHand")
+    public Hand getHand() {
+        Deck.shuffle(deck.getDeck());
+        Player p = new Player(null);
+        deck.dealHand(p);
+        return p.getHand();
     }
 }
