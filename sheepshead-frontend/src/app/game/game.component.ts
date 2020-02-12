@@ -8,16 +8,28 @@ import * as PIXI from 'pixi.js';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
+  public readonly renderer: PIXI.Renderer;
+
+  constructor() {
+    this.renderer = new PIXI.Renderer({width: 732, height: 412});
+    this.initGame();
+    this.doRender(new PIXI.Container());
+  }
 
   ngOnInit() {
   }
 
   createCards() {
-    const app = new PIXI.Application({width: 250, height: 250});
-    document.body.appendChild(app.view);
-
     // TODO: draw the cards here
   }
+  private doRender(stage: PIXI.Container): void {
+    // this.renderer.render(stage);
+    this.renderer.render(stage);
+  }
 
+  private initGame(): void {
+    const green =  0x0abb18;
+    this.renderer.backgroundColor = green;
+    document.body.appendChild(this.renderer.view);
+  }
 }

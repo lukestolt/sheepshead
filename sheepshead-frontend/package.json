@@ -22,6 +22,8 @@
     "@capacitor/android": "^1.5.0",
     "@capacitor/cli": "^1.5.0",
     "@capacitor/core": "^1.5.0",
+    "@types/pixi.js": "^5.0.0",
+    "pixi.js": "^5.2.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
