@@ -1,6 +1,7 @@
 # SheepsheadFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.24.
+[Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
+[Node.js](https://nodejs.org/download/release/v10.15.1/) version 10.15.1
 
 ## Development server
 

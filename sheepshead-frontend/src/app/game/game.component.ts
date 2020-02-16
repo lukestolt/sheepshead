@@ -9,32 +9,43 @@ import * as PIXI from 'pixi.js';
 export class GameComponent implements OnInit {
 
   public readonly renderer: PIXI.Renderer;
+  public app: PIXI.Application;
 
   constructor() {
-    this.renderer = new PIXI.Renderer({width: 732, height: 412});
+
     this.initGame();
-    this.doRender(new PIXI.Container());
+    // this.renderer = new PIXI.Renderer({width: 732, height: 412});
+    // this.initGame();
+    // this.doRender(new PIXI.Container());
   }
 
 
   ngOnInit() {
   }
 
-  createCards() {
-    // TODO: draw the cards here
-  }
-  private doRender(stage: PIXI.Container): void {
-    // this.renderer.render(stage);
-    this.renderer.render(stage);
-  }
-
   private initGame(): void {
+    this.app = new PIXI.Application({width: 250, height: 250});
     const green =  0x0abb18;
-    this.renderer.backgroundColor = green;
-    // document.body.appendChild(this.renderer.view);
+    this.app.renderer.backgroundColor = green;
+    this.app.renderer.view.style.position = 'absolute';
+    this.app.renderer.view.style.display = 'block';
+    this.app.renderer.autoDensity = true;
+    this.app.renderer.resize(window.innerWidth, window.innerHeight);
+    this.addToScreen();
   }
 
-  addToScreen(): void {
-    document.body.appendChild(this.renderer.view);
+  private addToScreen(): void {
+    document.body.appendChild(this.app.view);
+  }
+
+  addSprite(): void {
+    const loader = this.app.loader;
+    loader.add('../../assets/characters.png')
+          .load(this.spriteSetup);
+  }
+
+  spriteSetup(): void {
+    const characters = new PIXI.Sprite(this.app.loader.resources['../../assets/characters.png'].texture);
+    this.app.stage.addChild(characters);
   }
 }
