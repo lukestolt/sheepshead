@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as PIXI from 'pixi.js';
+import { PlayerHand } from '../player-hand/player-hand.component';
 
 @Component({
   selector: 'app-game',
@@ -12,11 +13,7 @@ export class GameComponent implements OnInit {
   public app: PIXI.Application;
   public sprites: any[];
   constructor() {
-
     this.initGame();
-    // this.renderer = new PIXI.Renderer({width: 732, height: 412});
-    // this.initGame();
-    // this.doRender(new PIXI.Container());
   }
 
 
@@ -73,6 +70,11 @@ export class GameComponent implements OnInit {
     stage.addChild(graphics);
     this.renderGame(stage);
 
+  }
+
+  private drawHand(): void {
+    const hand = new PlayerHand();
+    //this.renderGame(hand.getStage())
   }
 
 }
