@@ -55,4 +55,10 @@ public class DeckController {
         deck.dealHand(p);
         return p.getHand();
     }
+
+    @CrossOrigin
+    @PostMapping(value = "/users/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String registerUser(@RequestBody User jsonUser) {
+        return "Hello from Server: " + jsonUser.username + " " + jsonUser.password;
+    }
 }

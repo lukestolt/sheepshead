@@ -8,8 +8,6 @@ import { GameComponent } from './game/game.component';
 })
 export class AppComponent {
   title = 'sheepshead-frontend';
-  game: GameComponent;
   constructor() {
-    this.game = new GameComponent();
   }
 }
