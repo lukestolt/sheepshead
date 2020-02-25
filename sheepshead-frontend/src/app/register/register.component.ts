@@ -28,24 +28,26 @@ export class RegisterComponent implements OnInit {
   }
 
   loginClick(): void {
-    console.log(this.username);
-    console.log(this.password);
     if(this.isValidForm()) {
+      console.log(this.username);
+      console.log(this.password);
       this.loading = true;
       const user = this.createUser();
-      this.userService.register(user)
-            // .pipe(first())
-            .subscribe(
-                data => {
-                    console.log('Registration successful', true);
-                    console.log(data);
-                    this.router.navigate(['/home']);
-                },
-                error => {
-                  console.log(error)
-                    this.loading = false;
-                    console.error('Invalid login');
-                });
+      this.authenticationService.login(user);
+      // this.userService.register(user)
+      //       // .pipe(first())
+      //       .subscribe(
+      //           data => {
+      //               console.log('Registration successful', true);
+      //               console.log(data);
+      //               this.router.navigate(['/home']);
+      //           },
+      //           error => {
+      //             console.log(error)
+      //               this.loading = false;
+      //               console.error('Invalid login');
+      //           });
+
     }
   }
 
@@ -55,7 +57,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private isValidForm(): boolean {
-    if (this.username || this.password) return true;
+    if (this.username && this.password) return true;
     return false;
   }
 }
