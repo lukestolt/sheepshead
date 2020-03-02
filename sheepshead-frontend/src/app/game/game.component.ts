@@ -13,7 +13,7 @@ export class GameComponent implements OnInit {
   public sprites: any[];
   constructor() {
 
-    this.initGame();
+    // this.initGame();
     // this.renderer = new PIXI.Renderer({width: 732, height: 412});
     // this.initGame();
     // this.doRender(new PIXI.Container());
