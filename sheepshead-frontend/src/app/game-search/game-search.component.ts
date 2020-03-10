@@ -14,6 +14,6 @@ export class GameSearchComponent implements OnInit {
   }
 
   searchForGame(): void {
-    
+    this._router.navigateByUrl('/game');
   }
 }

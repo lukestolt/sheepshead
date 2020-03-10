@@ -1,1 +1,5 @@
-<button>Add Sprite</button>
+<p>{{curPlayer.name}}</p>
+
+<div *ngFor='let card of curPlayer.cards'>
+    <img src={{getCardName(card)}}>
+</div>
