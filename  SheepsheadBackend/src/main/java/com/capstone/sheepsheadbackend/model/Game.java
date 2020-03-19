@@ -1,5 +1,6 @@
 package com.capstone.sheepsheadbackend.model;
 
+import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,15 +11,24 @@ public class Game {
     private List<Player> players;
     private SheepsheadDeck deck;
     private Player dealer;
+    private ServerSocket gamesSocket;
+    private final int MAX_PLAYERS;
 
-    public Game() {
+    public Game(int numPlayers) {
         uuid = UUID.randomUUID().toString();
+        MAX_PLAYERS = numPlayers;
         players = new ArrayList<>();
         deck = new SheepsheadDeck();
     }
 
-    public void addPlayer(Player player) {
-        players.add(player);
+    public boolean addPlayer(Player player) {
+
+        if(players.size() >= MAX_PLAYERS) {
+            return false;
+        } else {
+            players.add(player);
+            return true;
+        }
     }
 
     private void start() {
@@ -40,4 +50,10 @@ public class Game {
     public <T> Comparable getCreated() {
         return null;
     }
+
+    @Override
+    public String toString(){
+        return players.toString();
+    }
+
 }
