@@ -13,6 +13,7 @@ public class Game {
     private Player dealer;
     private ServerSocket gamesSocket;
     private final int MAX_PLAYERS;
+    private static boolean start;
 
     public Game(int numPlayers) {
         uuid = UUID.randomUUID().toString();
@@ -31,8 +32,10 @@ public class Game {
         }
     }
 
-    private void start() {
-        deck.deal(this);
+    public void start() {
+        if(!start) {
+            start = true;
+        }
     }
 
     public Player getDealer() {
@@ -56,4 +59,13 @@ public class Game {
         return players.toString();
     }
 
+    public void dealHands() {
+        deck.deal(this);
+    }
+
+    public Player nextDealer() {
+        if(dealer == null) {
+            dealer = players.get(0);
+        }
+    }
 }
