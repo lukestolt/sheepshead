@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class Game {
 
-    private String uuid;
+    private final String uuid;
     private List<Player> players;
     private SheepsheadDeck deck;
     private Player dealer;
