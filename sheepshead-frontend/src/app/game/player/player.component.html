@@ -1,0 +1,10 @@
+<!-- <ng-container *ngIf=playerCards>
+
+</ng-container>
+
+<ng-container *ngIf=!playerCards>
+
+</ng-container> -->
+<div class='hand'>
+    <img (click)='clickCard(card)' *ngFor='let card of player.cards' class='card' src={{getCardName(card)}}>
+</div>

@@ -14,9 +14,13 @@ export class ApiService {
   findGame(data: IFindGameParams): Observable<any> {
     return this.http.post(ServerConfig.serverUrl, data);
   }
+
+  addPlayersToGame(name: string): Observable<any> {
+    return this.http.get(ServerConfig.serverUrl);
+  }
+
 }
 
 export interface IFindGameParams{
   numPlayers: number
-
 }
