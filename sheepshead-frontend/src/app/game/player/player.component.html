@@ -1,10 +1,15 @@
-<!-- <ng-container *ngIf=playerCards>
 
-</ng-container>
-
-<ng-container *ngIf=!playerCards>
-
-</ng-container> -->
+<h1>{{player.id}}</h1>
 <div class='hand'>
-    <img (click)='clickCard(card)' *ngFor='let card of player.cards' class='card' src={{getCardName(card)}}>
+    <img (click)='cardClick(card)'
+         (mouseover)='cardMouseHover(card)'
+         (mouseout)='cardMouseOut(card)'
+         *ngFor='let card of player.cards' 
+         [ngClass]="card.isHovered ? 'cardSize hover': 'cardSize'"
+         src={{getCardName(card)}}>
+    <div *ngIf='player.cards == null'>
+        <img *ngFor='let i of [].constructor(player.numCards)'
+              src='../assets/cards/green_back.png'
+              class='cardSize'>
+    </div>
 </div>

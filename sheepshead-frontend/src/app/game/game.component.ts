@@ -12,9 +12,12 @@ export class GameComponent implements OnInit {
   private opponents: Player[];
   private curplayer: Player;
   private curPlayerTurn: string;    // id of the current player
+  private gameId: string;
 
   constructor() {
     this.curplayer = this.generatePlayerData();
+    this.generateOpponentData(2);
+    this.gameId = 'random-game-id-1'
   }
 
   ngOnInit() {
@@ -38,6 +41,19 @@ export class GameComponent implements OnInit {
     hand.push(new Card('s','ace'));
     hand.push(new Card('d','king'));
     return hand;
+  }
+
+  /***
+   * tmp method to create mock data
+   * @param numPlayers number of opponents to create
+   */
+  private generateOpponentData(numPlayers: number):void {
+    this.opponents = [];
+    for(let x = 0; x < numPlayers; ++x) {
+      //TODO: hardcoded number of cards should no be hardcoded
+      this.opponents.push(new Player('p' + (x+2), null, 2));
+    }
+
   }
 
   isPlayerTurn(): boolean {

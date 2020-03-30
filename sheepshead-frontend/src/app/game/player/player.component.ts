@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { Player } from 'src/app/models/player';
+import { CardAction, GameService } from 'src/services/game.service';
 
 @Component({
   selector: 'app-player',
@@ -10,13 +11,12 @@ import { Player } from 'src/app/models/player';
 export class PlayerComponent{
 
   @Input() player: Player;
+  @Input() gameId: string;
 
-  constructor() {
-    console.log(this.player);
+  constructor(private gameService:GameService) {
   }
 
   getCardName(card: Card): string {
-    console.log(card);
     if(!card)
       return ''
     let path = '../assets/cards/';
@@ -26,8 +26,20 @@ export class PlayerComponent{
     return path;
   }
 
-  clickCard(card:Card): void {
-    
+
+  cardClick(clickedCard: Card): void {
+    console.log(clickedCard);
+    const action:CardAction = {playerId: this.player.id, gameId: this.gameId, card: clickedCard};
+    this.gameService.sendPlayerCardAction(action).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  cardMouseHover(card: Card) {
+    card.isHovered = true;
+  }
+  cardMouseOut(card: Card) {
+    card.isHovered = false;
   }
 
 

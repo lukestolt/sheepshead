@@ -1,8 +1,13 @@
-.card {
+.cardSize {
     width: 8%;
     height: auto;
+    margin-left: 5px
 }
 
 .hand{
     
+}
+
+.hover {
+    border: 4px solid blue;
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { HttpClient } from '@angular/common/http';
 import { ServerConfig } from './server-config';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -14,8 +15,8 @@ export class GameService {
     }
 
     
-    sendPlayerCardAction(action:CardAction) {
-        this.http.post(ServerConfig.serverUrl + '/playerCardAction', action);
+    sendPlayerCardAction(action:CardAction): Observable<any> {
+        return this.http.post(ServerConfig.serverUrl + '/playerCardAction', action);
     }
 
 
