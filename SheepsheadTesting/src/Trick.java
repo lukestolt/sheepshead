@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trick {
+    private int score = 0;
     private List<Card> cards;
 
     public Trick() {
@@ -14,6 +15,7 @@ public class Trick {
 
     public void addCard(Card c) {
         cards.add(c);
+//        score +=
     }
 
     @Override
