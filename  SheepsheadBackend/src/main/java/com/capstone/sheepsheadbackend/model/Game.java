@@ -10,7 +10,9 @@ public class Game {
     private final String uuid;
     private List<Player> players;
     private SheepsheadDeck deck;
+    private List<Card> blind;
     private Player dealer;
+    private Player picker;
     private ServerSocket gamesSocket;
     private final int MAX_PLAYERS;
     private static boolean start;
@@ -60,12 +62,19 @@ public class Game {
     }
 
     public void dealHands() {
-        deck.deal(this);
+        blind = deck.deal(this);
     }
 
-    public Player nextDealer() {
-        if(dealer == null) {
-            dealer = players.get(0);
-        }
+    public void initDealer() {
+        dealer = players.get(0);
+    }
+
+    public Player getPicker() {
+        //TODO need to figure out how to assign picker
+//        for(Player p: players) {
+//
+//        }
+        picker = players.get(0);
+        return picker;
     }
 }

@@ -3,8 +3,8 @@ package com.capstone.sheepsheadbackend.model;
 public class Hand {
     private Card[] hand;
 
-    public Hand() {
-        hand = new Card[6];
+    public Hand(int numPlayers) {
+        hand = new Card[SheepsheadDeck.DECKSIZE/numPlayers];
     }
 
     public Card[] getHand() {

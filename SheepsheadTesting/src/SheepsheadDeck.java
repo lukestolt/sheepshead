@@ -1,8 +1,3 @@
-package com.capstone.sheepsheadbackend.model;
-
-import com.capstone.sheepsheadbackend.util.CardSuits;
-import com.capstone.sheepsheadbackend.util.SheepsheadCardValue;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

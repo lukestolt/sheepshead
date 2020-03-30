@@ -1,5 +1,3 @@
-package com.capstone.sheepsheadbackend.model;
-
 import java.util.HashMap;
 import java.util.Map;
 

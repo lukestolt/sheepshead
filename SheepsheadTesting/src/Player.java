@@ -1,5 +1,3 @@
-package com.capstone.sheepsheadbackend.model;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,5 +34,21 @@ public class Player {
     @Override
     public String toString() {
         return user.toString();
+    }
+
+    public Card playCard(int cardNum) {
+        Card c = hand.getCards()[cardNum];
+        if(c != null) {
+            // card exits
+            // checkFollowSuit/validate card
+            hand.getCards()[cardNum] = null;
+        }
+        // invalid card
+        System.out.println(hand.toString());
+        return c;
+    }
+
+    public boolean hasCards() {
+        return hand.getCards().length != 0;
     }
 }
