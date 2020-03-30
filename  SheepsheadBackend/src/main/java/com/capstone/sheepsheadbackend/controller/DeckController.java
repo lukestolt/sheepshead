@@ -52,7 +52,7 @@ public class DeckController {
     public Hand getHand() {
         Deck.shuffle(deck.getDeck());
         Player p = new Player(null);
-        deck.dealHand(p);
+        deck.dealHand(p,5);
         return p.getHand();
     }
 }

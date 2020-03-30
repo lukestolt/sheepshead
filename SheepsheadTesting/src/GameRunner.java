@@ -1,5 +1,3 @@
-package com.capstone.sheepsheadbackend.model;
-
 public class GameRunner implements Runnable {
 
     private Game game;
