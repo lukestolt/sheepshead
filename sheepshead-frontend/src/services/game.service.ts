@@ -24,6 +24,7 @@ export class GameService {
 }
 
 export interface CardAction {
+    action: string
     playerId: string;
     gameId: string;
     card: Card;
