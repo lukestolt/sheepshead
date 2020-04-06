@@ -13,20 +13,26 @@ export class GameService {
     constructor(private http:HttpClient){
 
     }
-
     
-    sendPlayerCardAction(action:CardAction): Observable<any> {
-        return this.http.post(ServerConfig.serverUrl + '/playerCardAction', action);
+    sendPlayerAction(action:CardAction): Observable<any> {
+        console.log(action);
+        return this.http.post(ServerConfig.serverUrl + '/sendPlayerAction', 'hello from client');
     }
-
-
 
 }
 
 export interface CardAction {
-    action: string
+    action: ActionType
     playerId: string;
     gameId: string;
     card: Card;
+}
+
+export enum ActionType{
+    PickBlind = "PickBlind",
+    PassBlind = "PassBlind",
+    CallSuit = "CallSuit",
+    PlayCard = "PlayCard",
+    ExitGame = "ExitGame"
 }
 

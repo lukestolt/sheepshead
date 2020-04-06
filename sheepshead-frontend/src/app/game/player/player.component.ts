@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { Player } from 'src/app/models/player';
-import { CardAction, GameService } from 'src/services/game.service';
+import { CardAction, GameService, ActionType } from 'src/services/game.service';
 
 @Component({
   selector: 'app-player',
@@ -29,8 +29,8 @@ export class PlayerComponent{
 
   cardClick(clickedCard: Card): void {
     console.log(clickedCard);
-    const action:CardAction = {playerId: this.player.id, gameId: this.gameId, card: clickedCard};
-    this.gameService.sendPlayerCardAction(action).subscribe(result => {
+    const action:CardAction = {action: ActionType.PlayCard,playerId: this.player.id, gameId: this.gameId, card: clickedCard};
+    this.gameService.sendPlayerAction(action).subscribe(result => {
       console.log(result);
     });
   }
@@ -41,7 +41,4 @@ export class PlayerComponent{
   cardMouseOut(card: Card) {
     card.isHovered = false;
   }
-
-
-
 }

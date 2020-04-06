@@ -1,11 +1,13 @@
 package com.capstone.sheepsheadbackend.controller;
 
+import com.capstone.sheepsheadbackend.model.Card;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.Player;
 import com.capstone.sheepsheadbackend.model.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.google.gson.Gson;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin()
 @RestController
 public class GameController {
 
@@ -29,5 +31,11 @@ public class GameController {
         gm.addPlayer(new Player(user1));
         System.out.println(gm.getWait());
         System.out.println(gm.getGames());
+    }
+
+    @PostMapping("/sendPlayerAction")
+    public String sendPlayerAction(@RequestBody Action action) {
+        System.out.println(action);
+        return new Gson().toJson("Hello from Server");
     }
 }
