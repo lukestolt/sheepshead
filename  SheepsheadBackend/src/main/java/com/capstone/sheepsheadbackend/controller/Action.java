@@ -15,7 +15,8 @@ public class Action {
     public String action;
     public String playerId;
     public String gameId;
-    public Card card;
+    public String suit;
+    public String value;
 
     @Override
     public String toString() {

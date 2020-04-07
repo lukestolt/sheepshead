@@ -14,18 +14,21 @@ export class GameService {
 
     }
     
-    sendPlayerAction(action:CardAction): Observable<any> {
-        console.log(action);
-        return this.http.post(ServerConfig.serverUrl + '/sendPlayerAction', 'hello from client');
+    sendPlayerAction(action: SheepsheadAction): Observable<any> {
+        return this.http.post(ServerConfig.serverUrl + '/sendPlayerAction', action);
     }
 
 }
 
-export interface CardAction {
+export interface CardAction extends SheepsheadAction {
     action: ActionType
+    suit: string;
+    value: string
+}
+
+export interface SheepsheadAction {
     playerId: string;
     gameId: string;
-    card: Card;
 }
 
 export enum ActionType{
@@ -35,4 +38,7 @@ export enum ActionType{
     PlayCard = "PlayCard",
     ExitGame = "ExitGame"
 }
+
+
+
 
