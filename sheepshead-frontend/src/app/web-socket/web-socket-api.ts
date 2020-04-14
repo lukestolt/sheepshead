@@ -3,9 +3,9 @@ import * as Stomp from 'stompjs';
 
 export class WebSocketApi {
     endpoint: string = 'http://localhost:8080/ws';
-    stompClient: Stomp.Client;
+    private stompClient: Stomp.Client;
     // TODO: this should be set to the path of the game api
-    topic: string = '';
+    private topic: string = 'gameData';
     
     /**
      * TODO: this should return a boolean when it is connected

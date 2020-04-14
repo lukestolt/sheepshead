@@ -1,0 +1,5 @@
+official spring documentation on STOMP:
+
+https://docs.spring.io/spring-framework/docs/5.0.0.BUILD-SNAPSHOT/spring-framework-reference/html/websocket.html#websocket-stomp-overview
+
+

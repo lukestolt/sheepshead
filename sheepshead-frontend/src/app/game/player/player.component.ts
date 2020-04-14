@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { Player } from 'src/app/models/player';
-import { CardAction, GameService, ActionType } from 'src/services/game.service';
+import { CardAction, GameService, ActionType } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-player',

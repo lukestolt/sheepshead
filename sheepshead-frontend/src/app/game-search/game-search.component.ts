@@ -13,7 +13,10 @@ export class GameSearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  searchForGame(): void {
+  /**
+   * navigate to the game component where the searching actaully happens
+   */
+  private searchForGame(): void {
     this._router.navigateByUrl('/game');
   }
 }

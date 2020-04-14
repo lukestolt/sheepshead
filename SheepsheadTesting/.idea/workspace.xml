@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f7339f9-79ed-4cd3-bbdf-b846f1553dd6" name="Default Changelist" comment="" />
+    <list default="true" id="3f7339f9-79ed-4cd3-bbdf-b846f1553dd6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/game.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/game.component.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +18,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1Zg7sa6Pa56dtbdP3Ndf70EqgpH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -24,7 +32,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SheepsheadBackend" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -47,6 +55,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -58,6 +78,8 @@
       <option name="presentableId" value="Default" />
       <updated>1585249090530</updated>
       <workItem from="1585249093066" duration="16106000" />
+      <workItem from="1586798637933" duration="98000" />
+      <workItem from="1586816969972" duration="10000" />
     </task>
     <servers />
   </component>
@@ -69,6 +91,14 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1085" y="241" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1585251094261" />
+    <state x="744" y="419" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586798688318">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="744" y="419" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1050@0.0.2560.1050" timestamp="1586798688318" />
+    <state x="676" y="285" key="FileChooserDialogImpl" timestamp="1586816977477">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="676" y="285" key="FileChooserDialogImpl/0.0.2560.1050@0.0.2560.1050" timestamp="1586816977477" />
     <state width="2517" height="287" key="GridCell.Tab.0.bottom" timestamp="1585266612449">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>

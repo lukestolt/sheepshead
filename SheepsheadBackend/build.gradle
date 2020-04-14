@@ -35,6 +35,8 @@ dependencies {
 	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 //	implementation "com.fasterxml.jackson.module:jackson-module-jackson-module-parameter-names"
 	implementation 'com.google.code.gson:gson:2.8.6'
+	implementation "org.webjars:sockjs-client:1.0.2"
+	implementation "org.webjars:stomp-websocket:2.3.3"
 }
 
 test {

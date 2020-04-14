@@ -9,15 +9,21 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
   })
 export class GameService {
-
-    constructor(private http:HttpClient){
-
-    }
     
+    constructor(private http:HttpClient){  }
+ 
+    /**
+     * retruns the ip address of the ws and the gameId
+     * @param playerId 
+     */
+    findGame(playerId: String): Observable<FindGameResults> {
+        console.log('Searching for game');
+        return this.http.put<FindGameResults>(ServerConfig.serverUrl + '/findGame', playerId);
+    }
+
     sendPlayerAction(action: SheepsheadAction): Observable<any> {
         return this.http.post(ServerConfig.serverUrl + '/sendPlayerAction', action);
     }
-
 }
 
 export interface CardAction extends SheepsheadAction {
@@ -37,6 +43,12 @@ export enum ActionType{
     CallSuit = "CallSuit",
     PlayCard = "PlayCard",
     ExitGame = "ExitGame"
+}
+
+// RESULTS
+export interface FindGameResults {
+    wsIp: string;
+    gameId: string;
 }
 
 
