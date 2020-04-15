@@ -16,7 +16,7 @@ export class GameComponent implements OnInit {
   private curplayer: Player;
   private curPlayerTurn: string;    // id of the current player
   private gameId: string;
-  private webS: WebSocketApi;
+  private webS: WebSocketApi = new WebSocketApi();
 
   constructor(private _playerService:PlayerDataService, private _gameService:GameService) {
     this.curplayer = this.generatePlayerData();
