@@ -1,10 +1,11 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.Card;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.Player;
 import com.capstone.sheepsheadbackend.model.User;
 import com.google.gson.Gson;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin()
@@ -37,5 +38,12 @@ public class GameController {
     public String sendPlayerAction(@RequestBody Action action) {
         System.out.println(action);
         return new Gson().toJson("Hello from Server");
+    }
+
+    // if something is sent to the /game destination then gameCommunication() is called
+    @MessageMapping("/hello")
+    @SendTo("/game/gameData")
+    public String gameCommunication(String message) {
+        return ("Hello from the Server");
     }
 }

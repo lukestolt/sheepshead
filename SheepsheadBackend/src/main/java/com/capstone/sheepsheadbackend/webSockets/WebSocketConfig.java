@@ -12,13 +12,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/portfolio").withSockJS();
+//        enabling SockJS fallback options so that alternate transports can be used if WebSocket is not available
+        // waits for connections to "/port.." to subscribe to on the client
+        registry.addEndpoint("/portfolio").setAllowedOrigins("http://localhost:4200").withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
+        // message broker to carry the messages back to the client on destinations prefixed with /game
+        config.enableSimpleBroker("/game");
         config.setApplicationDestinationPrefixes("/app");
-        config.enableSimpleBroker("/topic", "/queue");
     }
 
 }

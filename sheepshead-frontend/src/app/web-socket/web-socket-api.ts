@@ -2,10 +2,10 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 
 export class WebSocketApi {
-    endpoint: string = 'http://localhost:8080/ws';
+    endpoint: string = '/portfolio';
     private stompClient: Stomp.Client;
     // TODO: this should be set to the path of the game api
-    private topic: string = 'gameData';
+    private topic: string = '/game/gameData';
     
     /**
      * TODO: this should return a boolean when it is connected
@@ -13,10 +13,11 @@ export class WebSocketApi {
      */
     connect(): void {
         console.log("Initialize WebSocket Connection");
-        let ws = new SockJS(this.endpoint);
+        let ws = new SockJS('http://localhost:8080' + this.endpoint);
         this.stompClient = Stomp.over(ws);
         const t = this;
         this.stompClient.connect({}, (frame) => {
+            console.log('connected ' + frame);
             t.stompClient.subscribe(this.topic, (event) => {
                 // handle the event from the server
                 this.handleMessage(event);

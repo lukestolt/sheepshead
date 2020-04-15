@@ -23,10 +23,10 @@ export class GameComponent implements OnInit {
     this.generateOpponentData(2);
     this.gameId = 'random-game-id-1'
 
-    this._gameService.findGame(this._playerService.getPlayerId()).pipe(take(1)).subscribe(r => {
-      this.gameId = r.gameId;
-      this.webS.endpoint = r.wsIp;
-    });
+    // this._gameService.findGame(this._playerService.getPlayerId()).pipe(take(1)).subscribe(r => {
+    //   this.gameId = r.gameId;
+    //   this.webS.endpoint = r.wsIp;
+    // });
     this.webS.connect();
   }
 
