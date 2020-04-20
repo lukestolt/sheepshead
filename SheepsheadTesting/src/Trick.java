@@ -4,18 +4,22 @@ import java.util.List;
 public class Trick {
     private int score = 0;
     private List<Card> cards;
+    private final int numPlayers;
 
-    public Trick() {
-        cards = new ArrayList<>();
+    public Trick(int numPlayers) {
+        this.numPlayers = numPlayers;
+        cards = new ArrayList<>(numPlayers);
     }
 
-    public void addTrick(List<Card> playedCards) {
-        cards.addAll(playedCards);
-    }
+//    public void addTrick(List<Card> playedCards) {
+//        cards.addAll(playedCards);
+//    }
 
     public void addCard(Card c) {
-        cards.add(c);
-//        score +=
+        if(cards.size() != numPlayers) {
+            cards.add(c);
+            score += c.getVal().getPointValue().getPointValue();
+        }
     }
 
     @Override
