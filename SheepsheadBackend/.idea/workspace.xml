@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="19c6181d-27c8-415b-9388-01162fc8e581" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileContent/fileContent.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/javaCompile/taskHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/build/resources/main/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/sheepshead.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SheepsheadTesting/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SheepsheadTesting/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sheepshead-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../sheepshead-frontend/package-lock.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1apCo4nCdNRRQyTsCJIobWXVhJJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="SheepsheadBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="sheepsheadbackend.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.capstone.sheepsheadbackend.SheepsheadBackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="19c6181d-27c8-415b-9388-01162fc8e581" name="Default Changelist" comment="" />
+      <created>1587423319415</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587423319415</updated>
+      <workItem from="1587423321319" duration="1362000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
