@@ -1,6 +1,5 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.Card;
 import com.google.gson.Gson;
 
 public class Action {

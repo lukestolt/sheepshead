@@ -3,3 +3,8 @@
 
 <app-player *ngFor='let player of opponents' [player]='player'></app-player>
 <app-player [gameId]='gameId' [player]='curplayer'></app-player>
+<div class='tricks'>
+    <img *ngFor='let card of curTrick'
+    class="cardSize"
+    src={{getCardName(card)}}>
+</div>

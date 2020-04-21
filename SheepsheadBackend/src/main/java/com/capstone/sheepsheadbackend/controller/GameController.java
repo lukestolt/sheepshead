@@ -1,11 +1,15 @@
 package com.capstone.sheepsheadbackend.controller;
 
+import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.Player;
 import com.capstone.sheepsheadbackend.model.User;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin()
@@ -26,6 +30,9 @@ public class GameController {
 
     GamesManager gm = new GamesManager();
 
+    @Autowired
+    private SimpMessagingTemplate messageSender;
+
 
     @GetMapping("/addPlayer")
     public void addPlayer() {
@@ -36,14 +43,21 @@ public class GameController {
 
     @PostMapping("/sendPlayerAction")
     public String sendPlayerAction(@RequestBody Action action) {
-        System.out.println(action);
-        return new Gson().toJson("Hello from Server");
+        // tell the people subscribed to the game that someone did a player action
+        // all the clients should update
+        // the game logic should be here to create the response
+        PlayCardResponse res = new PlayCardResponse("p2", action.gameId, 1, action.suit, action.value);
+        messageSender.convertAndSend("/topic/game", res.createResponse());
+        return new Gson().toJson("Hi");
     }
 
     // if something is sent to the /game destination then gameCommunication() is called
-    @MessageMapping("/hello")
-    @SendTo("/game/gameData")
-    public String gameCommunication(String message) {
-        return ("Hello from the Server");
+    @MessageMapping("/gameaction")
+    @SendTo("topic/game")
+    public String greeting(@Payload String name) throws Exception{
+        int x = 0;
+        System.out.println("here on server");
+        Thread.sleep(2000);
+        return(name + " sent a message");
     }
 }

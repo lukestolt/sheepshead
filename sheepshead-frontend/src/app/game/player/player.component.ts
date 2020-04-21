@@ -17,13 +17,7 @@ export class PlayerComponent{
   }
 
   getCardName(card: Card): string {
-    if(!card)
-      return ''
-    let path = '../assets/cards/';
-    path = path.concat(card.value.charAt(0).toLocaleUpperCase());
-    path = path.concat(card.suit.toLocaleUpperCase());
-    path = path.concat('.png');
-    return path;
+    return this.gameService.getCardName(card);
   }
 
 

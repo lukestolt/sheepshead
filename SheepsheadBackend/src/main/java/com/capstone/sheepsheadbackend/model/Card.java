@@ -14,6 +14,14 @@ public final class Card {
     private final SheepsheadCardValue val;
     private final CardSuits suit;
 
+//    public Card(String suit, String value) {
+//       // TODO: should be able to create a card based off of the string from frontend
+//        // What does the JSON for this class look like, there complicated structures in this that can
+//        // make it unnecessarily messy
+//        // could just have another method that
+//
+//    }
+
 
     @JsonPOJOBuilder(withPrefix = "")
     public static final class CardBuilder {

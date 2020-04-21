@@ -1,28 +1,33 @@
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
+import { ServerConfig } from '../services/server-config';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 export class WebSocketApi {
-    endpoint: string = '/portfolio';
+    endpoint: string = '/ws';
     private stompClient: Stomp.Client;
     // TODO: this should be set to the path of the game api
-    private topic: string = '/game/gameData';
+    private topic: string = '/topic/game';
     
     /**
      * TODO: this should return a boolean when it is connected
      * connects to the stompjs server and handles the message
      */
-    connect(): void {
-        console.log("Initialize WebSocket Connection");
-        let ws = new SockJS('http://localhost:8080' + this.endpoint);
+    connect(): Observable<any> {
+        let subj: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+        console.log("Initializing WebSocket Connection");
+        let ws = new SockJS(ServerConfig.serverUrl + this.endpoint);
         this.stompClient = Stomp.over(ws);
         const t = this;
         this.stompClient.connect({}, (frame) => {
-            console.log('connected ' + frame);
+            // console.log('connected ' + frame);
             t.stompClient.subscribe(this.topic, (event) => {
                 // handle the event from the server
-                this.handleMessage(event);
+                subj.next(event);
+                // this.handleMessage(event);
             });
         }, this.connectionError);
+        return subj.asObservable();
     }
 
     /**
@@ -52,15 +57,14 @@ export class WebSocketApi {
      * TODO: this could return boolean in the future
      * @param message to be sent to server during the game
      */
-    send(action: any): void {
-        // TODO: path the client is sending data
-        const destination = '';
-        // might needs to json it, not sure yet
-        this.stompClient.send(destination,{}, action);
+    send(data: any): void {
+        const destination = '/app/gameaction';
+        this.stompClient.send(destination,{}, data);
     }
 
     handleMessage(message: any): void {
-        console.log(message);
+        // console.log(message.body);
+
         // TODO: tell the game to handle the message after interpreting it
     }
 
