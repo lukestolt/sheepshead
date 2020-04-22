@@ -64,6 +64,7 @@ public class Game {
     public void initDealer() {
         int x = Util.getRandomIntBound(MAX_PLAYERS);
         System.out.println("Dealer is Player: " + x);
+        System.out.println();
         dealer = players.get(x);
     }
 
@@ -99,7 +100,7 @@ public class Game {
 
     public Trick playHands() {
         Scanner sc = new Scanner(System.in);
-        Trick trick = new Trick();
+        Trick trick = new Trick(MAX_PLAYERS);
         int ind = nextPlayer(players.indexOf(dealer));
         int cnt = 0;
         for(int i = ind; cnt < MAX_PLAYERS; i = nextPlayer(i)) {
@@ -110,11 +111,11 @@ public class Game {
                 int card = sc.nextInt();
                 c = players.get(i).playCard(card);
             } while(c == null);
-            trick.addCard(c);
+            trick.addCard(c,players.get(i));
             cnt++;
             System.out.println();
         }
-        System.out.println(trick);
+//        System.out.println(trick);
         return trick;
     }
 }

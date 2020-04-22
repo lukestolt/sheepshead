@@ -2,37 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19c6181d-27c8-415b-9388-01162fc8e581" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileContent/fileContent.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/6.0.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/HELP.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ SheepsheadBackend/build/resources/main/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/sheepshead.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SheepsheadTesting/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SheepsheadTesting/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sheepshead-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../sheepshead-frontend/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +27,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -82,10 +58,45 @@
       <option name="presentableId" value="Default" />
       <updated>1587423319415</updated>
       <workItem from="1587423321319" duration="1362000" />
+      <workItem from="1587426331029" duration="4000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1235" height="282" key="GridCell.Tab.0.bottom" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.0.center" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.0.left" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.0.right" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.bottom" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.center" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.left" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.right" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
   </component>
 </project>

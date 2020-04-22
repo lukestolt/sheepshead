@@ -47,6 +47,12 @@ public class TestGameRunner implements Runnable{
 
     private void checkTrickWinner(Trick trick) {
         // declare winner from hands in play and give trick to that player
+        System.out.println();
+        System.out.println();
+        System.out.println(trick.score);
+        System.out.println(trick);
+        System.out.println();
+        System.out.println();
 
     }
 
