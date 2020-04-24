@@ -24,7 +24,10 @@ export class PlayerComponent{
   cardClick(clickedCard: Card): void {
     console.log(clickedCard);
     const action:CardAction = {action: ActionType.PlayCard,playerId: this.player.id, gameId: this.gameId, suit: clickedCard.suit, value: clickedCard.value};
+    // the game service should have the ws
     this.gameService.sendPlayerAction(action).subscribe(result => {
+      // the result should update the currentplayer
+      // the result should 
       console.log(result);
     });
   }

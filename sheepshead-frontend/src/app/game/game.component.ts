@@ -6,6 +6,7 @@ import { GameService } from '../services/game.service';
 import { WebSocketApi } from '../web-socket/web-socket-api';
 import { take } from 'rxjs/operators';
 import { PlayerComponent } from './player/player.component';
+import { Observable } from 'rxjs';
 
 
 
@@ -35,22 +36,14 @@ export class GameComponent implements OnInit {
   private curPlayerTurn: string;    // id of the current player
   private gameId: string;
   private curTrick: Card[] = [];
-  private webS: WebSocketApi = new WebSocketApi();
 
   constructor(private _playerService:PlayerDataService, private gameService:GameService) {
     this.curplayer = this.generatePlayerData();
     this.generateOpponentData(2);
     this.gameId = 'random-game-id-1'
-
-    // this._gameService.findGame(this._playerService.getPlayerId()).pipe(take(1)).subscribe(r => {
-    //   this.gameId = r.gameId;
-    //   this.webS.endpoint = r.wsIp;
-    // });
-    this.webS.connect().subscribe(action => {
-      if(action) {
-        this.handleServerEvent(JSON.parse(action.body));
-      }
-    });
+    gameService.getServerResponse().subscribe(res => {
+      this.handleServerEvent(res);
+    })
   }
 
   ngOnInit() {
@@ -72,7 +65,6 @@ export class GameComponent implements OnInit {
           }
         }
       }
-      
     }
   }
 

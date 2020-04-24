@@ -2,9 +2,12 @@
 <p>Select number of players</p>
 
 <div>
-    <button>3</button>
-    <button>4</button>
-    <button>5</button>
+    <input (click)='playerNumClick($event, "3")' type="radio" id="3" name="playerNum3" value="3">
+    <label for="playerNum3">3</label><br>
+    <input (click)='playerNumClick($event, "4")' type="radio" id="4" name="playerNum4" value="4">
+    <label for="playerNum4">4</label><br>
+    <input (click)='playerNumClick($event, "5")' type="radio" id="5" name="playerNum5" value="5">
+    <label for="playerNum5">5</label><br>
 </div>
 <br>
 <button (click)='searchForGame()'>Search</button>

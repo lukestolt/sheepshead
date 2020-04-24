@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameService } from '../services/game.service';
+import { PlayerDataService } from '../services/player-data.service';
 
 @Component({
   selector: 'app-game-search',
@@ -8,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class GameSearchComponent implements OnInit {
 
-  constructor(private _router:Router) { }
+  private numPlayersSelected: string[] = [];
+
+  constructor(private _router:Router, private gameService: GameService, private pds: PlayerDataService) { }
 
   ngOnInit() {
   }
@@ -17,6 +21,15 @@ export class GameSearchComponent implements OnInit {
    * navigate to the game component where the searching actaully happens
    */
   private searchForGame(): void {
+    this.gameService.findGame(this.pds.getPlayerId(), this.numPlayersSelected);
     this._router.navigateByUrl('/game');
+  }
+
+  private playerNumClick(event: any, num: string): void {
+    console.log(event);
+    if(!this.numPlayersSelected.includes(num)) {
+      this.numPlayersSelected.push(num);
+    }
+
   }
 }

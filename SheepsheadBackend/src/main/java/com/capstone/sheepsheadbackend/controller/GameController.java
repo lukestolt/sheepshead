@@ -1,5 +1,6 @@
 package com.capstone.sheepsheadbackend.controller;
 
+import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.Player;
@@ -10,9 +11,11 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin()
 @RestController
 public class GameController {
 
@@ -33,7 +36,6 @@ public class GameController {
     @Autowired
     private SimpMessagingTemplate messageSender;
 
-
     @GetMapping("/addPlayer")
     public void addPlayer() {
         gm.addPlayer(new Player(user1));
@@ -46,8 +48,11 @@ public class GameController {
         // tell the people subscribed to the game that someone did a player action
         // all the clients should update
         // the game logic should be here to create the response
+
         PlayCardResponse res = new PlayCardResponse("p2", action.gameId, 1, action.suit, action.value);
         messageSender.convertAndSend("/topic/game", res.createResponse());
+        // TODO: return the new array of cards for the player that just played the card and send the updated current trick
+        // this data should come from the game
         return new Gson().toJson("Hi");
     }
 
@@ -59,5 +64,17 @@ public class GameController {
         System.out.println("here on server");
         Thread.sleep(2000);
         return(name + " sent a message");
+    }
+
+    /**
+     * @return the gameId
+     */
+
+    @PostMapping(value = "/findGame")
+    public String findGame(@RequestBody FindGameRequest req) {
+        // TODO: get the game id from the game manager?
+        System.out.println(req.playerId);
+        String gameID = "rand-game-id-from-server";
+        return new Gson().toJson(gameID);
     }
 }
