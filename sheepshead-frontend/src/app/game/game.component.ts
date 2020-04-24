@@ -42,14 +42,17 @@ export class GameComponent implements OnInit {
     this.generateOpponentData(2);
     this.gameId = 'random-game-id-1'
     gameService.getServerResponse().subscribe(res => {
-      this.handleServerEvent(res);
+      if(res){
+        this.handleServerEvent(JSON.parse(res.body));
+      }
+      
     })
   }
 
   ngOnInit() {
   }
 
-  handleServerEvent(action: any): void{
+  handleServerEvent(action: Response): void{
     // console.log(action);
     if(action) {
       // check the discriminator property
@@ -76,7 +79,7 @@ export class GameComponent implements OnInit {
    * tmp method to create player data
    */
   private generatePlayerData(): Player {
-    const p = new Player('p1', this.generateCards());
+    const p = new Player(this._playerService.getPlayerName(), this.generateCards());
     return p;
   }
 

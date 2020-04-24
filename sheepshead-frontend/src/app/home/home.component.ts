@@ -8,12 +8,26 @@ import { PlayerDataService } from '../services/player-data.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  private formName: string = '';
 
   constructor(private _router: Router, private pds: PlayerDataService) { 
-    this.pds.init('rand-playerID', 'Luke');
+
   }
 
   ngOnInit() {
   }
+
+  findGameClick(): void {
+    if(this.formName && this.formName !== '')  {
+
+      //TODO: generate randplayer id and send it to server?
+      this.pds.init('rand-playerID', this.formName);
+      this._router.navigateByUrl('/gamesearch');
+    } else {
+      alert('Enter a valid name');
+    }
+    
+  }
+
 
 }

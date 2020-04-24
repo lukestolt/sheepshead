@@ -59,7 +59,7 @@ public class GameController {
     // if something is sent to the /game destination then gameCommunication() is called
     @MessageMapping("/gameaction")
     @SendTo("topic/game")
-    public String greeting(@Payload String name) throws Exception{
+    public String gameCommuncation(@Payload String name) throws Exception{
         int x = 0;
         System.out.println("here on server");
         Thread.sleep(2000);
@@ -69,12 +69,30 @@ public class GameController {
     /**
      * @return the gameId
      */
-
     @PostMapping(value = "/findGame")
     public String findGame(@RequestBody FindGameRequest req) {
         // TODO: get the game id from the game manager?
         System.out.println(req.playerId);
         String gameID = "rand-game-id-from-server";
         return new Gson().toJson(gameID);
+    }
+
+    /**
+     *
+     * the client should subscribe to this to tell the client that the game is ready
+     */
+    public String gameStatus(){
+
+        return null;
+    }
+
+    /**
+     * send back the players cards and num cards the opponents have or it can be assumed
+     * @param playerId
+     * @return
+     */
+    @GetMapping("/sendGameInfo")
+    public String sendGameInformation(@RequestBody String playerId) {
+        return null;
     }
 }
