@@ -5,20 +5,19 @@ import com.google.gson.Gson;
 /**
  * Tell the subscribers that this player has x cards now and what card was played
  */
-public class PlayCardResponse extends AbstractResponse {
-    String actionType;
-    int numCards;
-    String suit;
-    String value;
+public class PlayCardResponse {
+    Object[] cards;
+    String playerId;
+    String gameId;
 
-    public PlayCardResponse(String playerId, String gameId, int numCards, String suit, String value) {
-        super(playerId, gameId, "PlayCardResponse");
-        this.numCards = numCards;
-        this.suit = suit;
-        this.value = value;
+
+    public PlayCardResponse(String playerId, String gameId, Object[] cards) {
+        this.playerId = playerId;
+        this.gameId = gameId;
+        // TODO: convert the cards to simple cards to be sent to the
+        this.cards = cards;
     }
 
-    @Override
     public String createResponse() {
         String s = new Gson().toJson(this);
         System.out.println(s);

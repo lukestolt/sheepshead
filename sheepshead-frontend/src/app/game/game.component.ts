@@ -38,15 +38,20 @@ export class GameComponent implements OnInit {
   private curTrick: Card[] = [];
 
   constructor(private _playerService:PlayerDataService, private gameService:GameService) {
-    this.curplayer = this.generatePlayerData();
+    this.curplayer = new Player(_playerService.getPlayerId(), null, 0);
+    //tODO: this should come from the server
     this.generateOpponentData(2);
-    this.gameId = 'random-game-id-1'
-    gameService.getServerResponse().subscribe(res => {
-      if(res){
-        this.handleServerEvent(JSON.parse(res.body));
+    this.gameId = gameService.getGameId();
+
+    gameService.getHand(this._playerService.getPlayerId()).subscribe(cardRes => {
+      const cards: Card[] = cardRes;
+      if(cards){
+        this.curplayer.cards = cards;
+        this.opponents.forEach(opp => {
+          opp.numCards = cards.length;   
+        });
       }
-      
-    })
+    });
   }
 
   ngOnInit() {
@@ -75,40 +80,20 @@ export class GameComponent implements OnInit {
     return this.gameService.getCardName(card);
   }
 
-  /**
-   * tmp method to create player data
-   */
-  private generatePlayerData(): Player {
-    const p = new Player(this._playerService.getPlayerName(), this.generateCards());
-    return p;
-  }
-
-  /**
-   * tmp method for data
-   * @param handSize the size of the hand
-   */
-  private generateCards(): Card[]
-  {
-    const hand = [];
-    hand.push(new Card('s','ace'));
-    hand.push(new Card('d','king'));
-    return hand;
-  }
-
-  /***
-   * tmp method to create mock data
-   * @param numPlayers number of opponents to create
-   */
   private generateOpponentData(numPlayers: number):void {
     this.opponents = [];
     for(let x = 0; x < numPlayers; ++x) {
       //TODO: hardcoded number of cards should no be hardcoded
-      this.opponents.push(new Player('p' + (x+2), null, 2));
+      this.opponents.push(new Player('p' + (x+2), null, 0));
     }
   }
 
-  isPlayerTurn(): boolean {
+  private isPlayerTurn(): boolean {
     return this.curplayer.id === this.curPlayerTurn;
   }
 
+  // might need this method to parse the servers response
+  private convertToCards(cards: any): Card[] {
+    return cards
+  }
 }

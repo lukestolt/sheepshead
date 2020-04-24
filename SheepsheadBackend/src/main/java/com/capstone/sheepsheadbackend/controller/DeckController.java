@@ -1,11 +1,10 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.*;
+import com.capstone.sheepsheadbackend.model.Card;
+import com.capstone.sheepsheadbackend.model.Deck;
+import com.capstone.sheepsheadbackend.model.SheepsheadDeck;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class DeckController {
@@ -48,11 +47,11 @@ public class DeckController {
         return jsonCard;
     }
 
-    @GetMapping(value = "/getHand")
-    public Hand getHand() {
-        Deck.shuffle(deck.getDeck());
-        Player p = new Player(null);
-        deck.dealHand(p,5);
-        return p.getHand();
-    }
+//    @GetMapping(value = "/getHand")
+//    public Hand getHand() {
+//        Deck.shuffle(deck.getDeck());
+//        Player p = new Player(null);
+//        deck.dealHand(p,5);
+//        return p.getHand();
+//    }
 }

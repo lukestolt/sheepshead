@@ -10,7 +10,7 @@ import { PlayerDataService } from '../services/player-data.service';
 })
 export class GameSearchComponent implements OnInit {
 
-  private numPlayersSelected: string[] = [];
+  private numPlayersSelected: string[] = ["3"];
 
   constructor(private _router:Router, private gameService: GameService, private pds: PlayerDataService) { }
 

@@ -17,7 +17,7 @@ export interface GameSearchParams{
 export class GameService {
 
     private ws: WebSocketApi;
-    private serverRespone: Observable<any>;
+    private gameStatusResponse: Observable<any> = new Observable<any>();
     private gameId: string;
     
     constructor(private http:HttpClient){}
@@ -32,28 +32,62 @@ export class GameService {
         const params = {"playerId": pId, "numPlayerOptions": gameSettings};
         this.http.post<any>(ServerConfig.serverUrl + '/findGame', params).subscribe(gId => {
             this.gameId = gId;
+            // after it finds a game to put the player in
+            // the player should wait until the game is full 
+            // and then should request their cards for the game
+
+            this.ws = new WebSocketApi(this);
+            //TODO: remove this when logic is implemented on the server
+            this.gameReady().subscribe(result => {
+                console.log(result);
+            });
+            // this.gameStatusResponse = this.ws.getGameInfo();
         });
-        this.ws = new WebSocketApi();
-        this.serverRespone = this.ws.connect();
     }
 
+    /**
+     * should return intial hand for the player
+     * @param pId - the player id
+     * @param gameId - the game id
+     */
+    getHand(pId: string): Observable<any> {
+        return this.http.get<any>(ServerConfig.serverUrl + '/getHand', {params: { playerId: pId, gameId: this.gameId}});
+    }
+
+    /*
+     * The result only affects the caller and all the other clients get pushed an update from the subscription
+     * @param action 
+     */
     sendPlayerAction(action: SheepsheadAction): Observable<any> {
-        return this.http.post(ServerConfig.serverUrl + '/sendPlayerAction', action);
+        return this.http.post(ServerConfig.serverUrl + '/gameAction', action);
+    }
+
+    // TODO: remove this when logic is integrated with server
+    // this is used to tell the client that the game is ready when in reality the server logic should 
+    // call the method on its side
+    gameReady(): Observable<any>{
+        return this.http.get<any>(ServerConfig.serverUrl + '/gamestatus');
     }
 
     getCardName(card: Card): string {
         if(!card)
           return ''
         let path = '../assets/cards/';
-        path = path.concat(card.value.charAt(0).toLocaleUpperCase());
+        path = path.concat(card.value.toLocaleUpperCase());
         path = path.concat(card.suit.toLocaleUpperCase());
         path = path.concat('.png');
         return path;
     }
 
-    getServerResponse(): Observable<any> {
-        return this.serverRespone;
+    getGameStatusResponse(): Observable<any> {
+        return this.gameStatusResponse;
     }
+
+    getGameId(): string {
+        return this.gameId;
+    }
+
+
 }
 
 export interface CardAction extends SheepsheadAction {

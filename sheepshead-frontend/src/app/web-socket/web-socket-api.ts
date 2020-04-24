@@ -2,16 +2,16 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import { ServerConfig } from '../services/server-config';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { GameService } from '../services/game.service';
 
 export class WebSocketApi {
     endpoint: string = '/ws';
     private stompClient: Stomp.Client;
-    // TODO: this should be set to the path of the game api
-    private topic: string = '/topic/game';
+    private gameDataTopic: string = 'topic/gameData'
     
+    constructor(private gameService: GameService) { }
     /**
-     * TODO: this should return a boolean when it is connected
-     * connects to the stompjs server and handles the message
+     * TODO: this should return a message saying everyone has connected to the game
      */
     connect(): Observable<any> {
         let subj: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -19,11 +19,15 @@ export class WebSocketApi {
         let ws = new SockJS(ServerConfig.serverUrl + this.endpoint);
         this.stompClient = Stomp.over(ws);
         const t = this;
+        const topic = "/topic/gamestatus/" + this.gameService.getGameId();
         this.stompClient.connect({}, (frame) => {
-            // console.log('connected ' + frame);
-            t.stompClient.subscribe(this.topic, (event) => {
+            t.stompClient.subscribe(topic, (event) => {
+                console.log(event)
                 // handle the event from the server
-                subj.next(event);
+                if(event){
+                    subj.next(event);
+                }
+
                 // this.handleMessage(event);
             });
         }, this.connectionError);
@@ -53,19 +57,14 @@ export class WebSocketApi {
         }, 5000);
     }
 
-    /**
-     * TODO: this could return boolean in the future
-     * @param message to be sent to server during the game
-     */
-    send(data: any): void {
-        const destination = '/app/gameaction';
-        this.stompClient.send(destination,{}, data);
-    }
-
-    handleMessage(message: any): void {
-        // console.log(message.body);
-
-        // TODO: tell the game to handle the message after interpreting it
+    getGameInfo(): Observable<any>{
+        let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+        if(this.stompClient){
+            this.stompClient.subscribe(this.gameDataTopic, (data) => {
+                bs.next(data);
+            });
+        }
+        return bs;
     }
 
 }
