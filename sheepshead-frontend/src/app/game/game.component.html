@@ -1,1 +1,14 @@
-<button>Add Sprite</button>
+
+
+
+<app-player *ngFor='let player of opponents' [player]='player'></app-player>
+<app-player [gameId]='gameId' [player]='curplayer'></app-player>
+<br>
+<br>
+<!-- this is temp and should be removed -->
+<!-- <button (click)='gameReadyClick()'>Get Cards</button> -->
+<div class='tricks'>
+    <img *ngFor='let card of curTrick'
+    class="cardSize"
+    src={{getCardName(card)}}>
+</div>

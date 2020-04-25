@@ -1,0 +1,11 @@
+<div class='homeNavigation'>
+    <h1>Home</h1>
+    <label for="Enter Name">Player Name  </label>
+    <input [(ngModel)]="formName" 
+           type="text"
+           id="playerName"
+           name="playerName"
+           required>
+    <br><br>
+    <button (click)='findGameClick()'>Find Game</button>
+</div>

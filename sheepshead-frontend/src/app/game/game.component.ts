@@ -1,48 +1,99 @@
 import { Component, OnInit } from '@angular/core';
-import * as PIXI from 'pixi.js';
+import { Card } from '../models/card';
+import { Player } from '../models/player';
+import { PlayerDataService } from '../services/player-data.service';
+import { GameService } from '../services/game.service';
+import { WebSocketApi } from '../web-socket/web-socket-api';
+import { take } from 'rxjs/operators';
+import { PlayerComponent } from './player/player.component';
+import { Observable } from 'rxjs';
+
+
+
+export interface Response {
+  playerId: string;
+  gameId: string;
+  responseType: string;
+}
+export interface PlayCardResponse extends Response{
+  numCards: number;
+  suit: string;
+  value: string;
+}
+export interface testResponse extends Response{
+
+}
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
+
 export class GameComponent implements OnInit {
+  private opponents: Player[];
+  private curplayer: Player;
+  private curPlayerTurn: string;    // id of the current player
+  private gameId: string;
+  private curTrick: Card[] = [];
 
-  public readonly renderer: PIXI.Renderer;
-  public app: PIXI.Application;
-  public sprites: any[];
-  constructor() {
+  constructor(private _playerService:PlayerDataService, private gameService:GameService) {
+    this.curplayer = new Player(_playerService.getPlayerId(), null, 0);
+    //tODO: this should come from the server
+    this.generateOpponentData(2);
+    this.gameId = gameService.getGameId();
 
-    this.initGame();
-    // this.renderer = new PIXI.Renderer({width: 732, height: 412});
-    // this.initGame();
-    // this.doRender(new PIXI.Container());
+    gameService.getHand(this._playerService.getPlayerId()).subscribe(cardRes => {
+      const cards: Card[] = cardRes;
+      if(cards){
+        this.curplayer.cards = cards;
+        this.opponents.forEach(opp => {
+          opp.numCards = cards.length;   
+        });
+      }
+    });
   }
-
 
   ngOnInit() {
   }
 
-  private initGame(): void {
-  
-    this.app = new PIXI.Application({width: 250, height: 250});
-    
-    const green =  0x0abb18;
-    this.app.renderer.backgroundColor = green;
-    this.app.renderer.view.style.position = 'absolute';
-    this.app.renderer.view.style.display = 'block';
-    this.app.renderer.autoDensity = true;
-    this.app.renderer.resize(window.innerWidth, window.innerHeight);
-    this.addToScreen();
-
-    const texture = PIXI.Texture.from('../../assets/characters.png');
-    const sprite = new PIXI.Sprite(texture);
-    this.app.stage.addChild(sprite);
-
+  handleServerEvent(action: Response): void{
+    // console.log(action);
+    if(action) {
+      // check the discriminator property
+      if(action.responseType === 'PlayCardResponse'){
+        const pcr = action as PlayCardResponse
+        // find the person that played the card and reduce cards and put their card in trick pile
+        for(let opp of this.opponents) {
+          if(opp.id === pcr.playerId) {
+            console.log('updating ' + opp.id);
+            opp.numCards = pcr.numCards;
+            this.curTrick.push(new Card(pcr.suit,pcr.value));
+            return;
+          }
+        }
+      }
+    }
   }
 
-  private addToScreen(): void {
-    document.body.appendChild(this.app.view);
+  getCardName(card: Card): string {
+    return this.gameService.getCardName(card);
   }
 
+  private generateOpponentData(numPlayers: number):void {
+    this.opponents = [];
+    for(let x = 0; x < numPlayers; ++x) {
+      //TODO: hardcoded number of cards should no be hardcoded
+      this.opponents.push(new Player('p' + (x+2), null, 0));
+    }
+  }
+
+  private isPlayerTurn(): boolean {
+    return this.curplayer.id === this.curPlayerTurn;
+  }
+
+  // might need this method to parse the servers response
+  private convertToCards(cards: any): Card[] {
+    return cards
+  }
 }
