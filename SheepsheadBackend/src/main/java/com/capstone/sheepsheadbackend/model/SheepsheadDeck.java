@@ -1,6 +1,6 @@
 package com.capstone.sheepsheadbackend.model;
 
-import com.capstone.sheepsheadbackend.util.CardSuits;
+import com.capstone.sheepsheadbackend.util.CardSuit;
 import com.capstone.sheepsheadbackend.util.SheepsheadCardValue;
 
 import java.util.ArrayList;
@@ -9,46 +9,58 @@ import java.util.Random;
 
 public class SheepsheadDeck {
     public static final int DECKSIZE = 32;
+    private static SheepsheadDeck instance = new SheepsheadDeck();
 
-    private List<Card> deck;
+    private SheepsheadDeck(){}
 
-    public SheepsheadDeck() {
-        deck = new ArrayList<>(DECKSIZE);
-        Deck.initDeck(deck, SheepsheadCardValue.values(), CardSuits.values());
+    public SheepsheadDeck getInstance() {
+        return instance;
     }
 
-    public List<Card> getDeck() {
-        return deck;
+    public static void deal(Game g) {
+        List<Card> deck = initDeck();
+        shuffle(deck);
+        g.getPlayers().forEach(p -> dealHand(p, deck, g.getPlayers().size()));
+        g.setBlind(deck);
     }
 
-    public void shuffle() {
-        Deck.shuffle(deck);
-    }
-
-    public List<Card> deal(Game game) {
-        List<Player> players = game.getPlayers();
-        for(Player p: players) {
-            dealHand(p,players.size());
-        }
-        // Return remaining cards in the deck as the
-        // blind
-        return deck;
-    }
-
-    public void dealHand(Player player, int numPlayers) {
+    private static void dealHand(Player player, List<Card> deck, int numPlayers) {
         Random rand = new Random();
-        Hand hand = new Hand(numPlayers);
-        Card[] cards = new Card[DECKSIZE/numPlayers];
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < DECKSIZE/numPlayers; i++) {
             int randPos = rand.nextInt(deck.size());
 
             while(deck.get(randPos) == null) {
                 randPos = rand.nextInt(deck.size());
             }
-            cards[i] = deck.get(randPos);
+            player.getHand().addCard(deck.get(randPos));
             deck.remove(randPos);
         }
-        hand.setHand(cards);
-        player.setHand(hand);
+    }
+
+    private static List<Card> initDeck() {
+        List<Card> cards = new ArrayList<>();
+        for (CardSuit suit : CardSuit.values()) {
+            for (SheepsheadCardValue value : SheepsheadCardValue.values()) {
+                cards.add(new Card(suit.getStrSuit(), value.getStrValue()));
+            }
+        }
+        return cards;
+    }
+
+    /**
+     * Shuffles a deck of cards
+     * @param d Deck of cards to shuffle
+     */
+    private static void shuffle(List<Card> d) {
+        Random rand = new Random();
+
+        for(int i = 0; i < 256; i++) {
+            int r1 = rand.nextInt(d.size());
+            int r2 = rand.nextInt(d.size());
+
+            Card temp = d.get(r1);
+            d.set(r1, d.get(r2));
+            d.set(r2, temp);
+        }
     }
 }

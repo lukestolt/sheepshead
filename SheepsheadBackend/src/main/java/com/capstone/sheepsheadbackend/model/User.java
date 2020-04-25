@@ -1,12 +1,22 @@
 package com.capstone.sheepsheadbackend.model;
 
-import lombok.Data;
 
-@Data
+import java.util.UUID;
+
 public class User {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private int wins;
-    private int gamesPlayed;
+    private final String uuid;
+    private String username;
+
+    public User(String username) {
+        this.username = username;
+        uuid = UUID.randomUUID().toString();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
 }
