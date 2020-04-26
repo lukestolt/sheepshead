@@ -47,7 +47,11 @@ public class GameController {
         cards.remove(actionCard);
         PlayCardResponse res = new PlayCardResponse("p2", action.gameId, this.cards.toArray());
         messageSender.convertAndSend("/topic/gameData", res.createResponse());
-        // TODO: return the new array of cards for the player that just played the card and send the updated current trick
+        // TODO: SendPlayer onVALID: hand
+        //       SendPLayer onERROR:
+
+        // TODO: Broadcast onVALID: send the updated current trick, playerId of card player, hand size of card player
+        //       Brodcast  onERROR: NOTHING
         return this.gson.toJson(res);
     }
 

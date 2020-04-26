@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="19c6181d-27c8-415b-9388-01162fc8e581" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardSuit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/DeckController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/game/PlayCardResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/game/PlayCardResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Card.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Deck.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GameRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GamesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GamesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GuestUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Hand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/SheepsheadDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/SheepsheadDeck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Trick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Trick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/repository/GameRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardPointValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardPointValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardSuits.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/SheepsheadCardValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/SheepsheadCardValue.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1apCo4nCdNRRQyTsCJIobWXVhJJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../SheepsheadTesting" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.capstone.sheepsheadbackend.util" />
+      <recent name="com.capstone.sheepsheadbackend.model" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="SheepsheadBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="sheepsheadbackend.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.capstone.sheepsheadbackend.SheepsheadBackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="19c6181d-27c8-415b-9388-01162fc8e581" name="Default Changelist" comment="" />
+      <created>1587423319415</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587423319415</updated>
+      <workItem from="1587423321319" duration="1362000" />
+      <workItem from="1587426331029" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1604" y="238" key="#com.intellij.ide.util.MemberChooser" timestamp="1587855012533">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="1604" y="238" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587855012533" />
+    <state x="926" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587855083795">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="926" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587855083795" />
+    <state x="1010" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587852936095">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="1010" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587852936095" />
+    <state x="1060" y="280" key="FileChooserDialogImpl" timestamp="1587848151079">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="1060" y="280" key="FileChooserDialogImpl/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587848151079" />
+    <state width="1235" height="282" key="GridCell.Tab.0.bottom" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.0.center" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.0.left" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.0.right" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.0.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.bottom" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.center" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.left" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1235" height="282" key="GridCell.Tab.1.right" timestamp="1587426290472">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state x="-7" y="0" width="1052" height="1057" key="dock-window-1" timestamp="1587838824449">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="-7" y="0" width="1052" height="1057" key="dock-window-1/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587838824449" />
+    <state x="-7" y="0" width="1052" height="1057" key="dock-window-2" timestamp="1587838824449">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="-7" y="0" width="1052" height="1057" key="dock-window-2/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587838824449" />
+    <state x="1010" y="291" key="extract.method.dialog" timestamp="1587844811742">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="1010" y="291" key="extract.method.dialog/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587844811742" />
+  </component>
+</project>

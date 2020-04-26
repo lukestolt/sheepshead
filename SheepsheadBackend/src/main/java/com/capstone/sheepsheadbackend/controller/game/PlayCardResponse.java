@@ -7,6 +7,7 @@ import com.google.gson.Gson;
  */
 public class PlayCardResponse {
     Object[] cards;
+    String actionType;
     String playerId;
     String gameId;
 

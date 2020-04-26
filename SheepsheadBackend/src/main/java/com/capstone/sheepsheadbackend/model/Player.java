@@ -7,15 +7,15 @@ public class Player {
     private User user;
     private Hand hand;
     private List<Trick> tricks;
+    private int score = 0;
+//    private final String upid;
+
 
     public Player(User user) {
         this.user = user;
+//        upid = UUID.randomUUID().toString();
         tricks = new ArrayList<>();
     }
-
-//    public Player() {
-//        this.user = new GuestUser();
-//    }
 
     public User getUser() {
         return user;
@@ -31,10 +31,42 @@ public class Player {
 
     public void wonTrick(Trick trick) {
         tricks.add(trick);
+        score += trick.getScore();
     }
 
     @Override
     public String toString() {
         return user.toString();
     }
+
+    public Card playCard(Card card) {
+        for(int i = 0; i < hand.getCards().size(); i++) {
+            if(hand.getCards().get(i).equals(card)) {
+                // check followSuit
+                hand.getCards().remove(i);
+                return card;
+            }
+        }
+        // if bad
+        return null;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public boolean hasCards() {
+        return !hand.getCards().isEmpty();
+    }
+
+    public Card getCard(String suit, String value) {
+        for (Card c: hand.getCards()) {
+            if(c.equals(new Card(suit,value))) return c;
+        }
+        throw new IllegalStateException("Card not found in players hand");
+    }
+
+//    public String getUpid() {
+//        return upid;
+//    }
 }

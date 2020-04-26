@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f7339f9-79ed-4cd3-bbdf-b846f1553dd6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5ea8b3cf-d590-4a03-9522-7110414c85e7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SheepsheadBackend/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SheepsheadBackend/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SheepsheadBackend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SheepsheadBackend/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/game.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/game.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SheepsheadTesting/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SheepsheadTesting/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SheepsheadTesting/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SheepsheadTesting/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SheepsheadTesting/TestGameRunner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SheepsheadTesting/TestGameRunner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SheepsheadTesting/Trick.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SheepsheadTesting/Trick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestGameRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestGameRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Trick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trick.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1Zg7sa6Pa56dtbdP3Ndf70EqgpH" />
+  <component name="ProjectId" id="1as9RULJOICCviMOvN6wvI8KrNq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,16 +38,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SheepsheadBackend" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
-    <property name="show.migrate.to.gradle.popup" value="false" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\SKELATH1\Documents\Code\Java\SheepsheadTesting\src" />
-    </key>
   </component>
   <component name="RunManager">
     <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -72,14 +73,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3f7339f9-79ed-4cd3-bbdf-b846f1553dd6" name="Default Changelist" comment="" />
-      <created>1585249090530</created>
+      <changelist id="5ea8b3cf-d590-4a03-9522-7110414c85e7" name="Default Changelist" comment="" />
+      <created>1587513425673</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1585249090530</updated>
-      <workItem from="1585249093066" duration="16106000" />
-      <workItem from="1586798637933" duration="98000" />
-      <workItem from="1586816969972" duration="10000" />
+      <updated>1587513425673</updated>
+      <workItem from="1587513426846" duration="628000" />
     </task>
     <servers />
   </component>
@@ -87,33 +86,33 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1085" y="241" key="#com.intellij.ide.util.MemberChooser" timestamp="1585251094261">
+    <state x="1085" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1587427832108">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state x="1085" y="241" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1585251094261" />
-    <state x="744" y="419" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586798688318">
+    <state x="1085" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587427832108" />
+    <state x="1700" y="283" key="FileChooserDialogImpl" timestamp="1587426349248">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state x="744" y="419" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1050@0.0.2560.1050" timestamp="1586798688318" />
-    <state x="676" y="285" key="FileChooserDialogImpl" timestamp="1586816977477">
+    <state x="1700" y="283" key="FileChooserDialogImpl/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426349248" />
+    <state width="2517" height="286" key="GridCell.Tab.0.bottom" timestamp="1587439363020">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state x="676" y="285" key="FileChooserDialogImpl/0.0.2560.1050@0.0.2560.1050" timestamp="1586816977477" />
-    <state width="2517" height="287" key="GridCell.Tab.0.bottom" timestamp="1585266612449">
+    <state width="2517" height="286" key="GridCell.Tab.0.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587439363020" />
+    <state width="2517" height="286" key="GridCell.Tab.0.center" timestamp="1587439363020">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="2517" height="287" key="GridCell.Tab.0.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1585266612449" />
-    <state width="2517" height="287" key="GridCell.Tab.0.center" timestamp="1585266612449">
+    <state width="2517" height="286" key="GridCell.Tab.0.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587439363020" />
+    <state width="2517" height="286" key="GridCell.Tab.0.left" timestamp="1587439363020">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="2517" height="287" key="GridCell.Tab.0.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1585266612449" />
-    <state width="2517" height="287" key="GridCell.Tab.0.left" timestamp="1585266612449">
+    <state width="2517" height="286" key="GridCell.Tab.0.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587439363020" />
+    <state width="2517" height="286" key="GridCell.Tab.0.right" timestamp="1587439363020">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="2517" height="287" key="GridCell.Tab.0.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1585266612449" />
-    <state width="2517" height="287" key="GridCell.Tab.0.right" timestamp="1585266612449">
+    <state width="2517" height="286" key="GridCell.Tab.0.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587439363020" />
+    <state x="943" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1587427857087">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
-    <state width="2517" height="287" key="GridCell.Tab.0.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1585266612449" />
+    <state x="943" y="227" width="672" height="678" key="search.everywhere.popup/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587427857087" />
   </component>
 </project>

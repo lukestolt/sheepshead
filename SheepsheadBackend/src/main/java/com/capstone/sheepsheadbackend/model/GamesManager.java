@@ -1,11 +1,13 @@
 package com.capstone.sheepsheadbackend.model;
 
-import java.util.HashMap;
+import com.capstone.sheepsheadbackend.model.actions.Action;
+
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GamesManager {
 
-    private Map<String, Game> games = new HashMap<>();
+    private Map<String, Game> games = new ConcurrentHashMap<>();
     private Game waitGame;
 
     public GamesManager() {
@@ -18,14 +20,14 @@ public class GamesManager {
         // no game instance waiting
         if(waitGame == null) {
             waitGame = new Game(5);
-            games.put(waitGame.getUID(), waitGame);
+            games.put(waitGame.getUGID(), waitGame);
             waitGame.addPlayer(p);
         } else {
             // game instance waiting
             if(!waitGame.addPlayer(p)) {
                 // initiate game and create new one
                 waitGame = new Game(5);
-                games.put(waitGame.getUID(), waitGame);
+                games.put(waitGame.getUGID(), waitGame);
                 waitGame.addPlayer(p);
             }
         }
@@ -38,5 +40,10 @@ public class GamesManager {
 
     public int getGames() {
         return games.size();
+    }
+
+    public void addAction(Action action) {
+        Game g = games.get(action.getGameId());
+        g.enqueueAction(action);
     }
 }
