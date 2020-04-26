@@ -14,23 +14,29 @@ export class WebSocketApi {
      * TODO: this should return a message saying everyone has connected to the game
      */
     connect(): Observable<any> {
-        let subj: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+        let subj: BehaviorSubject<any> = new BehaviorSubject<any>('not connected');
         console.log("Initializing WebSocket Connection");
         let ws = new SockJS(ServerConfig.serverUrl + this.endpoint);
-        this.stompClient = Stomp.over(ws);
-        const t = this;
-        const topic = "/topic/gamestatus/" + this.gameService.getGameId();
+        this.stompClient = Stomp.over(ws);   
         this.stompClient.connect({}, (frame) => {
-            t.stompClient.subscribe(topic, (event) => {
-                console.log(event)
-                // handle the event from the server
-                if(event){
-                    subj.next(event);
-                }
+            subj.next('connected');
 
-                // this.handleMessage(event);
-            });
         }, this.connectionError);
+        return subj.asObservable();
+    }
+
+    /**
+     * when subbed, the value will be either null, not ready or ready
+     */
+    subToGameStatus(): Observable<any> {
+        let subj: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+        const topic = "/topic/gamestatus/" + this.gameService.getGameId();
+        console.log(topic);
+        this.stompClient.subscribe(topic, (event) => {
+            console.log(event)
+            subj.next(JSON.parse(event.body));
+            // this.handleMessage(event);
+        });
         return subj.asObservable();
     }
 
@@ -53,7 +59,7 @@ export class WebSocketApi {
         console.log('ERROR: ' + error);
         // try to reconnect
         setTimeout( () => {
-            this.connect();
+            // this.connect();
         }, 5000);
     }
 

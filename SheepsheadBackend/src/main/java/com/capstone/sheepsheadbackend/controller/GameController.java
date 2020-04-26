@@ -5,6 +5,7 @@ import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,13 @@ import java.util.Arrays;
 @RestController
 public class GameController {
 
-    GamesManager gm = new GamesManager();
+    GamesManager gm = GamesManager.getInstance();
     Gson gson = new Gson();
+    @Autowired
+    private SimpMessagingTemplate messageSender;
 
 
-////TEMP GAME DATA
+    ////TEMP GAME DATA
     String gameID = "rand-game-id-from-server";
     SimpleCard c1 = new SimpleCard("S","10");
     SimpleCard c2 = new SimpleCard("C","Q");
@@ -27,8 +30,6 @@ public class GameController {
     ArrayList<SimpleCard> cards = new ArrayList<>(Arrays.asList(c1, c2, c3, c4));
 ////
 
-    @Autowired
-    private SimpMessagingTemplate messageSender;
 
     /**
      * this client should call this method via http so it can get an easier response and dont
@@ -68,21 +69,30 @@ public class GameController {
      */
     @PostMapping(value = "/findGame")
     public String findGame(@RequestBody FindGameRequest req) {
-        // TODO: get the game id from the game manager?
-        System.out.println(req.playerId);
-        return this.gson.toJson(this.gameID);
+        // needs to have the message sender via this way
+        gm.setMessageSender(this.messageSender);
+        String gId = gm.addPlayer(req.playerId);
+        return this.gson.toJson(gId);
+    }
+
+    /**
+     * this is called when the player is all set up and connected
+     * @param gId
+     */
+    @PostMapping("/playerReady")
+    public void playerReady(@RequestBody String gId) {
+        System.out.println("Player Ready");
+        this.gm.broadcastGameStatus(gId);
     }
 
     /**
      * call this when the game is full and ready to be played
      * the client should subscribe to this to tell the client that the game is ready
      */
-    // FIXME: remove the annotation because the game manager should call this game when its ready
-    @GetMapping("/gamestatus")
-    public String gameStatusReady(){
-        messageSender.convertAndSend("/topic/gamestatus/" + this.gameID, "ready");
-        return this.gson.toJson("ready");
-    }
+//    @SendTo("/topic/gamestatus")
+//    public static void gameStatusReady(String gameId){
+//        messageSender.convertAndSend("/topic/gamestatus/" + gameId, "ready");
+//    }
 
     public class SimpleCard{
         public String suit;
@@ -112,4 +122,5 @@ public class GameController {
         int handSize = 4;
         return this.gson.toJson(cards.toArray());
     }
+
 }

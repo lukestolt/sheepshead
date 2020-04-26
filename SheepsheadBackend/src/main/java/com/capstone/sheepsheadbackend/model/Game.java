@@ -35,6 +35,10 @@ public class Game {
         }
     }
 
+    public boolean isGameFull(){
+        return players.size() == MAX_PLAYERS;
+    }
+
     public void start() {
         if(!start) {
             start = true;

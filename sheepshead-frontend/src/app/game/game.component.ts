@@ -40,9 +40,6 @@ export class GameComponent implements OnInit {
   constructor(private _playerService:PlayerDataService, private gameService:GameService) {
     this.curplayer = _playerService.player;
     //tODO: this should come from the server
-    this.generateOpponentData(2);
-    this.gameId = gameService.getGameId();
-
     gameService.getHand(this.curplayer.id).subscribe(cardRes => {
       const cards: Card[] = cardRes;
       if(cards){

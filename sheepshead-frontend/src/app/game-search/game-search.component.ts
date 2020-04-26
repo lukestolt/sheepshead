@@ -21,10 +21,26 @@ export class GameSearchComponent implements OnInit {
   /**
    * navigate to the game component where the searching actaully happens
    */
-  private async searchForGame(): Promise<void> {
+  private searchForGame(): void {
     this.gameService.findGame(this.pds.player.id, this.numPlayersSelected).subscribe(res => {
+      
       if(res == true) {
-        this._router.navigateByUrl('/game');
+        console.log('found game');
+        // stompConnect returns true or false
+        this.gameService.stompConnect().subscribe((status) => {
+          if(status == true){
+            console.log('stomp Connected')
+            //sub to the gamestatus
+            this.gameService.ws.subToGameStatus().subscribe(status => {
+              console.log(status);
+              if(status === 'ready'){
+                this._router.navigateByUrl('/game');
+              }
+            });
+            // tell the server that it has connected and that player is ready
+            this.gameService.playerReady().subscribe(() => {console.log('told server player was ready'); });
+          }
+        });       
       }
     });
     
