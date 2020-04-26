@@ -13,24 +13,18 @@ import { HttpClient } from '@angular/common/http';
 
 export class PlayerDataService {
 
-  private playerId: string;
-  private name: string
-
+  player: Player;
   constructor(http: HttpClient){}
 
   init(playerId: string, name: string) {
-    this.playerId = playerId;
-    this.name = name;
+    if(!this.player){
+      this.player = new Player(playerId, name);
+    }
     // tell the server that this person in logged in? 
   }
 
+  isInit():boolean {
 
-  getPlayerId(): string {
-    return this.playerId;
+    return (this.player != null && (this.player.id != null && this.player.name != null));
   }
-
-  getPlayerName(): string {
-    return this.name;
-  }
-
 }

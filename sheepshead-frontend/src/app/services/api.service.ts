@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ServerConfig } from './server-config'
 import { Observable } from 'rxjs';
+import { PlayerDataService } from './player-data.service';
 
 
 @Injectable({
@@ -9,18 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  constructor(  private http: HttpClient,) { }
+  constructor(private http: HttpClient, private playerService:PlayerDataService) {   }
 
-  findGame(data: IFindGameParams): Observable<any> {
-    return this.http.post(ServerConfig.serverUrl, data);
+  createPlayer(name: string): Observable<any> {
+    return this.http.post<any>(ServerConfig.serverUrl + '/createUser', name);
   }
-
-  addPlayersToGame(name: string): Observable<any> {
-    return this.http.get(ServerConfig.serverUrl);
-  }
-
-}
-
-export interface IFindGameParams{
-  numPlayers: number
 }

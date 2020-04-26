@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { HttpClient } from '@angular/common/http';
 import { ServerConfig } from './server-config';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { WebSocketApi } from '../web-socket/web-socket-api';
 
 
@@ -26,8 +26,8 @@ export class GameService {
      * retruns the ip address of the ws and the gameId
      * @param gameSettings
      */
-    // TODO: add the gameSettings as params
-    findGame(pId: string, gameSettings: any): void{
+    findGame(pId: string, gameSettings: any): Observable<boolean>{
+        const bs = new BehaviorSubject<boolean>(false);
         console.log('Searching for game');
         const params = {"playerId": pId, "numPlayerOptions": gameSettings};
         this.http.post<any>(ServerConfig.serverUrl + '/findGame', params).subscribe(gId => {
@@ -38,11 +38,11 @@ export class GameService {
 
             this.ws = new WebSocketApi(this);
             //TODO: remove this when logic is implemented on the server
-            this.gameReady().subscribe(result => {
-                console.log(result);
-            });
+            this.gameReady().subscribe(() => {});
             // this.gameStatusResponse = this.ws.getGameInfo();
+            bs.next(true);
         });
+        return bs.asObservable();
     }
 
     /**
@@ -86,8 +86,6 @@ export class GameService {
     getGameId(): string {
         return this.gameId;
     }
-
-
 }
 
 export interface CardAction extends SheepsheadAction {

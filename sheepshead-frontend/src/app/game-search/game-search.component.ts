@@ -12,7 +12,8 @@ export class GameSearchComponent implements OnInit {
 
   private numPlayersSelected: string[] = ["3"];
 
-  constructor(private _router:Router, private gameService: GameService, private pds: PlayerDataService) { }
+  constructor(private _router:Router, private gameService: GameService, private pds: PlayerDataService) {
+   }
 
   ngOnInit() {
   }
@@ -20,9 +21,13 @@ export class GameSearchComponent implements OnInit {
   /**
    * navigate to the game component where the searching actaully happens
    */
-  private searchForGame(): void {
-    this.gameService.findGame(this.pds.getPlayerId(), this.numPlayersSelected);
-    this._router.navigateByUrl('/game');
+  private async searchForGame(): Promise<void> {
+    this.gameService.findGame(this.pds.player.id, this.numPlayersSelected).subscribe(res => {
+      if(res == true) {
+        this._router.navigateByUrl('/game');
+      }
+    });
+    
   }
 
   private playerNumClick(event: any, num: string): void {

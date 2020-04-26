@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 import { PlayerDataService } from '../services/player-data.service';
+import { pbkdf2Sync } from 'crypto';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,7 @@ import { PlayerDataService } from '../services/player-data.service';
 export class HomeComponent implements OnInit {
   private formName: string = '';
 
-  constructor(private _router: Router, private pds: PlayerDataService) { 
+  constructor(private _router: Router, private apiService: ApiService, private pds: PlayerDataService) { 
 
   }
 
@@ -19,15 +21,12 @@ export class HomeComponent implements OnInit {
 
   findGameClick(): void {
     if(this.formName && this.formName !== '')  {
-
-      //TODO: generate randplayer id and send it to server?
-      this.pds.init('rand-playerID', this.formName);
-      this._router.navigateByUrl('/gamesearch');
+      this.apiService.createPlayer(this.formName).subscribe(player => {
+        this.pds.init(player.id, this.formName);
+        this._router.navigateByUrl('/gamesearch');
+      });
     } else {
       alert('Enter a valid name');
     }
-    
   }
-
-
 }

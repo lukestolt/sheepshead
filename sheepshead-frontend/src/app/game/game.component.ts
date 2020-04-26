@@ -38,12 +38,12 @@ export class GameComponent implements OnInit {
   private curTrick: Card[] = [];
 
   constructor(private _playerService:PlayerDataService, private gameService:GameService) {
-    this.curplayer = new Player(_playerService.getPlayerId(), null, 0);
+    this.curplayer = _playerService.player;
     //tODO: this should come from the server
     this.generateOpponentData(2);
     this.gameId = gameService.getGameId();
 
-    gameService.getHand(this._playerService.getPlayerId()).subscribe(cardRes => {
+    gameService.getHand(this.curplayer.id).subscribe(cardRes => {
       const cards: Card[] = cardRes;
       if(cards){
         this.curplayer.cards = cards;
@@ -84,7 +84,7 @@ export class GameComponent implements OnInit {
     this.opponents = [];
     for(let x = 0; x < numPlayers; ++x) {
       //TODO: hardcoded number of cards should no be hardcoded
-      this.opponents.push(new Player('p' + (x+2), null, 0));
+      this.opponents.push(new Player('randid' + x+2, 'p' + (x+2), null,));
     }
   }
 
