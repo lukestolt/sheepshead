@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   findGameClick(): void {
     if(this.formName && this.formName !== '')  {
       this.apiService.createPlayer(this.formName).subscribe(player => {
-        this.pds.init(player.id, this.formName);
+        this.pds.init(player.uuid, this.formName);
         this._router.navigateByUrl('/gamesearch');
       });
     } else {

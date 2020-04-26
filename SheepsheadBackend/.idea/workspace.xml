@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19c6181d-27c8-415b-9388-01162fc8e581" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardSuit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/DeckController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/game/PlayCardResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/game/PlayCardResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Card.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Deck.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GameRunner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GamesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GamesManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GuestUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Hand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/SheepsheadDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/SheepsheadDeck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Trick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Trick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/repository/GameRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardPointValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardPointValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/CardSuits.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/SheepsheadCardValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/util/SheepsheadCardValue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +39,6 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -65,11 +46,15 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../SheepsheadTesting" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
@@ -78,7 +63,16 @@
       <recent name="com.capstone.sheepsheadbackend.model" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Server">
+    <configuration name="Server" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.capstone.sheepsheadbackend.SheepsheadBackendApplication" />
+      <module name="sheepsheadbackend.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SheepsheadBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="sheepsheadbackend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.capstone.sheepsheadbackend.SheepsheadBackendApplication" />
@@ -86,6 +80,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Server" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -99,6 +96,7 @@
       <updated>1587423319415</updated>
       <workItem from="1587423321319" duration="1362000" />
       <workItem from="1587426331029" duration="4000" />
+      <workItem from="1587864624124" duration="251000" />
     </task>
     <servers />
   </component>
@@ -106,10 +104,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="416" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587864818105">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="416" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.2560.1053@0.27.2560.1053" timestamp="1587864818105" />
     <state x="1604" y="238" key="#com.intellij.ide.util.MemberChooser" timestamp="1587855012533">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1604" y="238" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587855012533" />
+    <state x="690" y="346" width="525" height="416" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1587864816509">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="690" y="346" width="525" height="416" key="#com.intellij.ide.util.TreeClassChooserDialog/0.27.2560.1053@0.27.2560.1053" timestamp="1587864816509" />
     <state x="926" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587855083795">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
@@ -122,22 +128,26 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1060" y="280" key="FileChooserDialogImpl/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587848151079" />
-    <state width="1235" height="282" key="GridCell.Tab.0.bottom" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
+    <state width="1521" height="272" key="GridCell.Tab.0.bottom" timestamp="1587864874897">
+      <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1235" height="282" key="GridCell.Tab.0.center" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
+    <state width="1521" height="272" key="GridCell.Tab.0.bottom/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874897" />
+    <state width="1521" height="272" key="GridCell.Tab.0.center" timestamp="1587864874897">
+      <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1235" height="282" key="GridCell.Tab.0.left" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
+    <state width="1521" height="272" key="GridCell.Tab.0.center/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874897" />
+    <state width="1521" height="272" key="GridCell.Tab.0.left" timestamp="1587864874896">
+      <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1235" height="282" key="GridCell.Tab.0.right" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
+    <state width="1521" height="272" key="GridCell.Tab.0.left/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874896" />
+    <state width="1521" height="272" key="GridCell.Tab.0.right" timestamp="1587864874897">
+      <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1521" height="272" key="GridCell.Tab.0.right/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874897" />
     <state width="1235" height="282" key="GridCell.Tab.1.bottom" timestamp="1587426290472">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
@@ -154,6 +164,10 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.1.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state x="441" y="132" width="1024" height="845" key="SettingsEditor" timestamp="1587864874709">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="441" y="132" width="1024" height="845" key="SettingsEditor/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874709" />
     <state x="-7" y="0" width="1052" height="1057" key="dock-window-1" timestamp="1587838824449">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
