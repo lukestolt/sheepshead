@@ -1,11 +1,16 @@
 package com.capstone.sheepsheadbackend.model;
 
+import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
+import com.capstone.sheepsheadbackend.controller.game.ErrorResponse;
+import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
+import com.capstone.sheepsheadbackend.controller.game.WinningGameResponse;
 import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
 import com.capstone.sheepsheadbackend.util.Util;
 
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
 
 public class Game {
 
@@ -14,15 +19,18 @@ public class Game {
     private List<Card> blind;
     private Player dealer;
     private Player picker;
+    private List<Trick> tricks;
+    private Trick currentTrick;
     private final int MAX_PLAYERS;
     private static boolean start;
-    private Queue<Action> actions;
+//    private Queue<Action> actions;
 
     public Game(int numPlayers) {
         ugid = UUID.randomUUID().toString();
         MAX_PLAYERS = numPlayers;
         players = new ArrayList<>();
-        actions = new LinkedBlockingQueue<>();
+        tricks = new ArrayList<>();
+//        actions = new LinkedBlockingQueue<>();
     }
 
     public boolean addPlayer(Player player) {
@@ -43,20 +51,70 @@ public class Game {
 
     //TODO change to perform the action instead of enqueuing it
     // return trick,
-    public void performAction(Action a) {
+    public AbstractResponse performAction(Action a) {
         switch(a.getAction()) {
             case "PlayCard":
+                AbstractResponse response;
                 PlayCardAction pca = (PlayCardAction)a;
                 Player p = getPlayer(a.getPlayerId());
                 Card c = p.getCard(pca.getSuit(), pca.getValue());
+                if(currentTrick == null) {
+                    currentTrick = new Trick(MAX_PLAYERS);
+                }
                 Card ret = p.playCard(c);
                 if(ret == null) {
                     // bad player needs to resend
+                    response = new ErrorResponse(a.getPlayerId(), a.getGameId(), "ERROR", "Invalid Card");
                 } else {
                     // return new game state stuff
+                    currentTrick.addCard(ret, p);
+                    checkWonTrick();
+                    response = checkGameOver();
+                    if(response == null) {
+                        response = new PlayCardResponse(a.getPlayerId(), a.getGameId(), p.getHand().getCards(), players.get(nextPlayer(nextPlayer(players.indexOf(p)))));
+                    }
                 }
-                break;
+                return response;
         }
+        return null;
+    }
+
+    void checkWonTrick() {
+        boolean sameNumCards = false;
+        int numCardsInHand = players.get(0).getHand().getCards().size();
+        for(int i = 1; i < players.size(); i++) {
+            sameNumCards = numCardsInHand == players.get(i).getHand().getCards().size();
+        }
+        if(sameNumCards) {
+            tricks.add(currentTrick);
+            // Could probably send back to users to show who won the trick
+            Player p = currentTrick.getWinner();
+            currentTrick = null;
+        }
+    }
+
+    AbstractResponse checkGameOver() {
+        boolean noCards = true;
+        for(int i = 0; i < players.size(); i++) {
+            noCards = noCards && (players.get(i).getHand().getCards().isEmpty());
+        }
+        if(noCards) {
+            Player p = getWinner();
+            List<Integer> scores = players.stream().map(Player::getScore).collect(Collectors.toList());
+            List<String> playerIds = players.stream().map(Player::getUser).map(User::getUuid).collect(Collectors.toList());
+            return new WinningGameResponse(p.getUser().getUuid(), ugid, "Winner", p, scores, playerIds);
+        }
+        return null;
+    }
+
+    private Player getWinner() {
+        Player winner = players.get(0);
+        for(int i = 1; i < players.size(); i++) {
+            if(winner.getScore() < players.get(i).getScore()){
+                winner = players.get(i);
+            }
+        }
+        return winner;
     }
 
     private Player getPlayer(String playerId) {
@@ -65,10 +123,6 @@ public class Game {
         }
         // Player ID doesn't exist
         return null;
-    }
-
-    public boolean enqueueAction(Action a) {
-        return actions.offer(a);
     }
 
     public Player getDealer() {
@@ -130,27 +184,6 @@ public class Game {
             return 0;
         }
     }
-
-//    public Trick playHands() {
-//        Scanner sc = new Scanner(System.in);
-//        Trick trick = new Trick(MAX_PLAYERS);
-//        int ind = nextPlayer(players.indexOf(dealer));
-//        int cnt = 0;
-//        for(int i = ind; cnt < MAX_PLAYERS; i = nextPlayer(i)) {
-//            Cardv2 c;
-//            do {
-//                System.out.println(players.get(i).getHand().toString());
-//                System.out.println(players.get(i).toString() + ": Play a card (Must follow suit if can): ");
-//                int card = sc.nextInt();
-//                c = players.get(i).playCard(card);
-//            } while(c == null);
-//            trick.addCard(c,players.get(i));
-//            cnt++;
-//            System.out.println();
-//        }
-////        System.out.println(trick);
-//        return trick;
-//    }
 
     public void setBlind(List<Card> deck) {
         this.blind = deck;

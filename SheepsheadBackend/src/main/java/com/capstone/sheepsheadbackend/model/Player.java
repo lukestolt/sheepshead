@@ -8,12 +8,9 @@ public class Player {
     private Hand hand;
     private List<Trick> tricks;
     private int score = 0;
-//    private final String upid;
-
 
     public Player(User user) {
         this.user = user;
-//        upid = UUID.randomUUID().toString();
         tricks = new ArrayList<>();
     }
 

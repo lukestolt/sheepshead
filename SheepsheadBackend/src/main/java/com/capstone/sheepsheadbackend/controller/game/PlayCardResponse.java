@@ -1,22 +1,26 @@
 package com.capstone.sheepsheadbackend.controller.game;
 
+import com.capstone.sheepsheadbackend.model.Card;
+import com.capstone.sheepsheadbackend.model.Player;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 /**
  * Tell the subscribers that this player has x cards now and what card was played
  */
-public class PlayCardResponse {
-    Object[] cards;
-    String actionType;
-    String playerId;
-    String gameId;
+public class PlayCardResponse extends AbstractResponse{
+    List<Card> cards;
+    int handSize;
+    Player nextTurn;
 
-
-    public PlayCardResponse(String playerId, String gameId, Object[] cards) {
+    public PlayCardResponse(String playerId, String gameId, List<Card> cards, Player nextTurn) {
+        super(playerId, gameId, "ERROR");
         this.playerId = playerId;
         this.gameId = gameId;
-        // TODO: convert the cards to simple cards to be sent to the
         this.cards = cards;
+        this.handSize = cards.size();
+        this.nextTurn = nextTurn;
     }
 
     public String createResponse() {
