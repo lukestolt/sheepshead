@@ -1,8 +1,12 @@
 package com.capstone.sheepsheadbackend.controller;
 
+import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
 import com.capstone.sheepsheadbackend.model.GamesManager;
+import com.capstone.sheepsheadbackend.model.Player;
+import com.capstone.sheepsheadbackend.model.User;
+import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -14,6 +18,18 @@ import java.util.Arrays;
 
 @RestController
 public class GameController {
+
+//    private User user1 = new User();
+//    private User user2 = new User();
+//    private User user3 = new User();
+//    private User user4 = new User();
+//    private User user5 = new User();
+//    private User user6 = new User();
+//    private User user7 = new User();
+//    private User user8 = new User();
+//    private User user9 = new User();
+//    private User user10 = new User();
+//    private User user11= new User();
 
     GamesManager gm = GamesManager.getInstance();
     Gson gson = new Gson();
@@ -43,17 +59,20 @@ public class GameController {
         // tell the people subscribed to the game that someone did a player action
         // all the clients should update
         // the game logic should be here to create the response
-        SimpleCard actionCard = new SimpleCard(action.suit, action.value);
+
+        AbstractResponse response = gm.addAction(action);
+//        SimpleCard actionCard = new SimpleCard(action.suit, action.value);
         //TODO: this should be removed when game logic integrated
-        cards.remove(actionCard);
-        PlayCardResponse res = new PlayCardResponse("p2", action.gameId, this.cards.toArray());
-        messageSender.convertAndSend("/topic/gameData", res.createResponse());
+//        cards.remove(actionCard);
+//        PlayCardResponse res = new PlayCardResponse("p2", action.gameId, this.cards.toArray());
+//        messageSender.convertAndSend("/topic/gameData", res.createResponse());
         // TODO: SendPlayer onVALID: hand
         //       SendPLayer onERROR:
 
         // TODO: Broadcast onVALID: send the updated current trick, playerId of card player, hand size of card player
         //       Brodcast  onERROR: NOTHING
-        return this.gson.toJson(res);
+//        return this.gson.toJson(res);
+        return null;
     }
 
 //    @MessageMapping("/gameaction")

@@ -1,5 +1,6 @@
 package com.capstone.sheepsheadbackend.model;
 
+import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
 import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.google.gson.Gson;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -72,11 +73,11 @@ public class GamesManager {
         return games.size();
     }
 
-    public void addAction(Action action) {
+    public AbstractResponse addAction(Action action) {
         Game g = games.get(action.getGameId());
-        g.start();
-        g.enqueueAction(action);
+        return g.performAction(action);
     }
+
 
     public void setMessageSender(SimpMessagingTemplate ms){
         this.messageSender = ms;
