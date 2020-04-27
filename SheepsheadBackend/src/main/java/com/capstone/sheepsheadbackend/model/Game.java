@@ -22,7 +22,7 @@ public class Game {
     private List<Trick> tricks;
     private Trick currentTrick;
     private final int MAX_PLAYERS;
-    private static boolean start;
+    private boolean start = false;
 //    private Queue<Action> actions;
 
     public Game(int numPlayers) {
@@ -34,7 +34,6 @@ public class Game {
     }
 
     public boolean addPlayer(Player player) {
-
         if(players.size() >= MAX_PLAYERS) {
             return false;
         } else {
@@ -47,10 +46,17 @@ public class Game {
         return players.size() == MAX_PLAYERS;
     }
 
-    public void start() {
+    public void startGame() {
         if(!start) {
             start = true;
+            SheepsheadDeck.deal(this);
+
+            System.out.println("done");
         }
+    }
+
+    public boolean isGameReady(){
+        return this.start;
     }
 
     //TODO change to perform the action instead of enqueuing it
@@ -123,6 +129,7 @@ public class Game {
 
     private Player getPlayer(String playerId) {
         for(Player p: players) {
+            System.out.println(p.getUser().getUuid());
             if(p.getUser().getUuid().equals(playerId)) return p;
         }
         // Player ID doesn't exist
@@ -187,6 +194,11 @@ public class Game {
         } else {
             return 0;
         }
+    }
+
+    public List<Card> getPlayerHand(String playerId){
+        Player p = this.getPlayer(playerId);
+        return p.getHand().getCards();
     }
 
     public void setBlind(List<Card> deck) {

@@ -17,8 +17,9 @@ export class PlayerDataService {
   constructor(http: HttpClient){}
 
   init(playerId: string, name: string) {
+    console.log(playerId);
     if(!this.player){
-      this.player = new Player(playerId, name);
+      this.player = new Player(playerId, name=name);
     }
     // tell the server that this person in logged in? 
   }

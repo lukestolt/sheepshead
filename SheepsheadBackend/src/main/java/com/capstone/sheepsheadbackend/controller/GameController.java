@@ -2,6 +2,7 @@ package com.capstone.sheepsheadbackend.controller;
 
 import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
+import com.capstone.sheepsheadbackend.controller.game.InitGameData;
 import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.Player;
@@ -137,9 +138,8 @@ public class GameController {
      */
     @GetMapping("/getHand")
     public String getHand(@RequestParam String playerId, String gameId) {
-        // TODO: get the game and game.getHand()
-        int handSize = 4;
-        return this.gson.toJson(cards.toArray());
+        InitGameData data = gm.getGameStartupData(gameId, playerId);
+        return this.gson.toJson(data);
     }
 
 }

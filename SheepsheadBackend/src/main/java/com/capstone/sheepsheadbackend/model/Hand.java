@@ -12,14 +12,16 @@ public class Hand {
         hand = new ArrayList<>(MAX_CAP);
     }
 
+    public Hand(){
+        hand = new ArrayList<>();
+    }
+
     public List<Card> getCards() {
         return hand;
     }
 
     public void addCard(Card c) {
-        if(hand.size() < MAX_CAP) {
-            hand.add(c);
-        }
+        hand.add(c);
     }
 
 //    @Override

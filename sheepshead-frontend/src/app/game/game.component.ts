@@ -41,12 +41,14 @@ export class GameComponent implements OnInit {
     this.curplayer = _playerService.player;
     //tODO: this should come from the server
     gameService.getHand(this.curplayer.id).subscribe(cardRes => {
-      const cards: Card[] = cardRes;
+      console.log(cardRes);
+      const cards: Card[] = cardRes.cards;
       if(cards){
         this.curplayer.cards = cards;
         this.opponents.forEach(opp => {
           opp.numCards = cards.length;   
         });
+        this.curPlayerTurn = cardRes.turnPlayerId;
       }
     });
   }
@@ -81,7 +83,7 @@ export class GameComponent implements OnInit {
     this.opponents = [];
     for(let x = 0; x < numPlayers; ++x) {
       //TODO: hardcoded number of cards should no be hardcoded
-      this.opponents.push(new Player('randid' + x+2, 'p' + (x+2), null,));
+      this.opponents.push(new Player('randid' + x+2, ('p' + (x+2)), null,));
     }
   }
 

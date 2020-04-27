@@ -11,6 +11,11 @@ export interface GameSearchParams{
     numPlayerOptions: string[];
 }
 
+export interface InitGameData{
+    cards: Card[];
+    turnPlayerId: string;
+}
+
 @Injectable({
     providedIn: 'root'
   })
@@ -65,8 +70,8 @@ export class GameService {
      * @param pId - the player id
      * @param gameId - the game id
      */
-    getHand(pId: string): Observable<any> {
-        return this.http.get<any>(ServerConfig.serverUrl + '/getHand', {params: { playerId: pId, gameId: this.gameId}});
+    getHand(pId: string): Observable<InitGameData> {
+        return this.http.get<InitGameData>(ServerConfig.serverUrl + '/getHand', {params: { playerId: pId, gameId: this.gameId}});
     }
 
     /*

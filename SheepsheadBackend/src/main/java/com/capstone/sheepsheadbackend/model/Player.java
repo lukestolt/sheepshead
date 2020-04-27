@@ -12,6 +12,7 @@ public class Player {
     public Player(User user) {
         this.user = user;
         tricks = new ArrayList<>();
+        hand = new Hand();
     }
 
     public User getUser() {
