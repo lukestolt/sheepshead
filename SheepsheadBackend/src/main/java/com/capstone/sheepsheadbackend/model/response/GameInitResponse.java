@@ -9,12 +9,14 @@ public class GameInitResponse extends AbstractResponse {
     private List<Card> cards;
     private List<String> oppNames;
     private List<String> oppIds;
+    private String startingPlayer;
 
-    public GameInitResponse(String playerId, String gameId, List<Card> cards, List<String> oppNames, List<String> oppIds) {
+    public GameInitResponse(String playerId, String gameId, List<Card> cards, List<String> oppNames, List<String> oppIds, String startingPlayer) {
         super(playerId, gameId, "gameInit");
         this.cards = cards;
         this.oppNames = oppNames;
         this.oppIds = oppIds;
+        this.startingPlayer = startingPlayer;
     }
 
     public List<Card> getCards() {
@@ -44,5 +46,13 @@ public class GameInitResponse extends AbstractResponse {
     @Override
     public String createResponse() {
         return new Gson().toJson(this);
+    }
+
+    public String getStartingPlayer() {
+        return startingPlayer;
+    }
+
+    public void setStartingPlayer(String startingPlayer) {
+        this.startingPlayer = startingPlayer;
     }
 }

@@ -44,6 +44,7 @@ public class Game {
         if(!start) {
             start = true;
             SheepsheadDeck.deal(this);
+            initDealer();
         }
     }
 
@@ -72,10 +73,17 @@ public class Game {
                 } else {
                     // return new game state stuff
                     currentTrick.addCard(ret, p);
-                    checkWonTrick();
+//                    checkWonTrick();
                     response = checkGameOver();
                     if(response == null) {
-                        response = new PlayCardResponse(a.getPlayerId(), a.getGameId(), p.getHand().getCards(), players.get(nextPlayer(nextPlayer(players.indexOf(p)))));
+                        Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
+                        currentPlayer = nextTurn;
+                        String playerId = a.getPlayerId();
+                        String gameId = a.getGameId();
+                        List<Card> cards = p.getHand().getCards();
+                        String uuid = nextTurn.getUser().getUuid();
+                        List<Card> cards1 = currentTrick.getCards();
+                        response = new PlayCardResponse(playerId, gameId, cards, uuid, cards1);
                     }
                 }
                 return response;
@@ -155,6 +163,8 @@ public class Game {
 //        System.out.println("Dealer is Player: " + x);
 //        System.out.println();
         dealer = players.get(x);
+        currentPlayer = players.get(nextPlayer(x));
+        System.out.println(currentPlayer.getUser().getUuid());
     }
 
     public Player getPicker() {
@@ -200,5 +210,9 @@ public class Game {
 
     public void setBlind(List<Card> deck) {
         this.blind = deck;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }

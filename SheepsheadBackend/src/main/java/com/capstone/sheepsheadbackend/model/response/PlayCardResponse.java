@@ -12,15 +12,33 @@ import java.util.List;
 public class PlayCardResponse extends AbstractResponse{
     List<Card> cards;
     int handSize;
-    Player nextTurn;
+    String nextTurnId;
+    List<Card> trick;
 
-    public PlayCardResponse(String playerId, String gameId, List<Card> cards, Player nextTurn) {
+    public PlayCardResponse(String playerId, String gameId, List<Card> cards, String nextTurnId, List<Card> trick) {
         super(playerId, gameId, "validCard");
         this.playerId = playerId;
         this.gameId = gameId;
         this.cards = cards;
-        this.handSize = cards.size();
-        this.nextTurn = nextTurn;
+        if (cards == null) {
+            this.handSize = -1;
+        } else {
+            this.handSize = cards.size();
+        }
+        this.nextTurnId = nextTurnId;
+        this.trick = trick;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public String getNextTurnId() {
+        return nextTurnId;
+    }
+
+    public List<Card> getTrick() {
+        return trick;
     }
 
     public String createResponse() {

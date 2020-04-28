@@ -72,7 +72,7 @@ public class GamesManager {
                         oppIds.add(opp.getUser().getUuid());
                     });
                     GameInitResponse gir = new GameInitResponse(playerId,g.getUGID(),
-                            g.getPlayerHand(playerId), names, oppIds);
+                            g.getPlayerHand(playerId), names, oppIds, g.getCurrentPlayer().getUser().getUuid());
 //                    gir.setOppNames(names);
 //                    gir.setCards(g.getPlayerHand(playerId));
                     messageSender.convertAndSend("/topic/gameInit/" + playerId, gir);

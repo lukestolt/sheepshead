@@ -5,6 +5,7 @@ import com.capstone.sheepsheadbackend.util.SheepsheadCardValue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Trick {
     public int getScore() {
@@ -54,5 +55,9 @@ public class Trick {
 
     public boolean isEmpty() {
         return cards.isEmpty();
+    }
+
+    public List<Card> getCards() {
+        return cards.stream().map(Pair::getK).collect(Collectors.toList());
     }
 }

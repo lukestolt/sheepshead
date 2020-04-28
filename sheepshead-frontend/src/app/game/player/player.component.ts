@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Card } from 'src/app/models/card';
 import { Player } from 'src/app/models/player';
 import { CardAction, GameService, ActionType } from 'src/app/services/game.service';
+import { GameComponent } from '../game.component';
 
 @Component({
   selector: 'app-player',
@@ -15,7 +16,7 @@ export class PlayerComponent{
 
   constructor(private gameService:GameService) {
   }
-
+ 
   getCardName(card: Card): string {
     return this.gameService.getCardName(card);
   }
@@ -23,13 +24,16 @@ export class PlayerComponent{
 
   cardClick(clickedCard: Card): void {
     console.log(clickedCard);
-    const action:CardAction = {action: ActionType.PlayCard,playerId: this.player.id, gameId: this.gameService.getGameId(), suit: clickedCard.suit, value: clickedCard.value};
-    // the game service should have the ws
-    console.log(action)
-    this.gameService.sendPlayerAction(action).subscribe(result => {
+    if(this.player.isTurn) {
+      console.log("played Card")
+      const action:CardAction = {action: ActionType.PlayCard,playerId: this.player.id, gameId: this.gameService.getGameId(), suit: clickedCard.suit, value: clickedCard.value};
+      // the game service should have the ws
+      console.log(action)
+      this.gameService.sendPlayerAction(action).subscribe(result => {
 
-      this.player.cards = result.cards
-    });
+        this.player.cards = result.cards
+      });
+    } 
   }
 
   cardMouseHover(card: Card) {
