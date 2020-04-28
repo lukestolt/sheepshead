@@ -3,10 +3,12 @@ package com.capstone.sheepsheadbackend.controller.game;
 public class FindGameRequest {
 
     public String playerId;
+    public String username;
     public String[] numPlayerOptions;
 
-    FindGameRequest(String pId, String[] npo) {
+    FindGameRequest(String pId, String username, String[] npo) {
         this.playerId = pId;
+        this.username = username;
         numPlayerOptions = npo;
     }
     FindGameRequest(){

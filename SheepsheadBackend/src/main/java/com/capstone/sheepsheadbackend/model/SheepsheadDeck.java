@@ -21,7 +21,7 @@ public class SheepsheadDeck {
         List<Card> deck = initDeck();
         shuffle(deck);
         List<Card> newDeck = dealBlind(deck,g);
-        g.getPlayers().forEach(p -> dealHand(p, newDeck, g.getPlayers().size()));
+        dealHand(newDeck, g.getPlayers());
     }
 
     private static List<Card> dealBlind(List<Card>deck, Game g) {
@@ -36,18 +36,16 @@ public class SheepsheadDeck {
         return deck;
     }
 
-    private static void dealHand(Player player, List<Card> deck, int numPlayers) {
+    private static void dealHand(List<Card> deck, List<Player> players) {
         Random rand = new Random();
         int deckSize = deck.size();
-        for (int i = 0; i < deck.size()/numPlayers; i++) {
-            int randPos = rand.nextInt(deck.size());
-
-//            while(deck.get(randPos) == null) {
-//                randPos = rand.nextInt(deck.size());
-//            }
-            player.getHand().addCard(deck.get(randPos));
-            deck.remove(randPos);
-        }
+        players.forEach(player -> {
+            for (int i = 0; i < deckSize/players.size(); i++) {
+                int randPos = rand.nextInt(deck.size());
+                player.getHand().addCard(deck.get(randPos));
+                deck.remove(randPos);
+            }
+        });
     }
 
     private static List<Card> initDeck() {

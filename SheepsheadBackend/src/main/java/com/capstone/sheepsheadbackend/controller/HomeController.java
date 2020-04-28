@@ -13,6 +13,6 @@ public class HomeController {
 
     @PostMapping("/createUser")
     public String createUser(@RequestBody String name){
-        return gson.toJson(new User(name));
+        return gson.toJson(new User());
     }
 }

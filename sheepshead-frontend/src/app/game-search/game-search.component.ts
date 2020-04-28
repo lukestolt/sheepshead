@@ -22,7 +22,7 @@ export class GameSearchComponent implements OnInit {
    * navigate to the game component where the searching actaully happens
    */
   private searchForGame(): void {
-    this.gameService.findGame(this.pds.player.id, this.numPlayersSelected).subscribe(res => {
+    this.gameService.findGame(this.pds.player.id, this.pds.player.name, this.numPlayersSelected).subscribe(res => {
       
       if(res == true) {
         console.log('found game');
@@ -31,14 +31,12 @@ export class GameSearchComponent implements OnInit {
           if(status == true){
             console.log('stomp Connected')
             //sub to the gamestatus
-            this.gameService.ws.subToGameStatus().subscribe(status => {
-              console.log(status);
-              if(status === 'ready'){
+            // this.gameService.ws.subToGameStatus().subscribe(status => {
+            //   console.log(status);
+            //   if(status === 'ready'){
                 this._router.navigateByUrl('/game');
-              }
-            });
-            // tell the server that it has connected and that player is ready
-            this.gameService.playerReady().subscribe(() => {console.log('told server player was ready'); });
+            //   }
+            // });
           }
         });       
       }
@@ -47,7 +45,6 @@ export class GameSearchComponent implements OnInit {
   }
 
   private playerNumClick(event: any, num: string): void {
-    console.log(event);
     if(!this.numPlayersSelected.includes(num)) {
       this.numPlayersSelected.push(num);
     }

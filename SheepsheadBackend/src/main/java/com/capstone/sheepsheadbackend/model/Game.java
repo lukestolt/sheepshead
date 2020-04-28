@@ -33,13 +33,8 @@ public class Game {
 //        actions = new LinkedBlockingQueue<>();
     }
 
-    public boolean addPlayer(Player player) {
-        if(players.size() >= MAX_PLAYERS) {
-            return false;
-        } else {
-            players.add(player);
-            return true;
-        }
+    public void addPlayer(Player player) {
+        players.add(player);
     }
 
     public boolean isGameFull(){
@@ -50,8 +45,6 @@ public class Game {
         if(!start) {
             start = true;
             SheepsheadDeck.deal(this);
-
-            System.out.println("done");
         }
     }
 
@@ -128,12 +121,15 @@ public class Game {
     }
 
     private Player getPlayer(String playerId) {
-        for(Player p: players) {
-            System.out.println(p.getUser().getUuid());
-            if(p.getUser().getUuid().equals(playerId)) return p;
+        synchronized (players){
+            System.out.println(this.players.size());
+            for(Player p: players) {
+                System.out.println(p.getUser().getUuid());
+                if(p.getUser().getUuid().equals(playerId)) return p;
+            }
+            // Player ID doesn't exist
+            return null;
         }
-        // Player ID doesn't exist
-        return null;
     }
 
     public Player getDealer() {
@@ -197,8 +193,8 @@ public class Game {
     }
 
     public List<Card> getPlayerHand(String playerId){
-        Player p = this.getPlayer(playerId);
-        return p.getHand().getCards();
+            Player p = this.getPlayer(playerId);
+            return p.getHand().getCards();
     }
 
     public void setBlind(List<Card> deck) {

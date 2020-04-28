@@ -18,6 +18,11 @@ public class User {
         this.uuid = id;
     }
 
+    public User(String id, String username){
+        this.uuid = id;
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
     }

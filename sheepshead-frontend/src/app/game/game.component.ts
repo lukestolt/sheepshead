@@ -39,19 +39,65 @@ export class GameComponent implements OnInit {
 
   constructor(private _playerService:PlayerDataService, private gameService:GameService) {
     this.curplayer = _playerService.player;
-    //tODO: this should come from the server
-    gameService.getHand(this.curplayer.id).subscribe(cardRes => {
-      console.log(cardRes);
-      const cards: Card[] = cardRes.cards;
-      if(cards){
-        this.curplayer.cards = cards;
-        this.opponents.forEach(opp => {
-          opp.numCards = cards.length;   
-        });
-        this.curPlayerTurn = cardRes.turnPlayerId;
+
+    /**
+     * this will be populated one the game starts
+     */
+    this.gameService.ws.getInitGameInfo(this.curplayer.id).subscribe(info => {
+      info = JSON.parse(info);
+      console.log(info);
+      if(info != null){
+        let oppsNames = info.oppNames;
+        this.opponents = [];
+        if(oppsNames != null){
+          const names: string[] = oppsNames;
+          names.forEach(name => {
+            this.opponents.push(new Player('', name,null));
+          });
+        }
+  
+        const cards: Card[] = info.cards;
+          if(cards){
+            this.curplayer.cards = cards;
+            this.opponents.forEach(opp => {
+              opp.numCards = cards.length;   
+            });
+          }
+            //TODO: get the player turn
+          // this.curPlayerTurn = cardRes.turnPlayerId;
+
+          console.log('Updated game');
       }
+      
     });
+    this.gameService.playerReady().subscribe(()=>{});
+
+    // tell the server that it has connected and that player is ready
   }
+
+    // need to get the name of the opponents also
+    // TODO: could pass the name of the player when they click find game and they get added to the game
+  //   gameService.getOpponentsData(this.curplayer.id).subscribe(opps => {
+  //     if(opps != null && opps.opponentNames != null){
+  //       const names: string[] = opps.opponentNames;
+  //       names.forEach(name => {
+  //         this.opponents.push(new Player('', name), null);
+  //       });
+  //     }
+  //     gameService.getHand(this.curplayer.id).subscribe(cardRes => {
+  //       console.log(cardRes);
+  //       const cards: Card[] = cardRes.cards;
+  //       if(cards){
+  //         this.curplayer.cards = cards;
+  //         this.opponents.forEach(opp => {
+  //           opp.numCards = cards.length;   
+  //         });
+  //         this.curPlayerTurn = cardRes.turnPlayerId;
+  //       }
+  //     });
+  //   });
+
+  
 
   ngOnInit() {
   }
@@ -91,8 +137,4 @@ export class GameComponent implements OnInit {
     return this.curplayer.id === this.curPlayerTurn;
   }
 
-  // might need this method to parse the servers response
-  private convertToCards(cards: any): Card[] {
-    return cards
-  }
 }

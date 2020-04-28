@@ -4,6 +4,7 @@ import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.controller.game.InitGameData;
 import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
+import com.capstone.sheepsheadbackend.model.Card;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.Player;
 import com.capstone.sheepsheadbackend.model.User;
@@ -16,37 +17,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 public class GameController {
-
-//    private User user1 = new User();
-//    private User user2 = new User();
-//    private User user3 = new User();
-//    private User user4 = new User();
-//    private User user5 = new User();
-//    private User user6 = new User();
-//    private User user7 = new User();
-//    private User user8 = new User();
-//    private User user9 = new User();
-//    private User user10 = new User();
-//    private User user11= new User();
 
     GamesManager gm = GamesManager.getInstance();
     Gson gson = new Gson();
     @Autowired
     private SimpMessagingTemplate messageSender;
-
-
-    ////TEMP GAME DATA
-    String gameID = "rand-game-id-from-server";
-    SimpleCard c1 = new SimpleCard("S","10");
-    SimpleCard c2 = new SimpleCard("C","Q");
-    SimpleCard c3 = new SimpleCard("H","A");
-    SimpleCard c4 = new SimpleCard("D","7");
-    ArrayList<SimpleCard> cards = new ArrayList<>(Arrays.asList(c1, c2, c3, c4));
-////
-
 
     /**
      * this client should call this method via http so it can get an easier response and dont
@@ -76,14 +55,6 @@ public class GameController {
         return null;
     }
 
-//    @MessageMapping("/gameaction")
-//    public String gameCommuncation(@Payload String name) throws Exception{
-//        int x = 0;
-//        System.out.println("here on server");
-//        Thread.sleep(2000);
-//        return(name + " sent a message");
-//    }
-
     /**
      * @return the gameId
      */
@@ -91,7 +62,7 @@ public class GameController {
     public String findGame(@RequestBody FindGameRequest req) {
         // needs to have the message sender via this way
         gm.setMessageSender(this.messageSender);
-        String gId = gm.addPlayer(req.playerId);
+        String gId = gm.addPlayer(req.playerId, req.username);
         return this.gson.toJson(gId);
     }
 
@@ -102,44 +73,10 @@ public class GameController {
     @PostMapping("/playerReady")
     public void playerReady(@RequestBody String gId) {
         System.out.println("Player Ready");
-        this.gm.broadcastGameStatus(gId);
+        this.gm.broadcastInitGameInfo(gId);
     }
 
-    /**
-     * call this when the game is full and ready to be played
-     * the client should subscribe to this to tell the client that the game is ready
-     */
-//    @SendTo("/topic/gamestatus")
-//    public static void gameStatusReady(String gameId){
-//        messageSender.convertAndSend("/topic/gamestatus/" + gameId, "ready");
-//    }
 
-    public class SimpleCard{
-        public String suit;
-        public String value;
-        SimpleCard(String suit, String value) {
-            this.suit = suit;
-            this.value = value;
-        }
 
-        @Override
-        public boolean equals(Object o) {
-            if( o instanceof SimpleCard) {
-                SimpleCard card = (SimpleCard)o;
-                return (this.suit.equals(card.suit) && this.value.equals(card.value));
-            }
-            return false;
-        }
-    }
-    /**
-     * send back the players cards
-     * @param playerId
-     * @return players hand
-     */
-    @GetMapping("/getHand")
-    public String getHand(@RequestParam String playerId, String gameId) {
-        InitGameData data = gm.getGameStartupData(gameId, playerId);
-        return this.gson.toJson(data);
-    }
 
 }

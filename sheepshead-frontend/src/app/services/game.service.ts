@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ServerConfig } from './server-config';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { WebSocketApi } from '../web-socket/web-socket-api';
+import { Player } from '../models/player';
 
 
 export interface GameSearchParams{
@@ -16,15 +17,17 @@ export interface InitGameData{
     turnPlayerId: string;
 }
 
+export interface OpponentData{
+    opponentNames: string[];
+}
+
 @Injectable({
     providedIn: 'root'
   })
 export class GameService {
 
     public ws: WebSocketApi;
-    private gameStatusResponse: Observable<any> = new Observable<any>();
     private gameId: string;
-    private isGameReady: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     
     constructor(private http:HttpClient){}
  
@@ -32,10 +35,11 @@ export class GameService {
      * retruns the ip address of the ws and the gameId
      * @param gameSettings
      */
-    findGame(pId: string, gameSettings: any): Observable<boolean>{
+    findGame(pId: string, username: string, gameSettings: any): Observable<boolean>{
+
         const bs = new BehaviorSubject<boolean>(false);
         console.log('Searching for game');
-        const params = {"playerId": pId, "numPlayerOptions": gameSettings};
+        const params = {"playerId": pId, "username": username, "numPlayerOptions": gameSettings};
         this.http.post<any>(ServerConfig.serverUrl + '/findGame', params).subscribe(gId => {
             this.gameId = gId;
             this.ws = new WebSocketApi(this);
@@ -51,15 +55,7 @@ export class GameService {
         this.ws.connect().subscribe(connectionStatus => {
             console.log(connectionStatus);
             if(connectionStatus !== 'not connected'){
-            //     this.ws.subToGameStatus().subscribe(gameStatus => {
-            //         console.log('sub to gs ' + gameStatus);
-            //         if(gameStatus !== 'no sub')
-                        bs.next(true);
-            //         if(gameStatus === 'ready'){
-            //             // then navigate to game component
-            //             this.isGameReady.next(true);
-            //         }
-            //     });   
+                bs.next(true);
             }
         });
         return bs.asObservable();
@@ -82,15 +78,9 @@ export class GameService {
         return this.http.post(ServerConfig.serverUrl + '/gameAction', action);
     }
 
-    // TODO: remove this when logic is integrated with server
-    // this is used to tell the client that the game is ready when in reality the server logic should 
-    // call the method on its side
+
     playerReady(): Observable<any>{
         return this.http.post<any>(ServerConfig.serverUrl + '/playerReady', this.gameId);
-    }
-
-    getIsGameReady(): Observable<boolean>{
-        return this.isGameReady.asObservable();
     }
 
     getCardName(card: Card): string {
@@ -101,10 +91,6 @@ export class GameService {
         path = path.concat(card.suit.toLocaleUpperCase());
         path = path.concat('.png');
         return path;
-    }
-
-    getGameStatusResponse(): Observable<any> {
-        return this.gameStatusResponse;
     }
 
     getGameId(): string {

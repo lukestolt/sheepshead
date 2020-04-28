@@ -7,7 +7,7 @@ import { GameService } from '../services/game.service';
 export class WebSocketApi {
     endpoint: string = '/ws';
     private stompClient: Stomp.Client;
-    private gameDataTopic: string = 'topic/gameData'
+    private gameInitTopic: string = '/topic/gameInit/';
     
     constructor(private gameService: GameService) { }
     /**
@@ -25,20 +25,6 @@ export class WebSocketApi {
         return subj.asObservable();
     }
 
-    /**
-     * when subbed, the value will be either null, not ready or ready
-     */
-    subToGameStatus(): Observable<any> {
-        let subj: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-        const topic = "/topic/gamestatus/" + this.gameService.getGameId();
-        console.log(topic);
-        this.stompClient.subscribe(topic, (event) => {
-            console.log(event)
-            subj.next(JSON.parse(event.body));
-            // this.handleMessage(event);
-        });
-        return subj.asObservable();
-    }
 
     /**
      * disconnects from the stompjs server if it is live
@@ -63,14 +49,20 @@ export class WebSocketApi {
         }, 5000);
     }
 
-    getGameInfo(): Observable<any>{
+
+    /**
+     * returns player hand and the opponentNames
+     * @param playerId 
+     */
+    getInitGameInfo(playerId: string): Observable<any>{
         let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
         if(this.stompClient){
-            this.stompClient.subscribe(this.gameDataTopic, (data) => {
-                bs.next(data);
+            this.stompClient.subscribe(this.gameInitTopic + playerId, (data) => {
+                console.log(data)
+                bs.next(data.body);
             });
         }
-        return bs;
+        return bs.asObservable();
     }
 
 }

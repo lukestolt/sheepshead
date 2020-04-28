@@ -1,11 +1,12 @@
 package com.capstone.sheepsheadbackend.model;
 
+import com.capstone.sheepsheadbackend.controller.GameController;
 import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
-import com.capstone.sheepsheadbackend.controller.game.InitGameData;
 import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.google.gson.Gson;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,7 +16,7 @@ public class GamesManager {
 
     private Map<String, Game> games = new ConcurrentHashMap<>();
     private Game waitGame;
-    private int numPlayers = 1;
+    private int numPlayers = 3;
     private Gson gson = new Gson();
 
     private SimpMessagingTemplate messageSender;
@@ -31,57 +32,81 @@ public class GamesManager {
         return gm;
     }
 
-
     /**
      * @return - the String of the game
      * @param playerId - String of the id of the player
      */
-    public String addPlayer(String playerId) {
-        Player p = new Player(new User(playerId));
+    public String addPlayer(String playerId, String username) {
+        Player p = new Player(new User(playerId, username));
         synchronized (waitGame){
-            // game instance waiting
-            if(!waitGame.addPlayer(p)) {
-                // initiate game and create new one
+            waitGame.addPlayer(p);
+            String id = waitGame.getUGID();
+            if(waitGame.isGameFull()){
+                this.games.put(waitGame.getUGID(), waitGame);
                 waitGame = new Game(numPlayers);
-                waitGame.addPlayer(p);
             }
-            if(waitGame.isGameFull()) {
-                waitGame.startGame();
-                broadcastGameStatus(waitGame.getUGID());
-                games.putIfAbsent(waitGame.getUGID(), waitGame);
-            }
+            return id;
         }
-        return waitGame.getUGID();
+
     }
 
     /***
      * sends a message if ready or not ready
      * @param gId
      */
-    public void broadcastGameStatus(String gId) {
-        String message = "not ready";
+    public void broadcastInitGameInfo(String gId) {
         Game g = this.games.get(gId);
-        // it is looking for the wait game status then it isnt ready
-        if(g != null && g.isGameReady()){
-            message = "ready";
+        if(g != null){
+            synchronized (g){
+                g.startGame();
+                List<Player> players =g.getPlayers();
+                for(int x = 0; x < players.size(); x++){
+                    String playerId = players.get(x).getUser().getUuid();
+                    List<Player> opps = this.getOpponents(g, playerId);
+                    List<String> names = new ArrayList<String>();
+                    opps.forEach(opp -> {
+                        names.add(opp.getUser().getUsername());
+                    });
+                    GameInitResponse gir = new GameInitResponse();
+                    gir.oppNames = names;
+                    gir.cards = g.getPlayerHand(playerId);
+                    messageSender.convertAndSend("/topic/gameInit/" + playerId, gir);
+                }
+
+            }
         }
-        System.out.println(message);
-        this.messageSender.convertAndSend("/topic/gamestatus/" + waitGame.getUGID(), this.gson.toJson(message));
+    }
+    public class GameInitResponse{
+        public List<Card> cards;
+        public List<String> oppNames;
     }
 
     /**
-     *
      * @param gameId
      * @param playerId
      * @return players hand, and whose turn it is
      */
-    public InitGameData getGameStartupData(String gameId, String playerId){
-        Game g = games.get(gameId);
-        List<Card> cards = g.getPlayerHand(playerId);
-        InitGameData igd = new InitGameData(playerId,cards);
-        return  igd;
-    }
+//    public List<Card> getGameStartupData(String playerId){
+//        Game g = games.get(gameId);
+//        synchronized (g){
+//            List<Card> cards = g.getPlayerHand(playerId);
+//            return cards;
+//        }
+//    }
 
+    public List<Player> getOpponents(Game g, String playerId){
+//        Game g = this.games.get(gameId);
+        // find the player and remove it so it gets the opponents
+        List<Player> opp = new ArrayList<Player>(g.getPlayers());
+        int oppSize= opp.size();
+        for (int i = 0; i < oppSize; i++) {
+            if (opp.get(i).getUser().getUuid().equals(playerId)) {
+                opp.remove(i);
+                break;
+            }
+        }
+        return opp;
+    }
 
     public Game getWait() {
         return waitGame;
@@ -93,7 +118,9 @@ public class GamesManager {
 
     public AbstractResponse addAction(Action action) {
         Game g = games.get(action.getGameId());
-        return g.performAction(action);
+        synchronized (g) {
+            return g.performAction(action);
+        }
     }
 
     public void setMessageSender(SimpMessagingTemplate ms){
