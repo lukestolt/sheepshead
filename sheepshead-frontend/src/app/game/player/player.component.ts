@@ -23,15 +23,16 @@ export class PlayerComponent{
 
 
   cardClick(clickedCard: Card): void {
-    console.log(clickedCard);
     if(this.player.isTurn) {
-      console.log("played Card")
       const action:CardAction = {action: ActionType.PlayCard,playerId: this.player.id, gameId: this.gameService.getGameId(), suit: clickedCard.suit, value: clickedCard.value};
       // the game service should have the ws
       console.log(action)
       this.gameService.sendPlayerAction(action).subscribe(result => {
-
-        this.player.cards = result.cards
+        if(result.responseType !== 'ERROR'){
+          this.player.cards = result.cards
+          //tODO: show a message telling the user to play the correct type
+        }
+        
       });
     } 
   }

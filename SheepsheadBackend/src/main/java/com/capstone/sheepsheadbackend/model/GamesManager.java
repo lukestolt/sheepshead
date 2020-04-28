@@ -121,6 +121,7 @@ public class GamesManager {
         return games.size();
     }
 
+    // annotate this so know what this returns given an action
     public AbstractResponse addAction(Action action) {
         Game g = games.get(action.getGameId());
         synchronized (g) {

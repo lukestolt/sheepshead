@@ -11,3 +11,8 @@
 .hover {
     border: 4px solid blue;
 }
+
+.curTurn{
+    border: 5px solid red;
+}
+

@@ -59,7 +59,6 @@ export class WebSocketApi {
         let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
         if(this.stompClient){
             this.stompClient.subscribe(this.gameInitTopic + playerId, (data) => {
-                console.log(data)
                 bs.next(data.body);
             });
         }

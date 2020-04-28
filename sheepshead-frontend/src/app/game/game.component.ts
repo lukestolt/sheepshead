@@ -45,14 +45,12 @@ export class GameComponent implements OnInit {
      */
     this.gameService.ws.getInitGameInfo(this.curplayer.id).subscribe(info => {
       info = JSON.parse(info);
-      console.log(info);
       if(info != null){
         let oppsNames = info.oppNames;
         let oppIds = info.oppIds;
         let curPl = info.startingPlayer;
 
         this.curPlayerTurn = curPl;
-        console.log(curPl + "?=" + this.curplayer.id);
         if(this.curplayer.id === curPl) {
           this.curplayer.isTurn = true;
         } else {
@@ -66,9 +64,6 @@ export class GameComponent implements OnInit {
           for(let i=0; i < oppsNames.length; i++){
             this.opponents.push(new Player(oppIds[i], names[i], null));
           }
-          // names.forEach(name => {
-          //   this.opponents.push(new Player('', name,null));
-          // });
         }
   
         const cards: Card[] = info.cards;
@@ -78,76 +73,41 @@ export class GameComponent implements OnInit {
             opp.numCards = cards.length;   
           });
         }
-
-            //TODO: get the player turn
-          // this.curPlayerTurn = cardRes.turnPlayerId;
-        
-
-        console.log('Updated game');
       }
-      
     });
     this.gameService.playerReady().subscribe(()=>{});
+
+    /***
+     * handles the response that is broadcasted from the server when a player plays a valid card
+     */
     this.gameService.ws.getActionResponse().subscribe(info => {
-      console.log('broadcast parse')
+
       if(info == null) return;
       info = JSON.parse(info);
       
-
       switch(info.responseType) {
         case "ERROR":
             console.log("ERROR");
           break;
         case "validCard":
-          // console.log("valid");
-          // console.log(this.opponents);
-          console.log(this.curplayer.id);
             this.opponents.forEach(opp => {
-              // console.log(opp.id + "?=" + info.playerId);
               if(info.playerId === opp.id) {
-                // console.log("found match");
                 opp.numCards--;
               }
             });
             let nextId = info.nextTurnId;
             this.curPlayerTurn = nextId;
-            console.log(nextId);
+            console.log('next persons turn = ' + nextId);
             if(this.curplayer.id === nextId) {
               this.curplayer.isTurn = true;
             } else {
               this.curplayer.isTurn = false;
             }
+            this.curTrick = info.trick;
           break;
       }
-      console.log(info);
     });
-
-    // tell the server that it has connected and that player is ready
   }
-
-    // need to get the name of the opponents also
-    // TODO: could pass the name of the player when they click find game and they get added to the game
-  //   gameService.getOpponentsData(this.curplayer.id).subscribe(opps => {
-  //     if(opps != null && opps.opponentNames != null){
-  //       const names: string[] = opps.opponentNames;
-  //       names.forEach(name => {
-  //         this.opponents.push(new Player('', name), null);
-  //       });
-  //     }
-  //     gameService.getHand(this.curplayer.id).subscribe(cardRes => {
-  //       console.log(cardRes);
-  //       const cards: Card[] = cardRes.cards;
-  //       if(cards){
-  //         this.curplayer.cards = cards;
-  //         this.opponents.forEach(opp => {
-  //           opp.numCards = cards.length;   
-  //         });
-  //         this.curPlayerTurn = cardRes.turnPlayerId;
-  //       }
-  //     });
-  //   });
-
-  
 
   ngOnInit() {
   }

@@ -30,24 +30,16 @@ export class GameSearchComponent implements OnInit {
         this.gameService.stompConnect().subscribe((status) => {
           if(status == true){
             console.log('stomp Connected')
-            //sub to the gamestatus
-            // this.gameService.ws.subToGameStatus().subscribe(status => {
-            //   console.log(status);
-            //   if(status === 'ready'){
                 this._router.navigateByUrl('/game');
-            //   }
-            // });
           }
         });       
       }
     });
-    
   }
 
   private playerNumClick(event: any, num: string): void {
     if(!this.numPlayersSelected.includes(num)) {
       this.numPlayersSelected.push(num);
     }
-
   }
 }

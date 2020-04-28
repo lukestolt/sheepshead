@@ -4,6 +4,7 @@ import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
+import com.capstone.sheepsheadbackend.model.response.ErrorResponse;
 import com.capstone.sheepsheadbackend.model.response.PlayCardResponse;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,11 @@ public class GameController {
         // the game logic should be here to create the response
 
         AbstractResponse response = gm.addAction(action);
-        PlayCardResponse pca = null;
+//        PlayCardResponse pca = null;
         if(response instanceof PlayCardResponse) {
             PlayCardResponse p = (PlayCardResponse)response;
-            pca = new PlayCardResponse(response.playerId, response.gameId, null, p.getNextTurnId(), p.getTrick());
+            PlayCardResponse pca = new PlayCardResponse(response.playerId, response.gameId, null, p.getNextTurnId(), p.getTrick());
+            messageSender.convertAndSend("/topic/actionResponse", pca.createResponse());
         }
 
 //        SimpleCard actionCard = new SimpleCard(action.suit, action.value);
@@ -49,9 +51,9 @@ public class GameController {
 //            pcp.setCards(null);
 //            broadcastResponse = pcp;
 //        }
-        if(pca != null) {
-            messageSender.convertAndSend("/topic/actionResponse", pca.createResponse());
-        }
+//        if(pca != null) {
+//            messageSender.convertAndSend("/topic/actionResponse", pca.createResponse());
+//        }
         // TODO: SendPlayer onVALID: hand
         //       SendPLayer onERROR:
 
@@ -59,7 +61,6 @@ public class GameController {
         //       Brodcast  onERROR: NOTHING
 
         return this.gson.toJson(response);
-//        return null;
     }
 
     /**

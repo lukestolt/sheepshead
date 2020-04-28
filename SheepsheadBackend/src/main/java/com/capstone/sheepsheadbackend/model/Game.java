@@ -73,7 +73,9 @@ public class Game {
                 } else {
                     // return new game state stuff
                     currentTrick.addCard(ret, p);
-//                    checkWonTrick();
+                    // testing
+                    Trick updatedTrick = checkWonTrick();
+                    ///
                     response = checkGameOver();
                     if(response == null) {
                         Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
@@ -82,8 +84,14 @@ public class Game {
                         String gameId = a.getGameId();
                         List<Card> cards = p.getHand().getCards();
                         String uuid = nextTurn.getUser().getUuid();
-                        List<Card> cards1 = currentTrick.getCards();
-                        response = new PlayCardResponse(playerId, gameId, cards, uuid, cards1);
+                        List<Card> trickCards;
+                        if(updatedTrick == null){
+                            trickCards = null;
+                        }
+                        else{
+                            trickCards = currentTrick.getCards();
+                        }
+                        response = new PlayCardResponse(playerId, gameId, cards, uuid, trickCards);
                     }
                 }
                 return response;
@@ -91,18 +99,15 @@ public class Game {
         return null;
     }
 
-    void checkWonTrick() {
-        boolean sameNumCards = false;
-        int numCardsInHand = players.get(0).getHand().getCards().size();
-        for(int i = 1; i < players.size(); i++) {
-            sameNumCards = numCardsInHand == players.get(i).getHand().getCards().size();
-        }
-        if(sameNumCards) {
+    Trick checkWonTrick() {
+        List<Card> currentTrickCards = currentTrick.getCards();
+        if(currentTrickCards.size() == this.MAX_PLAYERS){
             tricks.add(currentTrick);
-            // Could probably send back to users to show who won the trick
             Player p = currentTrick.getWinner();
+            this.getPlayer(p.getUser().getUuid()).wonTrick(currentTrick);
             currentTrick = null;
         }
+        return currentTrick;
     }
 
     AbstractResponse checkGameOver() {
