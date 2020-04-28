@@ -51,4 +51,8 @@ public class Trick {
         }
         return str.toString();
     }
+
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
 }

@@ -12,6 +12,7 @@ public class Player {
     public Player(User user) {
         this.user = user;
         tricks = new ArrayList<>();
+
     }
 
     public User getUser() {
@@ -36,7 +37,8 @@ public class Player {
         return user.toString();
     }
 
-    public Card playCard(Card card) {
+    public Card playCard(Card card, boolean followSuit) {
+        if(canFollowSuit(followSuit) && !sameSuit(followSuit, card)) return null;
         for(int i = 0; i < hand.getCards().size(); i++) {
             if(hand.getCards().get(i).equals(card)) {
                 // check followSuit
@@ -46,6 +48,20 @@ public class Player {
         }
         // if bad
         return null;
+    }
+
+    private boolean canFollowSuit(boolean followSuit) {
+        for(Card c: hand.getCards()) {
+            if (sameSuit(followSuit, c)) return true;
+        }
+        return false;
+    }
+
+    private boolean sameSuit(boolean followSuit, Card c) {
+        if(c.isTrumpSuit() && followSuit || !c.isTrumpSuit() && !followSuit) {
+            return true;
+        }
+        return false;
     }
 
     public int getScore() {
