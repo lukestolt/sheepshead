@@ -1,4 +1,4 @@
-package com.capstone.sheepsheadbackend.controller.game;
+package com.capstone.sheepsheadbackend.model.response;
 
 import com.capstone.sheepsheadbackend.model.Card;
 import com.capstone.sheepsheadbackend.model.Player;
@@ -15,7 +15,7 @@ public class PlayCardResponse extends AbstractResponse{
     Player nextTurn;
 
     public PlayCardResponse(String playerId, String gameId, List<Card> cards, Player nextTurn) {
-        super(playerId, gameId, "ERROR");
+        super(playerId, gameId, "validCard");
         this.playerId = playerId;
         this.gameId = gameId;
         this.cards = cards;

@@ -8,6 +8,7 @@ export class WebSocketApi {
     endpoint: string = '/ws';
     private stompClient: Stomp.Client;
     private gameInitTopic: string = '/topic/gameInit/';
+    private actionResponseTopic: string = '/topic/actionResponse'
     
     constructor(private gameService: GameService) { }
     /**
@@ -58,6 +59,21 @@ export class WebSocketApi {
         let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
         if(this.stompClient){
             this.stompClient.subscribe(this.gameInitTopic + playerId, (data) => {
+                console.log(data)
+                bs.next(data.body);
+            });
+        }
+        return bs.asObservable();
+    }
+
+    /**
+     *
+     * 
+     */
+    getActionResponse(): Observable<any>{
+        let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+        if(this.stompClient){
+            this.stompClient.subscribe(this.actionResponseTopic, (data) => {
                 console.log(data)
                 bs.next(data.body);
             });

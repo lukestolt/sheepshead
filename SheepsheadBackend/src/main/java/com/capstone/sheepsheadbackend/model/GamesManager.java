@@ -1,8 +1,8 @@
 package com.capstone.sheepsheadbackend.model;
 
-import com.capstone.sheepsheadbackend.controller.GameController;
-import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
+import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
 import com.capstone.sheepsheadbackend.model.actions.Action;
+import com.capstone.sheepsheadbackend.model.response.GameInitResponse;
 import com.google.gson.Gson;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
@@ -63,36 +63,41 @@ public class GamesManager {
                 for(int x = 0; x < players.size(); x++){
                     String playerId = players.get(x).getUser().getUuid();
                     List<Player> opps = this.getOpponents(g, playerId);
-                    List<String> names = new ArrayList<String>();
+                    List<String> oppIds = new ArrayList<>();
+                    List<String> names = new ArrayList<>();
                     opps.forEach(opp -> {
                         names.add(opp.getUser().getUsername());
                     });
-                    GameInitResponse gir = new GameInitResponse();
-                    gir.oppNames = names;
-                    gir.cards = g.getPlayerHand(playerId);
+                    opps.forEach(opp -> {
+                        oppIds.add(opp.getUser().getUuid());
+                    });
+                    GameInitResponse gir = new GameInitResponse(playerId,g.getUGID(),
+                            g.getPlayerHand(playerId), names, oppIds);
+//                    gir.setOppNames(names);
+//                    gir.setCards(g.getPlayerHand(playerId));
                     messageSender.convertAndSend("/topic/gameInit/" + playerId, gir);
                 }
 
             }
         }
     }
-    public class GameInitResponse{
-        public List<Card> cards;
-        public List<String> oppNames;
-    }
-
-    /**
-     * @param gameId
-     * @param playerId
-     * @return players hand, and whose turn it is
-     */
-//    public List<Card> getGameStartupData(String playerId){
-//        Game g = games.get(gameId);
-//        synchronized (g){
-//            List<Card> cards = g.getPlayerHand(playerId);
-//            return cards;
-//        }
+//    public class GameInitResponse{
+//        public List<Card> cards;
+//        public List<String> oppNames;
 //    }
+
+//    /**
+//     * @param gameId
+//     * @param playerId
+//     * @return players hand, and whose turn it is
+//     */
+////    public List<Card> getGameStartupData(String playerId){
+////        Game g = games.get(gameId);
+////        synchronized (g){
+////            List<Card> cards = g.getPlayerHand(playerId);
+////            return cards;
+////        }
+////    }
 
     public List<Player> getOpponents(Game g, String playerId){
 //        Game g = this.games.get(gameId);

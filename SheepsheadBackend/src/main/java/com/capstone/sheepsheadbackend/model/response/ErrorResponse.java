@@ -1,12 +1,12 @@
-package com.capstone.sheepsheadbackend.controller.game;
+package com.capstone.sheepsheadbackend.model.response;
 
 import com.google.gson.Gson;
 
 public class ErrorResponse extends AbstractResponse {
     private String message;
 
-    public ErrorResponse(String playerId, String gameId, String responseType, String message) {
-        super(playerId, gameId, responseType);
+    public ErrorResponse(String playerId, String gameId, String message) {
+        super(playerId, gameId, "ERROR");
         this.message = message;
     }
 

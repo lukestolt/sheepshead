@@ -48,29 +48,61 @@ export class GameComponent implements OnInit {
       console.log(info);
       if(info != null){
         let oppsNames = info.oppNames;
+        let oppIds = info.oppIds;
+
         this.opponents = [];
-        if(oppsNames != null){
+        if(oppsNames != null && oppIds != null){
           const names: string[] = oppsNames;
-          names.forEach(name => {
-            this.opponents.push(new Player('', name,null));
-          });
+          const ids: string[] = oppIds;
+          for(let i=0; i < oppsNames.length; i++){
+            console.log(i);
+            this.opponents.push(new Player(oppIds[i], names[i], null));
+          }
+          // names.forEach(name => {
+          //   this.opponents.push(new Player('', name,null));
+          // });
         }
   
         const cards: Card[] = info.cards;
-          if(cards){
-            this.curplayer.cards = cards;
-            this.opponents.forEach(opp => {
-              opp.numCards = cards.length;   
-            });
-          }
+        if(cards){
+          this.curplayer.cards = cards;
+          this.opponents.forEach(opp => {
+            opp.numCards = cards.length;   
+          });
+        }
             //TODO: get the player turn
           // this.curPlayerTurn = cardRes.turnPlayerId;
+        
 
-          console.log('Updated game');
+        console.log('Updated game');
       }
       
     });
     this.gameService.playerReady().subscribe(()=>{});
+    this.gameService.ws.getActionResponse().subscribe(info => {
+      console.log('broadcast parse')
+      if(info == null) return;
+      info = JSON.parse(info);
+
+      switch(info.responseType) {
+        case "ERROR":
+            console.log("ERROR");
+          break;
+        case "validCard":
+          // console.log("valid");
+          // console.log(this.opponents);
+          // console.log(this.curplayer.id);
+            this.opponents.forEach(opp => {
+              console.log(opp.id + "?=" + info.playerId);
+              if(info.playerId === opp.id) {
+                // console.log("found match");
+                opp.numCards--;
+              }
+            });
+          break;
+      }
+      // console.log(info);
+    });
 
     // tell the server that it has connected and that player is ready
   }

@@ -1,4 +1,4 @@
-package com.capstone.sheepsheadbackend.controller.game;
+package com.capstone.sheepsheadbackend.model.response;
 
 
 public abstract class AbstractResponse {

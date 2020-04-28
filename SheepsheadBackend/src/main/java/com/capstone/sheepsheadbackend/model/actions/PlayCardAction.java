@@ -3,8 +3,26 @@ package com.capstone.sheepsheadbackend.model.actions;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 
 public class PlayCardAction extends Action {
-    String suit;
-    String value;
+    private String suit;
+    private String value;
+
+    public PlayCardAction() {
+        super();
+    }
+
+    public void setSuit(String suit) {
+        this.suit = suit;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public PlayCardAction(String action, String playerId, String gameId, String suit, String value) {
+        super(action, playerId, gameId);
+        this.suit = suit;
+        this.value = value;
+    }
 
     public String getSuit() {
         return suit;

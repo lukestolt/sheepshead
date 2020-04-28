@@ -1,6 +1,7 @@
-package com.capstone.sheepsheadbackend.controller.game;
+package com.capstone.sheepsheadbackend.model.response;
 
 import com.capstone.sheepsheadbackend.model.Player;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ public class WinningGameResponse extends AbstractResponse {
     List<Integer> playerPoints;
     List<String> playerIds;
 
-    public WinningGameResponse(String playerId, String gameId, String responseType, Player winner, List<Integer> playerPoints, List<String> playerIds) {
-        super(playerId, gameId, responseType);
+    public WinningGameResponse(String playerId, String gameId, Player winner, List<Integer> playerPoints, List<String> playerIds) {
+        super(playerId, gameId, "winGame");
         this.winner = winner;
         this.playerPoints = playerPoints;
         this.playerIds = playerIds;
@@ -18,6 +19,6 @@ public class WinningGameResponse extends AbstractResponse {
 
     @Override
     public String createResponse() {
-        return null;
+        return new Gson().toJson(this);
     }
 }

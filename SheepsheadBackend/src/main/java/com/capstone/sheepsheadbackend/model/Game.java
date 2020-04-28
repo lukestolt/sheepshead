@@ -1,9 +1,9 @@
 package com.capstone.sheepsheadbackend.model;
 
-import com.capstone.sheepsheadbackend.controller.game.AbstractResponse;
-import com.capstone.sheepsheadbackend.controller.game.ErrorResponse;
-import com.capstone.sheepsheadbackend.controller.game.PlayCardResponse;
-import com.capstone.sheepsheadbackend.controller.game.WinningGameResponse;
+import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
+import com.capstone.sheepsheadbackend.model.response.ErrorResponse;
+import com.capstone.sheepsheadbackend.model.response.PlayCardResponse;
+import com.capstone.sheepsheadbackend.model.response.WinningGameResponse;
 import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
 import com.capstone.sheepsheadbackend.util.Util;
@@ -30,7 +30,6 @@ public class Game {
         MAX_PLAYERS = numPlayers;
         players = new ArrayList<>();
         tricks = new ArrayList<>();
-//        actions = new LinkedBlockingQueue<>();
     }
 
     public void addPlayer(Player player) {
@@ -69,7 +68,7 @@ public class Game {
                 Card ret = p.playCard(c, followSuit);
                 if(ret == null) {
                     // bad player needs to resend
-                    response = new ErrorResponse(a.getPlayerId(), a.getGameId(), "ERROR", "Invalid Card");
+                    response = new ErrorResponse(a.getPlayerId(), a.getGameId(), "ERROR");
                 } else {
                     // return new game state stuff
                     currentTrick.addCard(ret, p);
@@ -107,7 +106,7 @@ public class Game {
             Player p = getWinner();
             List<Integer> scores = players.stream().map(Player::getScore).collect(Collectors.toList());
             List<String> playerIds = players.stream().map(Player::getUser).map(User::getUuid).collect(Collectors.toList());
-            return new WinningGameResponse(p.getUser().getUuid(), ugid, "Winner", p, scores, playerIds);
+            return new WinningGameResponse(p.getUser().getUuid(), ugid, p, scores, playerIds);
         }
         return null;
     }
