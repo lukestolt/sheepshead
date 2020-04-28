@@ -9,7 +9,6 @@ import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
 import com.capstone.sheepsheadbackend.util.Util;
 
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 
 public class Game {
@@ -23,7 +22,8 @@ public class Game {
     private Trick currentTrick;
     private final int MAX_PLAYERS;
     private boolean start = false;
-//    private Queue<Action> actions;
+    private Player currentPlayer;
+    private boolean followSuit = false;
 
     public Game(int numPlayers) {
         ugid = UUID.randomUUID().toString();
@@ -63,8 +63,10 @@ public class Game {
                 Card c = p.getCard(pca.getSuit(), pca.getValue());
                 if(currentTrick == null) {
                     currentTrick = new Trick(MAX_PLAYERS);
+                    followSuit = c.isTrumpSuit();
+
                 }
-                Card ret = p.playCard(c);
+                Card ret = p.playCard(c, followSuit);
                 if(ret == null) {
                     // bad player needs to resend
                     response = new ErrorResponse(a.getPlayerId(), a.getGameId(), "ERROR", "Invalid Card");
