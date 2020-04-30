@@ -1,6 +1,7 @@
 package com.capstone.sheepsheadbackend.controller;
 
 import com.capstone.sheepsheadbackend.model.Card;
+import com.capstone.sheepsheadbackend.model.actions.BlindAction;
 import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.model.GamesManager;
@@ -41,11 +42,11 @@ public class GameController {
         if(response instanceof PlayCardResponse) {
             PlayCardResponse p = (PlayCardResponse)response;
             PlayCardResponse pca = new PlayCardResponse(response.playerId, response.gameId, null, p.getNextTurnId(), p.getTrick());
-            messageSender.convertAndSend("/topic/actionResponse", pca.createResponse());
+            messageSender.convertAndSend("/topic/actionResponse/" + response.gameId, pca.createResponse());
         }
         else if(response instanceof WinningGameResponse){
             WinningGameResponse wgr = (WinningGameResponse)response;
-            messageSender.convertAndSend("/topic/actionResponse", wgr.createResponse());
+            messageSender.convertAndSend("/topic/actionResponse/" + response.gameId, wgr.createResponse());
             // need to return the trick to the player still
             PlayCardResponse pcr = new PlayCardResponse(response.playerId, response.gameId, null, null, null);
             return pcr.createResponse();
@@ -74,6 +75,12 @@ public class GameController {
         return this.gson.toJson(response);
     }
 
+    @PostMapping("/blindAction")
+    public String blindAction(@RequestBody BlindAction action){
+        //TODO:
+        return null;
+    }
+
     /**
      * @return the gameId
      */
@@ -91,7 +98,6 @@ public class GameController {
      */
     @PostMapping("/playerReady")
     public void playerReady(@RequestBody String gId) {
-        System.out.println("Player Ready");
         this.gm.broadcastInitGameInfo(gId);
     }
 

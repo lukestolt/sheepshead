@@ -8,7 +8,7 @@ export class WebSocketApi {
     endpoint: string = '/ws';
     private stompClient: Stomp.Client;
     private gameInitTopic: string = '/topic/gameInit/';
-    private actionResponseTopic: string = '/topic/actionResponse'
+    private actionResponseTopic: string = '/topic/actionResponse/'
     
     constructor(private gameService: GameService) { }
     /**
@@ -72,8 +72,7 @@ export class WebSocketApi {
     getActionResponse(): Observable<any>{
         let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
         if(this.stompClient){
-            this.stompClient.subscribe(this.actionResponseTopic, (data) => {
-                console.log(data)
+            this.stompClient.subscribe(this.actionResponseTopic + this.gameService.getGameId() , (data) => {
                 bs.next(data.body);
             });
         }

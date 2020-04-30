@@ -11,7 +11,7 @@ import { GameSearchComponent } from './game-search/game-search.component';
 import { PlayerComponent } from './game/player/player.component';
 import { WinGameDialogComponent } from './win-game-dialog/win-game-dialog.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     NoopAnimationsModule,
     MatDialogModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

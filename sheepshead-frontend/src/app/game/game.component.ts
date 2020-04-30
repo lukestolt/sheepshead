@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { WinGameDialogComponent } from '../win-game-dialog/win-game-dialog.component';
 import { writeFile } from 'fs';
+import { Router } from '@angular/router';
 
 
 
@@ -42,8 +43,12 @@ export class GameComponent implements OnInit {
   private curPlayerTurn: string;    // id of the current player
   private gameId: string;
   private curTrick: Card[] = [];
+  private blind: Card[] = [];
 
-  constructor(private _playerService:PlayerDataService, private gameService:GameService, public dialog: MatDialog) {
+  constructor(private _playerService:PlayerDataService,
+     private gameService:GameService,
+      public dialog: MatDialog,
+      private route: Router) {
     this.curplayer = _playerService.player;
 
     /**
@@ -52,33 +57,50 @@ export class GameComponent implements OnInit {
     this.gameService.ws.getInitGameInfo(this.curplayer.id).subscribe(info => {
       info = JSON.parse(info);
       if(info != null){
-        let oppsNames = info.oppNames;
-        let oppIds = info.oppIds;
-        let curPl = info.startingPlayer;
+        switch(info.responseType){
+          case "gameInit":
+            let oppsNames = info.oppNames;
+            let oppIds = info.oppIds;
+            let curPl = info.startingPlayer;
 
-        this.curPlayerTurn = curPl;
-        if(this.curplayer.id === curPl) {
-          this.curplayer.isTurn = true;
-        } else {
-          this.curplayer.isTurn = false;
+            this.curPlayerTurn = curPl;
+            if(this.curplayer.id === curPl) {
+              this.curplayer.isTurn = true;
+            } else {
+              this.curplayer.isTurn = false;
+            }
+
+            this.opponents = [];
+            if(oppsNames != null && oppIds != null){
+              const names: string[] = oppsNames;
+              const ids: string[] = oppIds;          
+              for(let i=0; i < oppsNames.length; i++){
+                this.opponents.push(new Player(oppIds[i], names[i], null));
+              }
+            }
+      
+            const cards: Card[] = info.cards;
+            if(cards){
+              this.curplayer.cards = cards;
+              this.opponents.forEach(opp => {
+                opp.numCards = cards.length;   
+              });
+            }
+          break;
+
+          // Card[]
+          // picker
+          case "blindInfo":
+            if(this.curplayer.id === info.pickerId){
+              this.blind = info.blind;
+              // highlight the last two cards and show the accept decline ui
+            }
+            // highlight the cards in the trick should be the last two cards
+            info.trick
+          break;
         }
 
-        this.opponents = [];
-        if(oppsNames != null && oppIds != null){
-          const names: string[] = oppsNames;
-          const ids: string[] = oppIds;          
-          for(let i=0; i < oppsNames.length; i++){
-            this.opponents.push(new Player(oppIds[i], names[i], null));
-          }
-        }
-  
-        const cards: Card[] = info.cards;
-        if(cards){
-          this.curplayer.cards = cards;
-          this.opponents.forEach(opp => {
-            opp.numCards = cards.length;   
-          });
-        }
+        
       }
     });
     this.gameService.playerReady().subscribe(()=>{});
@@ -135,7 +157,6 @@ export class GameComponent implements OnInit {
         // find the person that played the card and reduce cards and put their card in trick pile
         for(let opp of this.opponents) {
           if(opp.id === pcr.playerId) {
-            console.log('updating ' + opp.id);
             opp.numCards = pcr.numCards;
             this.curTrick.push(new Card(pcr.suit,pcr.value));
             return;
@@ -152,21 +173,15 @@ export class GameComponent implements OnInit {
       data: data
     });
 
+    // navigate back to the home screen and tell the server to stop commincating
     dialogRef.afterClosed().subscribe(result => {
-     // navigate back to the home screen and tell the server to stop commincating
+      this.route.navigateByUrl('/home');
+     
     });
   }
 
   getCardName(card: Card): string {
     return this.gameService.getCardName(card);
-  }
-
-  private generateOpponentData(numPlayers: number):void {
-    this.opponents = [];
-    for(let x = 0; x < numPlayers; ++x) {
-      //TODO: hardcoded number of cards should no be hardcoded
-      this.opponents.push(new Player('randid' + x+2, ('p' + (x+2)), null,));
-    }
   }
 
   private isPlayerTurn(): boolean {

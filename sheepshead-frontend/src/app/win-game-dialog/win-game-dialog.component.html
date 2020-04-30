@@ -2,3 +2,4 @@
 <div *ngFor='let x of [].constructor(data.names.length); let i=index'>
     <h3>{{names[i]}}: {{points[i]}}</h3>
 </div> 
+<button mat-raised-button color="primary" (click)='onCloseClick()'>Close</button>
