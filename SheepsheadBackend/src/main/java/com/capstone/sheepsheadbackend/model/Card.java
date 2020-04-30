@@ -62,18 +62,18 @@ public class Card implements Comparable<Card> {
         CardSuit sB = CardSuit.fromStrSuit(card.suit);
 
         if(trumpA && trumpB) {
-            return compareCards(valA.getBiasedValue(), sA.getCardScore(),
-                    valB.getBiasedValue(), sB.getCardScore());
+            return compareCards(valA.getBiasedValue(), sA.getCardScore(), -1,
+                    valB.getBiasedValue(), sB.getCardScore(), -1);
         } else if(trumpA == false && trumpB == false) {
-            return compareCards(valA.getPointValue().getPointValue(), sA.getCardScore(),
-                    valB.getPointValue().getPointValue(), sB.getCardScore());
+            return compareCards(valA.getPointValue().getPointValue(), sA.getCardScore(), valA.getBiasedValue(),
+                    valB.getPointValue().getPointValue(), sB.getCardScore(), valB.getBiasedValue());
         } else {
             if(trumpA) return -1;
             else return 1;
         }
     }
 
-    private int compareCards(int cardAVal1, int cardAVal2, int cardBVal1, int cardBVal2) {
+    private int compareCards(int cardAVal1, int cardAVal2, int cardAVal3, int cardBVal1, int cardBVal2, int cardBVal3) {
         if(cardAVal1 > cardBVal1) {
             return -1;
         } else if(cardAVal1 < cardBVal1) {
@@ -84,7 +84,13 @@ public class Card implements Comparable<Card> {
             } else if(cardAVal2 < cardBVal2) {
                 return 1;
             } else {
-                throw new IllegalStateException("Literally Impossible!");
+                if(cardAVal3 > cardBVal3) {
+                    return -1;
+                } else if(cardAVal3 < cardBVal3){
+                    return 1;
+                } else {
+                    throw new IllegalStateException("Literally not possible");
+                }
             }
         }
     }
