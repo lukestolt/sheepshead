@@ -43,7 +43,6 @@ public class PlayCardResponse extends AbstractResponse{
 
     public String createResponse() {
         String s = new Gson().toJson(this);
-        System.out.println(s);
         return s;
     }
 }

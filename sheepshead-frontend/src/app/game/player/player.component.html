@@ -8,9 +8,9 @@
          *ngFor='let card of player.cards' 
          [ngClass]="card.isHovered ? 'cardSize hover': 'cardSize'"
          src={{getCardName(card)}}>
-    <div *ngIf='player.cards == null'>
+    <div *ngIf='player.cards == null && player.numCards != 0'>
         <img *ngFor='let i of [].constructor(player.numCards)'
               src='../assets/cards/green_back.png'
               class='cardSize'>
-    </div>
+    </div> 
 </div>

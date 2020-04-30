@@ -7,6 +7,9 @@ import { WebSocketApi } from '../web-socket/web-socket-api';
 import { take } from 'rxjs/operators';
 import { PlayerComponent } from './player/player.component';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { WinGameDialogComponent } from '../win-game-dialog/win-game-dialog.component';
+import { writeFile } from 'fs';
 
 
 
@@ -20,8 +23,11 @@ export interface PlayCardResponse extends Response{
   suit: string;
   value: string;
 }
-export interface testResponse extends Response{
 
+export interface WinGameResponse extends Response {
+  winnerName: string;
+  playerPoints: number[];
+  playerNames: string[];
 }
 
 @Component({
@@ -37,7 +43,7 @@ export class GameComponent implements OnInit {
   private gameId: string;
   private curTrick: Card[] = [];
 
-  constructor(private _playerService:PlayerDataService, private gameService:GameService) {
+  constructor(private _playerService:PlayerDataService, private gameService:GameService, public dialog: MatDialog) {
     this.curplayer = _playerService.player;
 
     /**
@@ -105,6 +111,14 @@ export class GameComponent implements OnInit {
             }
             this.curTrick = info.trick;
           break;
+        case 'winGame':
+            const wgr = info as WinGameResponse;
+            // this is workaround for the ui
+            this.curplayer.cards = [];
+            this.curplayer.isTurn =false;
+            const results = {winnerName: wgr.winnerName, names: wgr.playerNames, points: wgr.playerPoints};
+            this.openDialog(results);
+          break;
       }
     });
   }
@@ -113,9 +127,9 @@ export class GameComponent implements OnInit {
   }
 
   handleServerEvent(action: Response): void{
-    // console.log(action);
+    
     if(action) {
-      // check the discriminator property
+      // check the discriminator property 
       if(action.responseType === 'PlayCardResponse'){
         const pcr = action as PlayCardResponse
         // find the person that played the card and reduce cards and put their card in trick pile
@@ -129,6 +143,18 @@ export class GameComponent implements OnInit {
         }
       }
     }
+  }
+
+  openDialog(data: any): void {
+    const dialogRef = this.dialog.open(WinGameDialogComponent, {
+      width: '400px',
+      height: '300px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     // navigate back to the home screen and tell the server to stop commincating
+    });
   }
 
   getCardName(card: Card): string {

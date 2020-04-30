@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="19c6181d-27c8-415b-9388-01162fc8e581" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/SheepsheadDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/SheepsheadDeck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/response/PlayCardResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/response/PlayCardResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/response/WinningGameResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/response/WinningGameResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sheepshead-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../sheepshead-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/player/player.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/player/player.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/player/player.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../sheepshead-frontend/src/app/game/player/player.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +63,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1apCo4nCdNRRQyTsCJIobWXVhJJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,6 +83,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
@@ -96,12 +126,34 @@
       <updated>1587423319415</updated>
       <workItem from="1587423321319" duration="1362000" />
       <workItem from="1587426331029" duration="4000" />
-      <workItem from="1587864624124" duration="251000" />
+      <workItem from="1587864624124" duration="595000" />
+      <workItem from="1587909718780" duration="16621000" />
+      <workItem from="1587940389674" duration="6220000" />
+      <workItem from="1588021074069" duration="13281000" />
+      <workItem from="1588037813954" duration="241000" />
+      <workItem from="1588038514294" duration="642000" />
+      <workItem from="1588073551665" duration="2335000" />
+      <workItem from="1588096717801" duration="5581000" />
+      <workItem from="1588108420055" duration="3855000" />
+      <workItem from="1588131656840" duration="201000" />
+      <workItem from="1588184749256" duration="8150000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="416" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587864818105">
@@ -124,50 +176,58 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1010" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587852936095" />
+    <state width="477" height="506" key="DebuggerActiveHint" timestamp="1588111602535">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state width="477" height="506" key="DebuggerActiveHint/0.27.2560.1053@0.27.2560.1053" timestamp="1588111602535" />
     <state x="1060" y="280" key="FileChooserDialogImpl" timestamp="1587848151079">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1060" y="280" key="FileChooserDialogImpl/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587848151079" />
-    <state width="1521" height="272" key="GridCell.Tab.0.bottom" timestamp="1587864874897">
+    <state width="1812" height="272" key="GridCell.Tab.0.bottom" timestamp="1588207678213">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1521" height="272" key="GridCell.Tab.0.bottom/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874897" />
-    <state width="1521" height="272" key="GridCell.Tab.0.center" timestamp="1587864874897">
+    <state width="1812" height="272" key="GridCell.Tab.0.bottom/0.27.2560.1053@0.27.2560.1053" timestamp="1588207678213" />
+    <state width="1812" height="272" key="GridCell.Tab.0.center" timestamp="1588207678212">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1521" height="272" key="GridCell.Tab.0.center/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874897" />
-    <state width="1521" height="272" key="GridCell.Tab.0.left" timestamp="1587864874896">
+    <state width="1812" height="272" key="GridCell.Tab.0.center/0.27.2560.1053@0.27.2560.1053" timestamp="1588207678212" />
+    <state width="1812" height="272" key="GridCell.Tab.0.left" timestamp="1588207678212">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1521" height="272" key="GridCell.Tab.0.left/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874896" />
-    <state width="1521" height="272" key="GridCell.Tab.0.right" timestamp="1587864874897">
+    <state width="1812" height="272" key="GridCell.Tab.0.left/0.27.2560.1053@0.27.2560.1053" timestamp="1588207678212" />
+    <state width="1812" height="272" key="GridCell.Tab.0.right" timestamp="1588207678213">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state width="1235" height="282" key="GridCell.Tab.0.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1521" height="272" key="GridCell.Tab.0.right/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874897" />
-    <state width="1235" height="282" key="GridCell.Tab.1.bottom" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
-    </state>
-    <state width="1235" height="282" key="GridCell.Tab.1.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1235" height="282" key="GridCell.Tab.1.center" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
-    </state>
-    <state width="1235" height="282" key="GridCell.Tab.1.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1235" height="282" key="GridCell.Tab.1.left" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
-    </state>
-    <state width="1235" height="282" key="GridCell.Tab.1.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state width="1235" height="282" key="GridCell.Tab.1.right" timestamp="1587426290472">
-      <screen x="0" y="0" width="2560" height="1050" />
-    </state>
-    <state width="1235" height="282" key="GridCell.Tab.1.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
-    <state x="441" y="132" width="1024" height="845" key="SettingsEditor" timestamp="1587864874709">
+    <state width="1812" height="272" key="GridCell.Tab.0.right/0.27.2560.1053@0.27.2560.1053" timestamp="1588207678213" />
+    <state width="1812" height="336" key="GridCell.Tab.1.bottom" timestamp="1588200886816">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
-    <state x="441" y="132" width="1024" height="845" key="SettingsEditor/0.27.2560.1053@0.27.2560.1053" timestamp="1587864874709" />
+    <state width="1235" height="282" key="GridCell.Tab.1.bottom/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1812" height="336" key="GridCell.Tab.1.bottom/0.27.2560.1053@0.27.2560.1053" timestamp="1588200886816" />
+    <state width="1812" height="336" key="GridCell.Tab.1.center" timestamp="1588200886816">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.center/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1812" height="336" key="GridCell.Tab.1.center/0.27.2560.1053@0.27.2560.1053" timestamp="1588200886816" />
+    <state width="1812" height="336" key="GridCell.Tab.1.left" timestamp="1588200886816">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.left/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1812" height="336" key="GridCell.Tab.1.left/0.27.2560.1053@0.27.2560.1053" timestamp="1588200886816" />
+    <state width="1812" height="336" key="GridCell.Tab.1.right" timestamp="1588200886816">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state width="1235" height="282" key="GridCell.Tab.1.right/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587426290472" />
+    <state width="1812" height="336" key="GridCell.Tab.1.right/0.27.2560.1053@0.27.2560.1053" timestamp="1588200886816" />
+    <state x="441" y="132" width="1024" height="845" key="SettingsEditor" timestamp="1587909769499">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="441" y="132" width="1024" height="845" key="SettingsEditor/0.27.2560.1053@0.27.2560.1053" timestamp="1587909769499" />
     <state x="-7" y="0" width="1052" height="1057" key="dock-window-1" timestamp="1587838824449">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
@@ -180,5 +240,31 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1010" y="291" key="extract.method.dialog/0.0.2560.1050/2560.0.1920.1050@0.0.2560.1050" timestamp="1587844811742" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/GamesManager.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/Game.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/model/response/WinningGameResponse.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/capstone/sheepsheadbackend/controller/GameController.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

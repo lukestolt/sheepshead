@@ -18,7 +18,9 @@ public class SheepsheadDeck {
     }
 
     public static void deal(Game g) {
-        List<Card> deck = initDeck();
+        // TODO: remove this line to make the deck have the original size
+        List<Card> deck = initDeck().subList(0,8);
+//        List<Card> deck = initDeck();
         shuffle(deck);
         List<Card> newDeck = dealBlind(deck,g);
         dealHand(newDeck, g.getPlayers());

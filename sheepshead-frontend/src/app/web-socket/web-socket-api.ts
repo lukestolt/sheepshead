@@ -73,7 +73,7 @@ export class WebSocketApi {
         let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
         if(this.stompClient){
             this.stompClient.subscribe(this.actionResponseTopic, (data) => {
-                // console.log(data)
+                console.log(data)
                 bs.next(data.body);
             });
         }

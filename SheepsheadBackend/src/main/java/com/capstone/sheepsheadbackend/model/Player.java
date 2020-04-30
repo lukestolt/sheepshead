@@ -78,8 +78,4 @@ public class Player {
         }
         throw new IllegalStateException("Card not found in players hand");
     }
-
-//    public String getUpid() {
-//        return upid;
-//    }
 }

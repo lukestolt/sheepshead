@@ -110,6 +110,10 @@ public class Game {
         return currentTrick;
     }
 
+    /**
+     *
+     * @return AbstractResponse if the game if over or null if it isn't
+     */
     AbstractResponse checkGameOver() {
         boolean noCards = true;
         for(int i = 0; i < players.size(); i++) {
@@ -118,8 +122,8 @@ public class Game {
         if(noCards) {
             Player p = getWinner();
             List<Integer> scores = players.stream().map(Player::getScore).collect(Collectors.toList());
-            List<String> playerIds = players.stream().map(Player::getUser).map(User::getUuid).collect(Collectors.toList());
-            return new WinningGameResponse(p.getUser().getUuid(), ugid, p, scores, playerIds);
+            List<String> playerNames = players.stream().map(Player::getUser).map(User::getUsername).collect(Collectors.toList());
+            return new WinningGameResponse(p.getUser().getUuid(), this.ugid, p.getUser().getUsername(), scores, playerNames);
         }
         return null;
     }

@@ -1,15 +1,19 @@
 package com.capstone.sheepsheadbackend.controller;
 
+import com.capstone.sheepsheadbackend.model.Card;
 import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
 import com.capstone.sheepsheadbackend.model.response.ErrorResponse;
 import com.capstone.sheepsheadbackend.model.response.PlayCardResponse;
+import com.capstone.sheepsheadbackend.model.response.WinningGameResponse;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class GameController {
@@ -38,6 +42,13 @@ public class GameController {
             PlayCardResponse p = (PlayCardResponse)response;
             PlayCardResponse pca = new PlayCardResponse(response.playerId, response.gameId, null, p.getNextTurnId(), p.getTrick());
             messageSender.convertAndSend("/topic/actionResponse", pca.createResponse());
+        }
+        else if(response instanceof WinningGameResponse){
+            WinningGameResponse wgr = (WinningGameResponse)response;
+            messageSender.convertAndSend("/topic/actionResponse", wgr.createResponse());
+            // need to return the trick to the player still
+            PlayCardResponse pcr = new PlayCardResponse(response.playerId, response.gameId, null, null, null);
+            return pcr.createResponse();
         }
 
 //        SimpleCard actionCard = new SimpleCard(action.suit, action.value);

@@ -9,6 +9,9 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { GameSearchComponent } from './game-search/game-search.component';
 import { PlayerComponent } from './game/player/player.component';
+import { WinGameDialogComponent } from './win-game-dialog/win-game-dialog.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -16,15 +19,19 @@ import { PlayerComponent } from './game/player/player.component';
     GameComponent,
     HomeComponent,
     GameSearchComponent,
-    PlayerComponent
+    PlayerComponent,
+    WinGameDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NoopAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [WinGameDialogComponent]
 })
 export class AppModule { }
