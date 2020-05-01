@@ -22,12 +22,6 @@ public class SheepsheadBackendApplication {
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 
-		Card c = new Card("D", "7");
-		System.out.println(c.isTrumpSuit());
-
-
-
-
 		String ip = env.getProperty("server.address");
 		String url = "http://" + ip + ":4200";
 		return new WebMvcConfigurer() {

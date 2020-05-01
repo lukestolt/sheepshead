@@ -39,23 +39,69 @@ public class Player {
 
     public Card playCard(Card card, boolean followSuitTrump, String followSuit) {
         System.out.println("card: " + card.toString() + " followSuitTrump: " + followSuitTrump + " / followSuit: " + followSuit);
-        if(canFollowSuit(followSuitTrump, followSuit) && cardFollowsSuit(card, followSuitTrump, followSuit)) {
-            for (int i = 0; i < hand.getCards().size(); i++) {
-                if (hand.getCards().get(i).equals(card)) {
-                    // check followSuitTrump
-                    hand.getCards().remove(i);
-                    return card;
+        System.out.println(cardFollowsSuit(card, followSuitTrump, followSuit));
+
+        if(followSuitTrump){
+            if(hasTrump()) {
+                if(card.isTrumpSuit()) {
+                    for (int i = 0; i < hand.getCards().size(); i++) {
+                        if (hand.getCards().get(i).equals(card)) {
+                            // check followSuitTrump
+                            hand.getCards().remove(i);
+                            return card;
+                        }
+                    }
+                }
+                return null;
+            } else {
+                for (int i = 0; i < hand.getCards().size(); i++) {
+                    if (hand.getCards().get(i).equals(card)) {
+                        // check followSuitTrump
+                        hand.getCards().remove(i);
+                        return card;
+                    }
+                }
+            }
+        } else {
+            if(hasSuit(followSuit)) {
+                if(card.getSuit().equals(followSuit)) {
+                    for (int i = 0; i < hand.getCards().size(); i++) {
+                        if (hand.getCards().get(i).equals(card)) {
+                            // check followSuitTrump
+                            hand.getCards().remove(i);
+                            return card;
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < hand.getCards().size(); i++) {
+                    if (hand.getCards().get(i).equals(card)) {
+                        // check followSuitTrump
+                        hand.getCards().remove(i);
+                        return card;
+                    }
                 }
             }
         }
+
+//        if(canFollowSuit(followSuitTrump, followSuit) && cardFollowsSuit(card, followSuitTrump, followSuit)) {
+//            for (int i = 0; i < hand.getCards().size(); i++) {
+//                if (hand.getCards().get(i).equals(card)) {
+//                    // check followSuitTrump
+//                    hand.getCards().remove(i);
+//                    return card;
+//                }
+//            }
+//        }
         // if bad
         return null;
     }
 
     private boolean canFollowSuit(boolean followSuitTrump, String followSuit) {
         if(followSuitTrump) {
-            return hasTrump();
+            return true;
         } else {
+            if(hasTrump()) return true;
             return hasSuit(followSuit);
         }
     }
@@ -78,7 +124,6 @@ public class Player {
         if(followSuitTrump) {
             return c.isTrumpSuit();
         } else {
-            if(c.isTrumpSuit()) return true;
             return c.getSuit().equals(followSuit);
         }
     }
