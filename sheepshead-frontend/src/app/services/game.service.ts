@@ -21,6 +21,8 @@ export interface OpponentData{
     opponentNames: string[];
 }
 
+
+
 @Injectable({
     providedIn: 'root'
   })
@@ -53,7 +55,7 @@ export class GameService {
     stompConnect(): Observable<boolean> {
         const bs = new BehaviorSubject<boolean>(false);
         this.ws.connect().subscribe(connectionStatus => {
-            console.log(connectionStatus);
+            // console.log(connectionStatus);
             if(connectionStatus !== 'not connected'){
                 bs.next(true);
             }
@@ -103,11 +105,17 @@ export interface CardAction extends SheepsheadAction {
     suit: string;
     value: string
 }
+export interface BlindAction extends SheepsheadAction{
+    response: boolean;
+    burriedCards: Card[]
+}
 
 export interface SheepsheadAction {
     playerId: string;
     gameId: string;
 }
+
+
 
 export enum ActionType{
     PickBlind = "PickBlind",

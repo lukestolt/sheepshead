@@ -48,8 +48,15 @@ public class Game {
         if(!start) {
             start = true;
             SheepsheadDeck.deal(this);
+            // pick the player to get the blind?
             initDealer();
+//            dealBlind();
         }
+    }
+
+    private void dealBlind(){
+        List<Card> pickerCards = this.currentPlayer.getHand().getCards();
+        pickerCards.addAll(this.blind);
     }
 
     public boolean isGameReady(){

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { WinGameResponse } from '../game/game.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-win-game-dialog',
@@ -13,13 +14,14 @@ export class WinGameDialogComponent {
   winnerName: string;
 
   constructor(public dialogRef: MatDialogRef<WinGameDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router) {
       this.winnerName = data.winnerName;
       this.names = data.names;
       this.points = data.points;
     }
 
-    onNoClick(): void {
+    onCloseClick(): void {
       this.dialogRef.close();
     }
 

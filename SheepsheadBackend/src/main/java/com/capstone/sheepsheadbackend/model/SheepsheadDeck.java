@@ -22,6 +22,7 @@ public class SheepsheadDeck {
         List<Card> deck = initDeck().subList(0,8);
 //        List<Card> deck = initDeck();
         shuffle(deck);
+//        deck = deck.subList(0,8);
         List<Card> newDeck = dealBlind(deck,g);
         dealHand(newDeck, g.getPlayers());
     }
