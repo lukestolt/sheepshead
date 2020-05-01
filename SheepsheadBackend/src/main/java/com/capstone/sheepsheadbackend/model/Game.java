@@ -65,6 +65,7 @@ public class Game {
                 PlayCardAction pca = (PlayCardAction)a;
                 Player p = getPlayer(a.getPlayerId());
                 Card c = p.getCard(pca.getSuit(), pca.getValue());
+                System.out.println(c.isTrumpSuit());
                 if(currentTrick == null) {
                     currentTrick = new Trick(MAX_PLAYERS);
                     followSuitTrump = c.isTrumpSuit();
