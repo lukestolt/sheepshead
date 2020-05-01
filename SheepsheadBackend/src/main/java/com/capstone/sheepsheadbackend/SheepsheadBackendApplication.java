@@ -1,5 +1,6 @@
 package com.capstone.sheepsheadbackend;
 
+import com.capstone.sheepsheadbackend.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +21,12 @@ public class SheepsheadBackendApplication {
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
+
+		Card c = new Card("D", "7");
+		System.out.println(c.isTrumpSuit());
+
+
+
 
 		String ip = env.getProperty("server.address");
 		String url = "http://" + ip + ":4200";

@@ -37,31 +37,50 @@ public class Player {
         return user.toString();
     }
 
-    public Card playCard(Card card, boolean followSuit) {
-        if(canFollowSuit(followSuit) && !sameSuit(followSuit, card)) return null;
-        for(int i = 0; i < hand.getCards().size(); i++) {
-            if(hand.getCards().get(i).equals(card)) {
-                // check followSuit
-                hand.getCards().remove(i);
-                return card;
+    public Card playCard(Card card, boolean followSuitTrump, String followSuit) {
+        System.out.println("card: " + card.toString() + " followSuitTrump: " + followSuitTrump + " / followSuit: " + followSuit);
+        if(canFollowSuit(followSuitTrump, followSuit) && cardFollowsSuit(card, followSuitTrump, followSuit)) {
+            for (int i = 0; i < hand.getCards().size(); i++) {
+                if (hand.getCards().get(i).equals(card)) {
+                    // check followSuitTrump
+                    hand.getCards().remove(i);
+                    return card;
+                }
             }
         }
         // if bad
         return null;
     }
 
-    private boolean canFollowSuit(boolean followSuit) {
+    private boolean canFollowSuit(boolean followSuitTrump, String followSuit) {
+        if(followSuitTrump) {
+            return hasTrump();
+        } else {
+            return hasSuit(followSuit);
+        }
+    }
+
+    private boolean hasSuit(String suit) {
         for(Card c: hand.getCards()) {
-            if (sameSuit(followSuit, c)) return true;
+            if(c.getSuit().equals(suit)) return true;
         }
         return false;
     }
 
-    private boolean sameSuit(boolean followSuit, Card c) {
-        if(c.isTrumpSuit() && followSuit || !c.isTrumpSuit() && !followSuit) {
-            return true;
+    private boolean hasTrump() {
+        for(Card c: hand.getCards()) {
+            if(c.isTrumpSuit()) return true;
         }
         return false;
+    }
+
+    private boolean cardFollowsSuit(Card c, boolean followSuitTrump, String followSuit) {
+        if(followSuitTrump) {
+            return c.isTrumpSuit();
+        } else {
+            if(c.isTrumpSuit()) return true;
+            return c.getSuit().equals(followSuit);
+        }
     }
 
     public int getScore() {

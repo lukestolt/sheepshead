@@ -6,6 +6,8 @@ import com.capstone.sheepsheadbackend.model.response.PlayCardResponse;
 import com.capstone.sheepsheadbackend.model.response.WinningGameResponse;
 import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
+import com.capstone.sheepsheadbackend.util.CardSuit;
+import com.capstone.sheepsheadbackend.util.Pair;
 import com.capstone.sheepsheadbackend.util.Util;
 
 import java.util.*;
@@ -23,7 +25,9 @@ public class Game {
     private final int MAX_PLAYERS;
     private boolean start = false;
     private Player currentPlayer;
-    private boolean followSuit = false;
+
+    private boolean followSuitTrump = false;
+    private String followSuit = null;
 
     public Game(int numPlayers) {
         ugid = UUID.randomUUID().toString();
@@ -63,10 +67,10 @@ public class Game {
                 Card c = p.getCard(pca.getSuit(), pca.getValue());
                 if(currentTrick == null) {
                     currentTrick = new Trick(MAX_PLAYERS);
-                    followSuit = c.isTrumpSuit();
-
+                    followSuitTrump = c.isTrumpSuit();
+                    followSuit = c.getSuit();
                 }
-                Card ret = p.playCard(c, followSuit);
+                Card ret = p.playCard(c, followSuitTrump, followSuit);
                 if(ret == null) {
                     // bad player needs to resend
                     response = new ErrorResponse(a.getPlayerId(), a.getGameId(), "ERROR");
@@ -74,7 +78,7 @@ public class Game {
                     // return new game state stuff
                     currentTrick.addCard(ret, p);
                     // testing
-                    Trick updatedTrick = checkWonTrick();
+                    Pair<Player,Trick> updatedTrick = checkWonTrick();
                     ///
                     response = checkGameOver();
                     if(response == null) {
@@ -85,8 +89,10 @@ public class Game {
                         List<Card> cards = p.getHand().getCards();
                         String uuid = nextTurn.getUser().getUuid();
                         List<Card> trickCards;
-                        if(updatedTrick == null){
+                        if(updatedTrick.getV() == null){
                             trickCards = null;
+                            uuid = updatedTrick.getK().getUser().getUuid();
+                            System.out.println(updatedTrick.getK().getUser().getUsername());
                         }
                         else{
                             trickCards = currentTrick.getCards();
@@ -99,15 +105,16 @@ public class Game {
         return null;
     }
 
-    Trick checkWonTrick() {
+    Pair<Player, Trick> checkWonTrick() {
         List<Card> currentTrickCards = currentTrick.getCards();
+        Player p = null;
         if(currentTrickCards.size() == this.MAX_PLAYERS){
             tricks.add(currentTrick);
-            Player p = currentTrick.getWinner();
+            p = currentTrick.getWinner();
             this.getPlayer(p.getUser().getUuid()).wonTrick(currentTrick);
             currentTrick = null;
         }
-        return currentTrick;
+        return new Pair<Player, Trick>(p, currentTrick);
     }
 
     /**
@@ -140,9 +147,9 @@ public class Game {
 
     private Player getPlayer(String playerId) {
         synchronized (players){
-            System.out.println(this.players.size());
+//            System.out.println(this.players.size());
             for(Player p: players) {
-                System.out.println(p.getUser().getUuid());
+//                System.out.println(p.getUser().getUuid());
                 if(p.getUser().getUuid().equals(playerId)) return p;
             }
             // Player ID doesn't exist
@@ -173,7 +180,7 @@ public class Game {
 //        System.out.println();
         dealer = players.get(x);
         currentPlayer = players.get(nextPlayer(x));
-        System.out.println(currentPlayer.getUser().getUuid());
+//        System.out.println(currentPlayer.getUser().getUuid());
     }
 
     public Player getPicker() {
