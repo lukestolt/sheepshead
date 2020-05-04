@@ -101,16 +101,18 @@ export class GameService {
 }
 
 export interface CardAction extends SheepsheadAction {
-    action: ActionType
     suit: string;
     value: string
 }
+/**
+ * burriedCards will be null inthe case that is is a PassBlind
+ */
 export interface BlindAction extends SheepsheadAction{
-    response: boolean;
     burriedCards: Card[]
 }
 
 export interface SheepsheadAction {
+    action: String;
     playerId: string;
     gameId: string;
 }

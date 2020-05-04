@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Card } from '../models/card';
 import { Player } from '../models/player';
 import { PlayerDataService } from '../services/player-data.service';
-import { GameService } from '../services/game.service';
+import { GameService, SheepsheadAction, BlindAction, ActionType } from '../services/game.service';
 import { WebSocketApi } from '../web-socket/web-socket-api';
 import { take } from 'rxjs/operators';
 import { PlayerComponent } from './player/player.component';
@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { WinGameDialogComponent } from '../win-game-dialog/win-game-dialog.component';
 import { writeFile } from 'fs';
 import { Router } from '@angular/router';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 
 
@@ -37,13 +38,13 @@ export interface WinGameResponse extends Response {
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit {
+export class GameComponent {
   private opponents: Player[];
   private curplayer: Player;
   private curPlayerTurn: string;    // id of the current player
   private gameId: string;
   private curTrick: Card[] = [];
-  private blind: Card[] = [];
+  private isBlindState: boolean = true;
 
   constructor(private _playerService:PlayerDataService,
      private gameService:GameService,
@@ -87,17 +88,16 @@ export class GameComponent implements OnInit {
               });
             }
           break;
-
-          // Card[]
-          // picker
-          case "blindInfo":
-            if(this.curplayer.id === info.pickerId){
-              this.blind = info.blind;
-              // highlight the last two cards and show the accept decline ui
-            }
-            // highlight the cards in the trick should be the last two cards
-            info.trick
-          break;
+          // // Card[]
+          // // picker
+          // case "blindInfo":
+          //   if(this.curplayer.id === info.pickerId){
+          //     this.blind = info.blind;
+          //     // highlight the last two cards and show the accept decline ui
+          //   }
+          //   // highlight the cards in the trick should be the last two cards
+          //   info.trick
+          // break;
         }
 
         
@@ -123,14 +123,7 @@ export class GameComponent implements OnInit {
                 opp.numCards--;
               }
             });
-            let nextId = info.nextTurnId;
-            this.curPlayerTurn = nextId;
-            console.log('next persons turn = ' + nextId);
-            if(this.curplayer.id === nextId) {
-              this.curplayer.isTurn = true;
-            } else {
-              this.curplayer.isTurn = false;
-            }
+            this.setPlayerTurn(info.nextTurnId);
             this.curTrick = info.trick;
           break;
         case 'winGame':
@@ -141,11 +134,46 @@ export class GameComponent implements OnInit {
             const results = {winnerName: wgr.winnerName, names: wgr.playerNames, points: wgr.playerPoints};
             this.openDialog(results);
           break;
+        // should contain whose turn it is
+        case 'pickBlind':
+          this.setPlayerTurn(info.nextTurnId);
+          this.isBlindState = false;
+          break;
       }
     });
   }
 
-  ngOnInit() {
+  clickAccept(): void{
+    // TODO: send real cards
+    console.log(ActionType.PickBlind.toString());
+    const a: BlindAction = { action: ActionType.PickBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: []};
+    this.gameService.sendPlayerAction(a).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  clickPass(): void {
+  const a: BlindAction = { action: ActionType.PassBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: null};
+  this.gameService.sendPlayerAction(a).subscribe(result => {
+    console.log(result);
+  });
+  }
+
+  setPlayerTurn(playerId: string): void {
+    this.opponents.forEach(opp => {
+      if(playerId === opp.id) {
+        opp.isTurn = true;
+      }
+    });
+
+    this.curPlayerTurn = playerId;
+
+    console.log('next persons turn = ' + playerId);
+    if(this.curplayer.id === playerId) {
+      this.curplayer.isTurn = true;
+    } else {
+      this.curplayer.isTurn = false;
+    }
   }
 
   handleServerEvent(action: Response): void{

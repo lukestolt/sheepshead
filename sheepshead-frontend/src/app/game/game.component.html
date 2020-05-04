@@ -2,7 +2,12 @@
 
 
 <app-player *ngFor='let player of opponents' [player]='player'></app-player>
-<app-player [gameId]='gameId' [player]='curplayer'></app-player>
+<app-player [gameId]='gameId' [player]='curplayer' [isBlindState]='isBlindState'></app-player>
+<div *ngIf="curplayer.isTurn && isBlindState === true">
+    <p>If accepting the blind, pick two cards and hit AcceptBlind</p>
+    <button mat-raised-button color="primary" class='blindButton' (click)='clickAccept()'>Accept Blind</button>
+    <button mat-raised-button color="primary" class='blindButton' (click)='clickPass()'>Pass Blind</button>
+</div>
 <br>
 <br>
 <!-- this is temp and should be removed -->

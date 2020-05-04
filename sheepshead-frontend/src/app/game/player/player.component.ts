@@ -14,6 +14,8 @@ export class PlayerComponent{
 
   @Input() player: Player;
   @Input() gameId: string;
+  @Input() isBlindState: boolean;
+  blindCards: Card[] = [];
   curPlayerId: String;
 
   constructor(private gameService:GameService) {
@@ -24,23 +26,50 @@ export class PlayerComponent{
     return this.gameService.getCardName(card);
   }
 
+
+  /**
+   * can send card played action or a blind accept or decline
+   * @param clickedCard 
+   */
   cardClick(clickedCard: Card): void {
     if(this.player.isTurn) {
-      const action:CardAction = {action: ActionType.PlayCard,playerId: this.player.id, gameId: this.gameService.getGameId(), suit: clickedCard.suit, value: clickedCard.value};
-      // the game service should have the ws
-      this.gameService.sendPlayerAction(action).subscribe(result => {
-        if(result && result.responseType !== 'ERROR'){
-          this.player.cards = result.cards
-          //tODO: show a message telling the user to play the correct type
+      if(this.isBlindState){
+        // if have too many cards selected for blind remove the first one selected
+        if(this.blindCards.length >= 2){
+          // ignore the clicked card if it is already in the array
+          if(clickedCard === this.blindCards[1] || clickedCard === this.blindCards[0])
+            return;
+          const tmp = this.blindCards[1];
+          this.blindCards[0] = tmp;
+          this.blindCards[1] = clickedCard;
+        } else {
+          this.blindCards.push(clickedCard);
         }
-        
-      });
+      }
+      // playing the game state
+      else 
+      {
+        const action:CardAction = {action: ActionType.PlayCard,playerId: this.player.id,
+                                   gameId: this.gameService.getGameId(), suit: clickedCard.suit,
+                                   value: clickedCard.value};
+        this.gameService.sendPlayerAction(action).subscribe(result => {
+          if(result && result.responseType !== 'ERROR'){
+            this.player.cards = result.cards
+            //TODO: show a message telling the user to play the correct type
+          }
+        });
+      }      
     } 
+  }
+
+  isBelongToBlind(c: Card): boolean {
+    return (c === this.blindCards[0] || c === this.blindCards[1]);
   }
 
   cardMouseHover(card: Card) {
     card.isHovered = true;
   }
+
   cardMouseOut(card: Card) {
     card.isHovered = false;
   }

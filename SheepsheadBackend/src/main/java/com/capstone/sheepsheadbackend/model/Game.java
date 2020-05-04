@@ -1,12 +1,9 @@
 package com.capstone.sheepsheadbackend.model;
 
-import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
-import com.capstone.sheepsheadbackend.model.response.ErrorResponse;
-import com.capstone.sheepsheadbackend.model.response.PlayCardResponse;
-import com.capstone.sheepsheadbackend.model.response.WinningGameResponse;
+import com.capstone.sheepsheadbackend.model.actions.BlindAction;
+import com.capstone.sheepsheadbackend.model.response.*;
 import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
-import com.capstone.sheepsheadbackend.util.CardSuit;
 import com.capstone.sheepsheadbackend.util.Pair;
 import com.capstone.sheepsheadbackend.util.Util;
 
@@ -50,12 +47,13 @@ public class Game {
             SheepsheadDeck.deal(this);
             // pick the player to get the blind?
             initDealer();
-//            dealBlind();
+            dealBlind();
         }
     }
 
     private void dealBlind(){
         List<Card> pickerCards = this.currentPlayer.getHand().getCards();
+        // adds the blind to the end of the hand
         pickerCards.addAll(this.blind);
     }
 
@@ -67,29 +65,29 @@ public class Game {
     // return trick,
     public AbstractResponse performAction(Action a) {
         switch(a.getAction()) {
-            case "PlayCard":
+            case "PlayCard": {
                 AbstractResponse response;
-                PlayCardAction pca = (PlayCardAction)a;
+                PlayCardAction pca = (PlayCardAction) a;
                 Player p = getPlayer(a.getPlayerId());
                 Card c = p.getCard(pca.getSuit(), pca.getValue());
                 System.out.println(c.isTrumpSuit());
-                if(currentTrick == null) {
+                if (currentTrick == null) {
                     currentTrick = new Trick(MAX_PLAYERS);
                     followSuitTrump = c.isTrumpSuit();
                     followSuit = c.getSuit();
                 }
                 Card ret = p.playCard(c, followSuitTrump, followSuit);
-                if(ret == null) {
+                if (ret == null) {
                     // bad player needs to resend
                     response = new ErrorResponse(a.getPlayerId(), a.getGameId(), "ERROR");
                 } else {
                     // return new game state stuff
                     currentTrick.addCard(ret, p);
                     // testing
-                    Pair<Player,Trick> updatedTrick = checkWonTrick();
+                    Pair<Player, Trick> updatedTrick = checkWonTrick();
                     ///
                     response = checkGameOver();
-                    if(response == null) {
+                    if (response == null) {
                         Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
                         currentPlayer = nextTurn;
                         String playerId = a.getPlayerId();
@@ -97,18 +95,39 @@ public class Game {
                         List<Card> cards = p.getHand().getCards();
                         String uuid = nextTurn.getUser().getUuid();
                         List<Card> trickCards;
-                        if(updatedTrick.getV() == null){
+                        if (updatedTrick.getV() == null) {
                             trickCards = null;
                             uuid = updatedTrick.getK().getUser().getUuid();
                             System.out.println(updatedTrick.getK().getUser().getUsername());
-                        }
-                        else{
+                        } else {
                             trickCards = currentTrick.getCards();
                         }
                         response = new PlayCardResponse(playerId, gameId, cards, uuid, trickCards);
                     }
                 }
                 return response;
+            }
+            case "PickBlind": {
+                BlindAction pba = (BlindAction) a;
+                Player p = getPlayer(a.getPlayerId());
+                Player newP = this.getPlayer(a.getPlayerId());
+                Trick blindTrick = new Trick(MAX_PLAYERS);
+                blindTrick.addCard(pba.burriedCards[0], newP);
+                blindTrick.addCard(pba.burriedCards[1], newP);
+                this.tricks.add(blindTrick);
+                Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
+                currentPlayer = nextTurn;
+                return new PickBlindResponse(pba.getPlayerId(), pba.getGameId(), nextTurn.getUser().getUuid());
+            }
+             // in the future can look into forcing player to take the blind
+            case "PassBlind": {
+                Player p = getPlayer(a.getPlayerId());
+                Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
+                currentPlayer = nextTurn;
+                return new PassBlindResponse(a.getPlayerId(), a.getGameId(), nextTurn.getUser().getUuid());
+            }
+            default:
+                break;
         }
         return null;
     }

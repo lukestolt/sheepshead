@@ -32,6 +32,10 @@ public class Player {
         score += trick.getScore();
     }
 
+    public void burryCards(Card[] cards){
+
+    }
+
     @Override
     public String toString() {
         return user.toString();

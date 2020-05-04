@@ -1,20 +1,13 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.Card;
-import com.capstone.sheepsheadbackend.model.actions.BlindAction;
-import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
+import com.capstone.sheepsheadbackend.model.response.*;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
-import com.capstone.sheepsheadbackend.model.response.ErrorResponse;
-import com.capstone.sheepsheadbackend.model.response.PlayCardResponse;
-import com.capstone.sheepsheadbackend.model.response.WinningGameResponse;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 public class GameController {
@@ -38,7 +31,6 @@ public class GameController {
         // the game logic should be here to create the response
 
         AbstractResponse response = gm.addAction(action);
-//        PlayCardResponse pca = null;
         if(response instanceof PlayCardResponse) {
             PlayCardResponse p = (PlayCardResponse)response;
             PlayCardResponse pca = new PlayCardResponse(response.playerId, response.gameId, null, p.getNextTurnId(), p.getTrick());
@@ -51,34 +43,15 @@ public class GameController {
             PlayCardResponse pcr = new PlayCardResponse(response.playerId, response.gameId, null, null, null);
             return pcr.createResponse();
         }
+        else if(response instanceof PassBlindResponse){
+            PassBlindResponse pbr = (PassBlindResponse) response;
+            messageSender.convertAndSend("/topic/actionResponse/" + response.gameId, pbr.createResponse());
 
-//        SimpleCard actionCard = new SimpleCard(action.suit, action.value);
-        //TODO: this should be removed when game logic integrated
-//        cards.remove(actionCard);
-//        PlayCardResponse res = new PlayCardResponse("p2", action.gameId, this.cards.toArray());
-//        System.out.println(response.createResponse());
-//        AbstractResponse broadcastResponse = response;
-//        if(broadcastResponse instanceof PlayCardResponse) {
-//            PlayCardResponse pcp = (PlayCardResponse)broadcastResponse;
-//            pcp.setCards(null);
-//            broadcastResponse = pcp;
-//        }
-//        if(pca != null) {
-//            messageSender.convertAndSend("/topic/actionResponse", pca.createResponse());
-//        }
-        // TODO: SendPlayer onVALID: hand
-        //       SendPLayer onERROR:
-
-        // TODO: Broadcast onVALID: send the updated current trick, playerId of card player, hand size of card player
-        //       Brodcast  onERROR: NOTHING
-
-        return this.gson.toJson(response);
-    }
-
-    @PostMapping("/blindAction")
-    public String blindAction(@RequestBody BlindAction action){
-        //TODO:
-        return null;
+        } else if(response instanceof PickBlindResponse) {
+            PickBlindResponse pbr = (PickBlindResponse) response;
+            messageSender.convertAndSend("/topic/actionResponse/" + response.gameId, pbr.createResponse());
+        }
+        return response.createResponse();
     }
 
     /**

@@ -5,8 +5,8 @@
     <img (click)='cardClick(card)'
          (mouseover)='cardMouseHover(card)'
          (mouseout)='cardMouseOut(card)'
-         *ngFor='let card of player.cards' 
-         [ngClass]="card.isHovered ? 'cardSize hover': 'cardSize'"
+         *ngFor='let card of player.cards'
+         [ngClass]="card.isHovered || isBelongToBlind(card) ? 'cardSize hover': 'cardSize'"
          src={{getCardName(card)}}>
     <div *ngIf='player.cards == null && player.numCards != 0'>
         <img *ngFor='let i of [].constructor(player.numCards)'

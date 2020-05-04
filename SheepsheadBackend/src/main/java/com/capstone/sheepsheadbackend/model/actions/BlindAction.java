@@ -1,23 +1,18 @@
 package com.capstone.sheepsheadbackend.model.actions;
-
 import com.capstone.sheepsheadbackend.model.Card;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 
-import java.util.List;
+public class BlindAction extends Action {
+    // should only be the size of 2 since the game only allows 3 players
+    public Card[] burriedCards;
 
-public class BlindAction extends Action{
-    boolean isAcceptBlind;
-    // null if declined or of size 2 if accepted
-    Card[] buriedCards;
-
-    public BlindAction( String gameId, String playerId, boolean acceptBlind, Card[] buriedCards){
-        super("BlindAction", gameId,playerId);
-        this.isAcceptBlind = acceptBlind;
-        this.buriedCards = buriedCards;
+    public BlindAction(String gameId, String playerId, String actionType, Card[] burriedCards){
+        super(actionType, gameId, playerId);
+        this.burriedCards = burriedCards;
     }
 
     @Override
     public void perform(GamesManager gm) {
-
+        gm.addAction(this);
     }
 }
