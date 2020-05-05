@@ -124,7 +124,10 @@ public class GamesManager {
     public AbstractResponse addAction(Action action) {
         Game g = games.get(action.getGameId());
         synchronized (g) {
-            return g.performAction(action);
+            AbstractResponse a = g.performAction(action);
+            // broadcast the trick information
+            messageSender.convertAndSend("/topic/trickResponse/" + g.getUGID(), this.gson.toJson(g.getGameTrickData()));
+            return a;
         }
     }
 

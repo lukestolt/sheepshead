@@ -25,12 +25,10 @@ export class GameSearchComponent implements OnInit {
     this.gameService.findGame(this.pds.player.id, this.pds.player.name, this.numPlayersSelected).subscribe(res => {
       
       if(res == true) {
-        console.log('found game');
         // stompConnect returns true or false
         this.gameService.stompConnect().subscribe((status) => {
           if(status == true){
-            console.log('stomp Connected')
-                this._router.navigateByUrl('/game');
+              this._router.navigateByUrl('/game');
           }
         });       
       }

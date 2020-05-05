@@ -24,6 +24,7 @@ public class Player {
     public Hand getHand() {
         return hand;
     }
+    public int getNumTricks(){return this.tricks.size();};
 
     public void setHand(Hand hand) {
         this.hand = hand;
@@ -52,10 +53,14 @@ public class Player {
 
     /**
      * removes the burried cards from the players hand
-     * @param cards
+     * @param trick
      * @return the new hand of the player
      */
-    public List<Card> burryCards(List<Card> cards){
+    public List<Card> burryCards(Trick trick){
+        this.wonTrick(trick);
+        // remove the cards from the players hand
+        List<Card> cards = trick.getCards();
+        // could replace with remove blind
         List<Card> playerCards = this.getHand().getCards();
         ListIterator<Card> iterator = playerCards.listIterator();
         while(iterator.hasNext()){
@@ -73,8 +78,6 @@ public class Player {
     }
 
     public Card playCard(Card card, boolean followSuitTrump, String followSuit) {
-        System.out.println("card: " + card.toString() + " followSuitTrump: " + followSuitTrump + " / followSuit: " + followSuit);
-        System.out.println(cardFollowsSuit(card, followSuitTrump, followSuit));
 
         if(followSuitTrump){
             if(hasTrump()) {

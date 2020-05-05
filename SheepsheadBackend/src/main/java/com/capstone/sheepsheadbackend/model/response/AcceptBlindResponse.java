@@ -6,9 +6,19 @@ import com.google.gson.Gson;
 import java.util.List;
 
 public class AcceptBlindResponse extends AbstractResponse{
+    public String getPickerName() {
+        return pickerName;
+    }
 
-    public AcceptBlindResponse(String playerId, String gameId){
+    public void setPickerName(String pickerName) {
+        this.pickerName = pickerName;
+    }
+
+    String pickerName;
+
+    public AcceptBlindResponse(String playerId, String gameId, String pickerName){
         super(playerId, gameId, "blindAccepted");
+        this.pickerName = pickerName;
     }
 
     @Override

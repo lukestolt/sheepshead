@@ -69,7 +69,6 @@ public class Game {
                 PlayCardAction pca = (PlayCardAction) a;
                 Player p = getPlayer(a.getPlayerId());
                 Card c = p.getCard(pca.getSuit(), pca.getValue());
-                System.out.println(c.isTrumpSuit());
                 if (currentTrick == null) {
                     currentTrick = new Trick(MAX_PLAYERS);
                     followSuitTrump = c.isTrumpSuit();
@@ -97,7 +96,6 @@ public class Game {
                         if (updatedTrick.getV() == null) {
                             trickCards = null;
                             uuid = updatedTrick.getK().getUser().getUuid();
-                            System.out.println(updatedTrick.getK().getUser().getUsername());
                         } else {
                             trickCards = currentTrick.getCards();
                         }
@@ -109,14 +107,15 @@ public class Game {
             case "PickBlind": {
                 BlindAction pba = (BlindAction) a;
                 Player p = getPlayer(a.getPlayerId());
+                this.picker = p;
                 Trick blindTrick = new Trick(MAX_PLAYERS);
                 blindTrick.addCard(pba.cards[0], p);
                 blindTrick.addCard(pba.cards[1], p);
-                this.tricks.add(blindTrick);
-                List<Card> cs = p.burryCards(blindTrick.getCards());
+//                this.tricks.add(blindTrick);
+                List<Card> cs = p.burryCards(blindTrick);
                 Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
                 currentPlayer = nextTurn;
-                return new AcceptBlindResponse(pba.getPlayerId(), pba.getGameId());
+                return new AcceptBlindResponse(pba.getPlayerId(), pba.getGameId(), p.getUser().getUsername());
             }
              // in the future can look into forcing player to take the blind
             case "PassBlind": {
@@ -128,8 +127,6 @@ public class Game {
                 // give the next person the blind
                 nextTurn.giveBlind(this.blind);
                 currentPlayer = nextTurn;
-//                return new BlindResponse(a.getPlayerId(), a.getGameId(), nextTurn.getUser().getUuid(),
-//                                             p.getHand().getCards());
             }
             default:
                 break;
@@ -147,6 +144,16 @@ public class Game {
             currentTrick = null;
         }
         return new Pair<Player, Trick>(p, currentTrick);
+    }
+
+    public List<Pair<String,Integer>> getGameTrickData() {
+        // get the size off the tricks each player has
+        // return array of playerid and tricknumber
+        List<Pair<String,Integer>> data = new ArrayList<Pair<String,Integer>>();
+        this.players.forEach(p -> {
+            data.add(new Pair(p.getUser().getUuid(), p.getNumTricks()));
+        });
+        return data;
     }
 
     /**
@@ -179,9 +186,7 @@ public class Game {
 
     private Player getPlayer(String playerId) {
         synchronized (players){
-//            System.out.println(this.players.size());
             for(Player p: players) {
-//                System.out.println(p.getUser().getUuid());
                 if(p.getUser().getUuid().equals(playerId)) return p;
             }
             // Player ID doesn't exist
@@ -208,11 +213,8 @@ public class Game {
 
     public void initDealer() {
         int x = Util.getRandomIntBound(MAX_PLAYERS);
-//        System.out.println("Dealer is Player: " + x);
-//        System.out.println();
         dealer = players.get(x);
         currentPlayer = players.get(nextPlayer(x));
-//        System.out.println(currentPlayer.getUser().getUuid());
     }
 
     public Player getPicker() {
@@ -222,12 +224,8 @@ public class Game {
 //        int ind = nextPlayer(players.indexOf(dealer));
 //        int cnt = 0;
 //        for(int i = ind; cnt < MAX_PLAYERS; i = nextPlayer(i)) {
-//            System.out.println(players.get(i).getHand().toString());
-//            System.out.println("Become Picker (y/n)?");
 //            String inp = sc.nextLine();
 //            if(inp.equals("y")) {
-//                System.out.println();
-//                System.out.println("Player: " + players.get(i).getUser().toString() + " is Picker");
 //                Trick t = new Trick(MAX_PLAYERS);
 //                for(int j = 0; j < blind.size(); j++) {
 //                    t.addCard(blind.get(i), players.get(i));
@@ -238,7 +236,6 @@ public class Game {
 //            cnt++;
 //        }
 //        // Default to left of dealer
-//        System.out.println("Player: " + players.get(players.indexOf(dealer)).getUser().toString() + " is Picker");
 //        return players.get(nextPlayer(players.indexOf(dealer)));
         return null;
     }

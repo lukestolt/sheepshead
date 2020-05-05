@@ -37,7 +37,6 @@ public class Trick {
                 max = cp;
             }
         }
-        max.getV().wonTrick(this);
         return max.getV();
     }
 

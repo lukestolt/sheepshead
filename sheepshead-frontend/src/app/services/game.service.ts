@@ -57,7 +57,6 @@ export class GameService {
     stompConnect(): Observable<boolean> {
         const bs = new BehaviorSubject<boolean>(false);
         this.ws.connect().subscribe(connectionStatus => {
-            // console.log(connectionStatus);
             if(connectionStatus !== 'not connected'){
                 bs.next(true);
             }

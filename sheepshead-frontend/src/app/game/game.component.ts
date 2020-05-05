@@ -3,15 +3,9 @@ import { Card } from '../models/card';
 import { Player } from '../models/player';
 import { PlayerDataService } from '../services/player-data.service';
 import { GameService, SheepsheadAction, BlindAction, ActionType } from '../services/game.service';
-import { WebSocketApi } from '../web-socket/web-socket-api';
-import { take } from 'rxjs/operators';
-import { PlayerComponent } from './player/player.component';
-import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { WinGameDialogComponent } from '../win-game-dialog/win-game-dialog.component';
-import { writeFile } from 'fs';
 import { Router } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 
 
@@ -46,6 +40,7 @@ export class GameComponent {
   private curTrick: Card[] = [];
   private isBlindState: boolean = true;
   private burriedCards: Card[];
+  private pickerName: string;
 
   constructor(private _playerService:PlayerDataService,
      private gameService:GameService,
@@ -96,8 +91,14 @@ export class GameComponent {
             }
           break;
         }
+      }
+    });
 
-        
+    // sending [] of pairs<string, number>
+    this.gameService.ws.getTrickResponse().subscribe(data => {
+      if(data != null){
+        data = JSON.parse(data);
+        this.setPlayersTricks(data);
       }
     });
     this.gameService.playerReady().subscribe(()=>{});
@@ -128,33 +129,47 @@ export class GameComponent {
             // this is workaround for the ui
             this.curplayer.cards = [];
             this.curplayer.isTurn =false;
-            const results = {winnerName: wgr.winnerName, names: wgr.playerNames, points: wgr.playerPoints};
+            const results = {winnerName: wgr.winnerName, names: wgr.playerNames, points: wgr.playerPoints, team1: this.pickerName, team2: this.getTeam2()};
             this.openDialog(results);
           break;
         // should contain whose turn it is
         case 'blindAccepted':
           this.isBlindState = false;
+          this.pickerName = info.pickerName;
           break;
       }
     });
   }
 
   clickAccept(): void{
-    
-    // convert the cards to the suit value type for the server
-    const bc = this.gameService.serializeCards(this.burriedCards);
-    const a: BlindAction = { action: ActionType.PickBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: bc};
-    console.log(a);
-    this.gameService.sendBlindAction(a).subscribe(result => {
-      console.log(result);
-    });
+    if(this.burriedCards != null){
+      // convert the cards to the suit value type for the server
+      const bc = this.gameService.serializeCards(this.burriedCards);
+      const a: BlindAction = { action: ActionType.PickBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: bc};
+      this.gameService.sendBlindAction(a).subscribe(result => {
+      });
+    }
   }
 
   clickPass(): void {
-  const a: BlindAction = { action: ActionType.PassBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: null};
-  this.gameService.sendBlindAction(a).subscribe(result => {
-    console.log(result);
-  });
+    const a: BlindAction = { action: ActionType.PassBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: null};
+    this.gameService.sendBlindAction(a).subscribe(result => {
+    });
+  }
+
+
+  setPlayersTricks(data: any[]){
+    data.forEach(element => {
+      this.getPlayer(element.k).numTricks = element.v;
+    })
+  }
+  
+  getPlayer(id: string){
+    if(this.curplayer.id === id){
+      return this.curplayer;
+    }
+    if(this.opponents[0].id === id) return this.opponents[0];
+    if(this.opponents[1].id === id) return this.opponents[1];
   }
 
   setPlayerTurn(playerId: string): void {
@@ -168,14 +183,13 @@ export class GameComponent {
     });
 
     this.curPlayerTurn = playerId;
-
-    console.log('next persons turn = ' + playerId);
     if(this.curplayer.id === playerId) {
       this.curplayer.isTurn = true;
     } else {
       this.curplayer.isTurn = false;
     }
   }
+
 
   handleServerEvent(action: Response): void{
     
@@ -198,7 +212,7 @@ export class GameComponent {
   openDialog(data: any): void {
     const dialogRef = this.dialog.open(WinGameDialogComponent, {
       width: '400px',
-      height: '300px',
+      height: '400px',
       data: data
     });
 
@@ -213,8 +227,23 @@ export class GameComponent {
     return this.gameService.getCardName(card);
   }
 
+  getTeam2(): string[]{
+    const s = [];
+    if(this.curplayer.name != this.pickerName){
+      s.push(this.curplayer.name)
+    }
+    if(this.opponents[0].name != this.pickerName){
+      s.push(this.opponents[0].name);
+    }
+
+    if(this.opponents[1].name != this.pickerName){
+      s.push(this.opponents[1].name);
+    }
+    // make consistent across the ui
+    return s.sort();
+  }
+
   private isPlayerTurn(): boolean {
     return this.curplayer.id === this.curPlayerTurn;
   }
-
 }

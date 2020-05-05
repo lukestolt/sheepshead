@@ -1,6 +1,6 @@
 
-<h1 *ngIf=!player.isTurn>{{player.name}}</h1>
-<h1 *ngIf=player.isTurn class='curTurn'>{{player.name}}</h1>
+<h1 *ngIf=!player.isTurn>{{player.name}}: {{player.numTricks}}</h1>
+<h1 *ngIf=player.isTurn class='curTurn'>{{player.name}}: {{player.numTricks}}</h1>
 <div class='hand'>
     <img (click)='cardClick(card)'
          (mouseover)='cardMouseHover(card)'
