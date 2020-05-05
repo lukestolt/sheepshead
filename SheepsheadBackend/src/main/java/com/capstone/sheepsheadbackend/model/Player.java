@@ -1,7 +1,9 @@
 package com.capstone.sheepsheadbackend.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Player {
     private User user;
@@ -27,13 +29,42 @@ public class Player {
         this.hand = hand;
     }
 
+    public void giveBlind(List<Card> cards){
+        this.getHand().addCard(cards.get(0));
+        this.getHand().addCard(cards.get(1));
+    }
+
+    public void removeBlind(List<Card> blind){
+        Iterator iterator = this.getHand().getCards().iterator();
+        while(iterator.hasNext()){
+            Card c = (Card)iterator.next();
+            if(c.equals(blind.get(0)) || c.equals(blind.get(1))){
+                iterator.remove();
+            }
+        }
+
+    }
+
     public void wonTrick(Trick trick) {
         tricks.add(trick);
         score += trick.getScore();
     }
 
-    public void burryCards(Card[] cards){
-
+    /**
+     * removes the burried cards from the players hand
+     * @param cards
+     * @return the new hand of the player
+     */
+    public List<Card> burryCards(List<Card> cards){
+        List<Card> playerCards = this.getHand().getCards();
+        ListIterator<Card> iterator = playerCards.listIterator();
+        while(iterator.hasNext()){
+            Card c = iterator.next();
+            if(c.equals(cards.get(0)) || c.equals(cards.get(1))){
+                iterator.remove();
+            }
+        }
+        return this.getHand().getCards();
     }
 
     @Override
@@ -131,6 +162,7 @@ public class Player {
             return c.getSuit().equals(followSuit);
         }
     }
+
 
     public int getScore() {
         return score;

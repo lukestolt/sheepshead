@@ -1,4 +1,4 @@
-class Card {
+export class Card {
     public readonly suit: string;
     public readonly value: string;
     public isHovered?: boolean;
@@ -9,4 +9,3 @@ class Card {
     }
 }
 
-export { Card }

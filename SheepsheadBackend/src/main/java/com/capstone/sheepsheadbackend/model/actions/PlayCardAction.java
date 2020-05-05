@@ -1,6 +1,7 @@
 package com.capstone.sheepsheadbackend.model.actions;
 
 import com.capstone.sheepsheadbackend.model.GamesManager;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 public class PlayCardAction extends Action {
     private String suit;

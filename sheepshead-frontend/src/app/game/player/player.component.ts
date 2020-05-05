@@ -45,6 +45,9 @@ export class PlayerComponent{
         } else {
           this.blindCards.push(clickedCard);
         }
+        if(this.blindCards.length === 2){
+          this.gameService.setBlind(this.blindCards);
+        }
       }
       // playing the game state
       else 

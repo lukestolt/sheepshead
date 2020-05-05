@@ -45,7 +45,6 @@ public class Game {
         if(!start) {
             start = true;
             SheepsheadDeck.deal(this);
-            // pick the player to get the blind?
             initDealer();
             dealBlind();
         }
@@ -110,21 +109,27 @@ public class Game {
             case "PickBlind": {
                 BlindAction pba = (BlindAction) a;
                 Player p = getPlayer(a.getPlayerId());
-                Player newP = this.getPlayer(a.getPlayerId());
                 Trick blindTrick = new Trick(MAX_PLAYERS);
-                blindTrick.addCard(pba.burriedCards[0], newP);
-                blindTrick.addCard(pba.burriedCards[1], newP);
+                blindTrick.addCard(pba.cards[0], p);
+                blindTrick.addCard(pba.cards[1], p);
                 this.tricks.add(blindTrick);
+                List<Card> cs = p.burryCards(blindTrick.getCards());
                 Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
                 currentPlayer = nextTurn;
-                return new PickBlindResponse(pba.getPlayerId(), pba.getGameId(), nextTurn.getUser().getUuid());
+                return new AcceptBlindResponse(pba.getPlayerId(), pba.getGameId());
             }
              // in the future can look into forcing player to take the blind
             case "PassBlind": {
+                BlindAction pba = (BlindAction) a;
                 Player p = getPlayer(a.getPlayerId());
+                //remove the blind from the current player
+                p.removeBlind(this.blind);
                 Player nextTurn = players.get(nextPlayer(nextPlayer(players.indexOf(p))));
+                // give the next person the blind
+                nextTurn.giveBlind(this.blind);
                 currentPlayer = nextTurn;
-                return new PassBlindResponse(a.getPlayerId(), a.getGameId(), nextTurn.getUser().getUuid());
+//                return new BlindResponse(a.getPlayerId(), a.getGameId(), nextTurn.getUser().getUuid(),
+//                                             p.getHand().getCards());
             }
             default:
                 break;

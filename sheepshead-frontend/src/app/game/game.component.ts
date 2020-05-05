@@ -45,12 +45,19 @@ export class GameComponent {
   private gameId: string;
   private curTrick: Card[] = [];
   private isBlindState: boolean = true;
+  private burriedCards: Card[];
 
   constructor(private _playerService:PlayerDataService,
      private gameService:GameService,
-      public dialog: MatDialog,
-      private route: Router) {
+     public dialog: MatDialog,
+     private route: Router) {
+       
     this.curplayer = _playerService.player;
+    this.gameService.getBlind().subscribe(cards => {
+      if(cards != null){
+        this.burriedCards = cards;
+      }
+    })
 
     /**
      * this will be populated one the game starts
@@ -84,20 +91,10 @@ export class GameComponent {
             if(cards){
               this.curplayer.cards = cards;
               this.opponents.forEach(opp => {
-                opp.numCards = cards.length;   
+                opp.numCards = cards.length;
               });
             }
           break;
-          // // Card[]
-          // // picker
-          // case "blindInfo":
-          //   if(this.curplayer.id === info.pickerId){
-          //     this.blind = info.blind;
-          //     // highlight the last two cards and show the accept decline ui
-          //   }
-          //   // highlight the cards in the trick should be the last two cards
-          //   info.trick
-          // break;
         }
 
         
@@ -135,8 +132,7 @@ export class GameComponent {
             this.openDialog(results);
           break;
         // should contain whose turn it is
-        case 'pickBlind':
-          this.setPlayerTurn(info.nextTurnId);
+        case 'blindAccepted':
           this.isBlindState = false;
           break;
       }
@@ -144,17 +140,19 @@ export class GameComponent {
   }
 
   clickAccept(): void{
-    // TODO: send real cards
-    console.log(ActionType.PickBlind.toString());
-    const a: BlindAction = { action: ActionType.PickBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: []};
-    this.gameService.sendPlayerAction(a).subscribe(result => {
+    
+    // convert the cards to the suit value type for the server
+    const bc = this.gameService.serializeCards(this.burriedCards);
+    const a: BlindAction = { action: ActionType.PickBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: bc};
+    console.log(a);
+    this.gameService.sendBlindAction(a).subscribe(result => {
       console.log(result);
     });
   }
 
   clickPass(): void {
   const a: BlindAction = { action: ActionType.PassBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: null};
-  this.gameService.sendPlayerAction(a).subscribe(result => {
+  this.gameService.sendBlindAction(a).subscribe(result => {
     console.log(result);
   });
   }
@@ -163,6 +161,9 @@ export class GameComponent {
     this.opponents.forEach(opp => {
       if(playerId === opp.id) {
         opp.isTurn = true;
+      }
+      else{
+        opp.isTurn = false;
       }
     });
 
