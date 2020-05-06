@@ -1,14 +1,23 @@
 
-
-
-<app-player *ngFor='let player of opponents' [player]='player'></app-player>
-<app-player [gameId]='gameId' [player]='curplayer'></app-player>
-<br>
-<br>
-<!-- this is temp and should be removed -->
-<!-- <button (click)='gameReadyClick()'>Get Cards</button> -->
-<div class='tricks'>
-    <img *ngFor='let card of curTrick'
-    class="cardSize"
-    src={{getCardName(card)}}>
+<div class="game">
+    <div *ngIf='!isBlindState'  class='teams'>
+        <h3>Team 1: {{pickerName}}</h3>
+        <h3>Team 2: {{getTeam2()}}</h3>
+    </div>
+    <div class='playerPlacement'>
+        <app-player *ngFor='let player of opponents' [player]='player'></app-player>
+        <app-player [gameId]='gameId' [player]='curplayer' [isBlindState]='isBlindState'></app-player>
+        <div *ngIf="curplayer.isTurn && isBlindState === true" class='trickOptions'>
+            <p>If accepting the blind, pick two cards and hit AcceptBlind</p>
+            <button mat-raised-button color="primary" class='blindButton' (click)='clickAccept()'>Accept Blind</button>
+            <button mat-raised-button color="primary" class='blindButton' (click)='clickPass()'>Pass Blind</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class='tricks'>
+        <img *ngFor='let card of curTrick'
+        class="cardSize"
+        src={{getCardName(card)}}>
+    </div>    
 </div>

@@ -1,20 +1,17 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.Card;
+import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.capstone.sheepsheadbackend.model.actions.BlindAction;
-import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
+import com.capstone.sheepsheadbackend.model.response.*;
 import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
-import com.capstone.sheepsheadbackend.model.response.ErrorResponse;
-import com.capstone.sheepsheadbackend.model.response.PlayCardResponse;
-import com.capstone.sheepsheadbackend.model.response.WinningGameResponse;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.swing.*;
 
 @RestController
 public class GameController {
@@ -23,6 +20,17 @@ public class GameController {
     Gson gson = new Gson();
     @Autowired
     private SimpMessagingTemplate messageSender;
+
+    /**
+     * @return the gameId
+     */
+    @PostMapping(value = "/findGame")
+    public String findGame(@RequestBody FindGameRequest req) {
+        // needs to have the message sender via this way
+        gm.setMessageSender(this.messageSender);
+        String gId = gm.addPlayer(req.playerId, req.username);
+        return this.gson.toJson(gId);
+    }
 
     /**
      * this client should call this method via http so it can get an easier response and dont
@@ -38,7 +46,6 @@ public class GameController {
         // the game logic should be here to create the response
 
         AbstractResponse response = gm.addAction(action);
-//        PlayCardResponse pca = null;
         if(response instanceof PlayCardResponse) {
             PlayCardResponse p = (PlayCardResponse)response;
             PlayCardResponse pca = new PlayCardResponse(response.playerId, response.gameId, null, p.getNextTurnId(), p.getTrick());
@@ -51,46 +58,25 @@ public class GameController {
             PlayCardResponse pcr = new PlayCardResponse(response.playerId, response.gameId, null, null, null);
             return pcr.createResponse();
         }
-
-//        SimpleCard actionCard = new SimpleCard(action.suit, action.value);
-        //TODO: this should be removed when game logic integrated
-//        cards.remove(actionCard);
-//        PlayCardResponse res = new PlayCardResponse("p2", action.gameId, this.cards.toArray());
-//        System.out.println(response.createResponse());
-//        AbstractResponse broadcastResponse = response;
-//        if(broadcastResponse instanceof PlayCardResponse) {
-//            PlayCardResponse pcp = (PlayCardResponse)broadcastResponse;
-//            pcp.setCards(null);
-//            broadcastResponse = pcp;
-//        }
-//        if(pca != null) {
-//            messageSender.convertAndSend("/topic/actionResponse", pca.createResponse());
-//        }
-        // TODO: SendPlayer onVALID: hand
-        //       SendPLayer onERROR:
-
-        // TODO: Broadcast onVALID: send the updated current trick, playerId of card player, hand size of card player
-        //       Brodcast  onERROR: NOTHING
-
-        return this.gson.toJson(response);
+        return response.createResponse();
     }
 
-    @PostMapping("/blindAction")
-    public String blindAction(@RequestBody BlindAction action){
-        //TODO:
-        return null;
+    @PostMapping("/gameBlindAction")
+    public void gameAction(@RequestBody BlindAction action) {
+        action.convertCards();
+        // should send back the player their correct cards even if they accept or decline the blind;
+        // need to remove the blind which are the last two cards from their hand if they decline
+        // if they accept remove the blind[] of cards from the their hand
+        AbstractResponse response = gm.addAction(action);
+        // update all the players just like in the beginning of the game
+        gm.broadcastInitGameInfo(action.getGameId());
+        // only broadcast the blindresponse when it was accepted to tell client that the blindstate is over
+        if(response != null){
+            AcceptBlindResponse abr = (AcceptBlindResponse)response;
+            messageSender.convertAndSend("/topic/actionResponse/" + response.gameId, abr.createResponse());
+        }
     }
 
-    /**
-     * @return the gameId
-     */
-    @PostMapping(value = "/findGame")
-    public String findGame(@RequestBody FindGameRequest req) {
-        // needs to have the message sender via this way
-        gm.setMessageSender(this.messageSender);
-        String gId = gm.addPlayer(req.playerId, req.username);
-        return this.gson.toJson(gId);
-    }
 
     /**
      * this is called when the player is all set up and connected

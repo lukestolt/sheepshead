@@ -5,6 +5,7 @@ import { ServerConfig } from './server-config';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { WebSocketApi } from '../web-socket/web-socket-api';
 import { Player } from '../models/player';
+import { basename } from 'path';
 
 
 export interface GameSearchParams{
@@ -30,6 +31,7 @@ export class GameService {
 
     public ws: WebSocketApi;
     private gameId: string;
+    private bs:BehaviorSubject<any> = new BehaviorSubject<any>(null);
     
     constructor(private http:HttpClient){}
  
@@ -55,7 +57,6 @@ export class GameService {
     stompConnect(): Observable<boolean> {
         const bs = new BehaviorSubject<boolean>(false);
         this.ws.connect().subscribe(connectionStatus => {
-            // console.log(connectionStatus);
             if(connectionStatus !== 'not connected'){
                 bs.next(true);
             }
@@ -80,6 +81,10 @@ export class GameService {
         return this.http.post(ServerConfig.serverUrl + '/gameAction', action);
     }
 
+    sendBlindAction(action: SheepsheadAction): Observable<any> {
+        return this.http.post(ServerConfig.serverUrl + '/gameBlindAction', action);
+    }
+
 
     playerReady(): Observable<any>{
         return this.http.post<any>(ServerConfig.serverUrl + '/playerReady', this.gameId);
@@ -98,19 +103,36 @@ export class GameService {
     getGameId(): string {
         return this.gameId;
     }
+
+    setBlind(burriedCards:Card[]): void {
+        this.bs.next(burriedCards);
+    }
+
+    getBlind(): Observable<any> {
+        return this.bs.asObservable();
+    }
+
+    serializeCards(cards: Card[]): any[] {
+        return cards.map((c: Card) => {
+            return {suit: c.suit, value: c.value};
+        });
+    }
+
 }
 
 export interface CardAction extends SheepsheadAction {
-    action: ActionType
     suit: string;
     value: string
 }
+/**
+ * burriedCards will be null inthe case that is is a PassBlind
+ */
 export interface BlindAction extends SheepsheadAction{
-    response: boolean;
     burriedCards: Card[]
 }
 
 export interface SheepsheadAction {
+    action: String;
     playerId: string;
     gameId: string;
 }

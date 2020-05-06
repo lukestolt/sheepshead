@@ -51,7 +51,8 @@ public class GamesManager {
     }
 
     /***
-     * sends a message if ready or not ready
+     * sends a message with game info if ready
+     * also sends the blind to the player whose turn it is
      * @param gId
      */
     public void broadcastInitGameInfo(String gId) {
@@ -73,11 +74,9 @@ public class GamesManager {
                     });
                     GameInitResponse gir = new GameInitResponse(playerId,g.getUGID(),
                             g.getPlayerHand(playerId), names, oppIds, g.getCurrentPlayer().getUser().getUuid());
-//                    gir.setOppNames(names);
-//                    gir.setCards(g.getPlayerHand(playerId));
+
                     messageSender.convertAndSend("/topic/gameInit/" + playerId, gir);
                 }
-
             }
         }
     }
@@ -125,7 +124,10 @@ public class GamesManager {
     public AbstractResponse addAction(Action action) {
         Game g = games.get(action.getGameId());
         synchronized (g) {
-            return g.performAction(action);
+            AbstractResponse a = g.performAction(action);
+            // broadcast the trick information
+            messageSender.convertAndSend("/topic/trickResponse/" + g.getUGID(), this.gson.toJson(g.getGameTrickData()));
+            return a;
         }
     }
 

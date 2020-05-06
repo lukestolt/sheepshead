@@ -9,6 +9,7 @@ export class WebSocketApi {
     private stompClient: Stomp.Client;
     private gameInitTopic: string = '/topic/gameInit/';
     private actionResponseTopic: string = '/topic/actionResponse/'
+    private trickResponseTopic: string = '/topic/trickResponse/'
     
     constructor(private gameService: GameService) { }
     /**
@@ -23,6 +24,7 @@ export class WebSocketApi {
             subj.next('connected');
 
         }, this.connectionError);
+        this.stompClient.debug = null;
         return subj.asObservable();
     }
 
@@ -79,4 +81,13 @@ export class WebSocketApi {
         return bs.asObservable();
     }
 
+    getTrickResponse(): Observable<any>{
+        let bs: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+        if(this.stompClient){
+            this.stompClient.subscribe(this.trickResponseTopic + this.gameService.getGameId() , (data) => {
+                bs.next(data.body);
+            });
+        }
+        return bs.asObservable();
+    }
 }

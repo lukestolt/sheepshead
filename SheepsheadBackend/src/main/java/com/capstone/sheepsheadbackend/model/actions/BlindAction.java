@@ -1,23 +1,51 @@
 package com.capstone.sheepsheadbackend.model.actions;
-
+import com.capstone.sheepsheadbackend.controller.game.SimpleCard;
 import com.capstone.sheepsheadbackend.model.Card;
 import com.capstone.sheepsheadbackend.model.GamesManager;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
-import java.util.List;
+@JsonRootName("PickAction")
+public class BlindAction extends Action {
+    // should only be the size of 2 since the game only allows 3 players
+    public SimpleCard[] burriedCards;
+    @JsonIgnore
+    public Card[] cards;
 
-public class BlindAction extends Action{
-    boolean isAcceptBlind;
-    // null if declined or of size 2 if accepted
-    Card[] buriedCards;
-
-    public BlindAction( String gameId, String playerId, boolean acceptBlind, Card[] buriedCards){
-        super("BlindAction", gameId,playerId);
-        this.isAcceptBlind = acceptBlind;
-        this.buriedCards = buriedCards;
+    public BlindAction(String action, String playerId, String gameId, SimpleCard[] burriedCards){
+        super(action, gameId, playerId);
+        this.burriedCards = burriedCards;
     }
+
+    public BlindAction(){
+        super();
+    }
+
+    public SimpleCard[] getBurriedCards() {
+        return burriedCards;
+    }
+
+    public void setBurriedCards(SimpleCard[] burriedCards){
+        this.burriedCards = burriedCards;
+    }
+
+    public void convertCards() {
+        if(burriedCards != null){
+            cards = new Card[2];
+            cards[0] = new Card(burriedCards[0].getSuit(), burriedCards[0].getValue());
+            cards[1] = new Card(burriedCards[1].getSuit(), burriedCards[1].getValue());
+        }
+
+    }
+
+
+
+
+
+
 
     @Override
     public void perform(GamesManager gm) {
-
+        gm.addAction(this);
     }
 }

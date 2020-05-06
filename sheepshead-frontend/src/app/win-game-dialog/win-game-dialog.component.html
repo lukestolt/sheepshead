@@ -1,5 +1,7 @@
-<h1>{{winnerName}} is the Winner</h1>
-<div *ngFor='let x of [].constructor(data.names.length); let i=index'>
-    <h3>{{names[i]}}: {{points[i]}}</h3>
-</div> 
+<h1>{{getWinnerText()}}</h1>
+<h3>Team 1</h3>
+<h4>{{team1P1Display}}</h4>
+<h3>Team 2</h3>
+<h4>{{team2P1Display}}</h4>
+<h4>{{team2P2Display}}</h4>
 <button mat-raised-button color="primary" (click)='onCloseClick()'>Close</button>

@@ -1,10 +1,29 @@
 .cardSize {
-    width: 8%;
+    width: 10%;
     height: auto;
     margin-left: 5px
 }
 
 .tricks {
-    text-align: center;
+    margin-left: 200px;
+    margin-top: 350px;
+}
 
+.blindButton{
+    margin: 5px;
+}
+
+.game{
+    margin-left: 40px;
+    margin-top: 30px;
+}
+
+.playerPlacement{
+    width: 600px;
+    float: left;
+}
+
+.trickOptions{
+    margin-top:10px;
+    margin-bottom: 20px;
 }

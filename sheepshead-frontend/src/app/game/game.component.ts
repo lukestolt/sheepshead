@@ -2,14 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Card } from '../models/card';
 import { Player } from '../models/player';
 import { PlayerDataService } from '../services/player-data.service';
-import { GameService } from '../services/game.service';
-import { WebSocketApi } from '../web-socket/web-socket-api';
-import { take } from 'rxjs/operators';
-import { PlayerComponent } from './player/player.component';
-import { Observable } from 'rxjs';
+import { GameService, SheepsheadAction, BlindAction, ActionType } from '../services/game.service';
 import { MatDialog } from '@angular/material/dialog';
 import { WinGameDialogComponent } from '../win-game-dialog/win-game-dialog.component';
-import { writeFile } from 'fs';
 import { Router } from '@angular/router';
 
 
@@ -37,19 +32,27 @@ export interface WinGameResponse extends Response {
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit {
+export class GameComponent {
   private opponents: Player[];
   private curplayer: Player;
   private curPlayerTurn: string;    // id of the current player
   private gameId: string;
   private curTrick: Card[] = [];
-  private blind: Card[] = [];
+  private isBlindState: boolean = true;
+  private burriedCards: Card[];
+  private pickerName: string;
 
   constructor(private _playerService:PlayerDataService,
      private gameService:GameService,
-      public dialog: MatDialog,
-      private route: Router) {
+     public dialog: MatDialog,
+     private route: Router) {
+       
     this.curplayer = _playerService.player;
+    this.gameService.getBlind().subscribe(cards => {
+      if(cards != null){
+        this.burriedCards = cards;
+      }
+    })
 
     /**
      * this will be populated one the game starts
@@ -83,24 +86,19 @@ export class GameComponent implements OnInit {
             if(cards){
               this.curplayer.cards = cards;
               this.opponents.forEach(opp => {
-                opp.numCards = cards.length;   
+                opp.numCards = cards.length;
               });
             }
           break;
-
-          // Card[]
-          // picker
-          case "blindInfo":
-            if(this.curplayer.id === info.pickerId){
-              this.blind = info.blind;
-              // highlight the last two cards and show the accept decline ui
-            }
-            // highlight the cards in the trick should be the last two cards
-            info.trick
-          break;
         }
+      }
+    });
 
-        
+    // sending [] of pairs<string, number>
+    this.gameService.ws.getTrickResponse().subscribe(data => {
+      if(data != null){
+        data = JSON.parse(data);
+        this.setPlayersTricks(data);
       }
     });
     this.gameService.playerReady().subscribe(()=>{});
@@ -123,14 +121,7 @@ export class GameComponent implements OnInit {
                 opp.numCards--;
               }
             });
-            let nextId = info.nextTurnId;
-            this.curPlayerTurn = nextId;
-            console.log('next persons turn = ' + nextId);
-            if(this.curplayer.id === nextId) {
-              this.curplayer.isTurn = true;
-            } else {
-              this.curplayer.isTurn = false;
-            }
+            this.setPlayerTurn(info.nextTurnId);
             this.curTrick = info.trick;
           break;
         case 'winGame':
@@ -138,15 +129,67 @@ export class GameComponent implements OnInit {
             // this is workaround for the ui
             this.curplayer.cards = [];
             this.curplayer.isTurn =false;
-            const results = {winnerName: wgr.winnerName, names: wgr.playerNames, points: wgr.playerPoints};
+            const results = {winnerName: wgr.winnerName, names: wgr.playerNames, points: wgr.playerPoints, team1: this.pickerName, team2: this.getTeam2()};
             this.openDialog(results);
+          break;
+        // should contain whose turn it is
+        case 'blindAccepted':
+          this.isBlindState = false;
+          this.pickerName = info.pickerName;
           break;
       }
     });
   }
 
-  ngOnInit() {
+  clickAccept(): void{
+    if(this.burriedCards != null){
+      // convert the cards to the suit value type for the server
+      const bc = this.gameService.serializeCards(this.burriedCards);
+      const a: BlindAction = { action: ActionType.PickBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: bc};
+      this.gameService.sendBlindAction(a).subscribe(result => {
+      });
+    }
   }
+
+  clickPass(): void {
+    const a: BlindAction = { action: ActionType.PassBlind.toString(), gameId: this.gameService.getGameId(), playerId: this.curplayer.id, burriedCards: null};
+    this.gameService.sendBlindAction(a).subscribe(result => {
+    });
+  }
+
+
+  setPlayersTricks(data: any[]){
+    data.forEach(element => {
+      this.getPlayer(element.k).numTricks = element.v;
+    })
+  }
+  
+  getPlayer(id: string){
+    if(this.curplayer.id === id){
+      return this.curplayer;
+    }
+    if(this.opponents[0].id === id) return this.opponents[0];
+    if(this.opponents[1].id === id) return this.opponents[1];
+  }
+
+  setPlayerTurn(playerId: string): void {
+    this.opponents.forEach(opp => {
+      if(playerId === opp.id) {
+        opp.isTurn = true;
+      }
+      else{
+        opp.isTurn = false;
+      }
+    });
+
+    this.curPlayerTurn = playerId;
+    if(this.curplayer.id === playerId) {
+      this.curplayer.isTurn = true;
+    } else {
+      this.curplayer.isTurn = false;
+    }
+  }
+
 
   handleServerEvent(action: Response): void{
     
@@ -169,7 +212,7 @@ export class GameComponent implements OnInit {
   openDialog(data: any): void {
     const dialogRef = this.dialog.open(WinGameDialogComponent, {
       width: '400px',
-      height: '300px',
+      height: '400px',
       data: data
     });
 
@@ -184,8 +227,23 @@ export class GameComponent implements OnInit {
     return this.gameService.getCardName(card);
   }
 
+  getTeam2(): string[]{
+    const s = [];
+    if(this.curplayer.name != this.pickerName){
+      s.push(this.curplayer.name)
+    }
+    if(this.opponents[0].name != this.pickerName){
+      s.push(this.opponents[0].name);
+    }
+
+    if(this.opponents[1].name != this.pickerName){
+      s.push(this.opponents[1].name);
+    }
+    // make consistent across the ui
+    return s.sort();
+  }
+
   private isPlayerTurn(): boolean {
     return this.curplayer.id === this.curPlayerTurn;
   }
-
 }
