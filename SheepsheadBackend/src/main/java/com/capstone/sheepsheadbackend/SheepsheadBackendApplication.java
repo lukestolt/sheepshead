@@ -34,4 +34,23 @@ public class SheepsheadBackendApplication {
 			}
 		};
 	}
+
+//	@Autowired
+//	private Environment env;
+//
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//
+//		String ip = env.getProperty("server.address");
+//		String url = "http://" + ip + ":4200";
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/**")
+//						.allowedOrigins("*")
+//						.allowedMethods("*")
+//						.allowedHeaders("*");
+//			}
+//		};
+//	}
 }

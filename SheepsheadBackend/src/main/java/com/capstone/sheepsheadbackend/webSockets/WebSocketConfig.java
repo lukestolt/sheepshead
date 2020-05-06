@@ -22,6 +22,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         String ip = env.getProperty("server.address");
         String url = "http://" + ip + ":4200";
         registry.addEndpoint("/ws").setAllowedOrigins(url).withSockJS();
+//        registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
+
     }
 
     @Override
