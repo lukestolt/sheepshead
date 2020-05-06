@@ -19,10 +19,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 //        enabling SockJS fallback options so that alternate transports can be used if WebSocket is not available
         // waits for connections to "/port.." to subscribe to on the client
-        String ip = env.getProperty("server.address");
-        String url = "http://" + ip + ":4200";
-        registry.addEndpoint("/ws").setAllowedOrigins(url).withSockJS();
-//        registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
+//        String ip = env.getProperty("server.address");
+//        String url = "http://" + ip + ":4200";
+//        registry.addEndpoint("/ws").setAllowedOrigins(url).withSockJS();
+        registry.addEndpoint("/ws").setAllowedOrigins("*").withSockJS();
 
     }
 

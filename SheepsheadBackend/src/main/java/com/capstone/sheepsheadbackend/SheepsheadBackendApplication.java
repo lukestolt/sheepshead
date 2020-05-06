@@ -16,25 +16,6 @@ public class SheepsheadBackendApplication {
 
 	public static void main(String[] args) { SpringApplication.run(SheepsheadBackendApplication.class, args); }
 
-	@Autowired
-	private Environment env;
-
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-
-		String ip = env.getProperty("server.address");
-		String url = "http://" + ip + ":4200";
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-				.allowedOrigins(url)
-				.allowedMethods("*")
-				.allowedHeaders("*");
-			}
-		};
-	}
-
 //	@Autowired
 //	private Environment env;
 //
@@ -47,10 +28,29 @@ public class SheepsheadBackendApplication {
 //			@Override
 //			public void addCorsMappings(CorsRegistry registry) {
 //				registry.addMapping("/**")
-//						.allowedOrigins("*")
-//						.allowedMethods("*")
-//						.allowedHeaders("*");
+//				.allowedOrigins(url)
+//				.allowedMethods("*")
+//				.allowedHeaders("*");
 //			}
 //		};
 //	}
+
+	@Autowired
+	private Environment env;
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+
+		String ip = env.getProperty("server.address");
+		String url = "http://" + ip + ":4200";
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**")
+						.allowedOrigins("*")
+						.allowedMethods("*")
+						.allowedHeaders("*");
+			}
+		};
+	}
 }
