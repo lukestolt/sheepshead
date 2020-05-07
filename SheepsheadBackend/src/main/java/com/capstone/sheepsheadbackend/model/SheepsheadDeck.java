@@ -12,21 +12,21 @@ public class SheepsheadDeck {
     private static SheepsheadDeck instance = new SheepsheadDeck();
 
     /**
-     *
+     * Create an empty deck
      */
     private SheepsheadDeck(){}
 
     /**
-     *
-     * @return
+     * Get the instance of the deck
+     * @return instance of the deck
      */
     public SheepsheadDeck getInstance() {
         return instance;
     }
 
     /**
-     *
-     * @param g
+     * Deal cards to the given game
+     * @param g Game to deal cards to
      */
     public static void deal(Game g) {
         List<Card> deck = initDeck();

@@ -9,7 +9,7 @@ public enum CardValues {
     private String strValue;
 
     /**
-     *
+     * Create Card Values from Strings
      * @param strValue
      */
     CardValues(String strValue) {
@@ -17,8 +17,8 @@ public enum CardValues {
     }
 
     /**
-     *
-     * @return
+     * Get String values of Card Values
+     * @return String card values
      */
     public String getStrValue() {
         return strValue;

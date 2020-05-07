@@ -26,8 +26,8 @@ public class GamesManager {
     }
 
     /**
-     *
-     * @return
+     * Get the instance of the Games Manager
+     * @return Instance of the Games Manager
      */
     public static GamesManager getInstance() {
         if (gm == null) {
@@ -86,10 +86,10 @@ public class GamesManager {
     }
 
     /**
-     *
-     * @param g
-     * @param playerId
-     * @return
+     * Get the List of opponents in the game
+     * @param g Game to get players from
+     * @param playerId Player Id of requesting player
+     * @return List of opponents
      */
     public List<Player> getOpponents(Game g, String playerId){
 //        Game g = this.games.get(gameId);
@@ -106,25 +106,25 @@ public class GamesManager {
     }
 
     /**
-     *
-     * @return
+     * Get the game that is in the waiting status
+     * @return Waiting Game
      */
     public Game getWait() {
         return waitGame;
     }
 
     /**
-     *
-     * @return
+     * Get the number of active games
+     * @return number of active games
      */
     public int getGames() {
         return games.size();
     }
 
     /**
-     *
-     * @param action
-     * @return
+     * Add an action to the games manager and perform the action
+     * @param action Action to add and perform
+     * @return Response to given action
      */
     // annotate this so know what this returns given an action
     public AbstractResponse addAction(Action action) {
@@ -138,8 +138,8 @@ public class GamesManager {
     }
 
     /**
-     *
-     * @param ms
+     * Set the message Sender for the games manager
+     * @param ms Message Sender to set
      */
     public void setMessageSender(SimpMessagingTemplate ms){
         this.messageSender = ms;

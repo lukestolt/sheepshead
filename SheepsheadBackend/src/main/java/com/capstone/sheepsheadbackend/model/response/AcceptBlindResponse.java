@@ -10,10 +10,10 @@ public class AcceptBlindResponse extends AbstractResponse{
     String pickerName;
 
     /**
-     *
-     * @param playerId
-     * @param gameId
-     * @param pickerName
+     * Create a new Response to accept the Blind
+     * @param playerId Player Id for response
+     * @param gameId Game Id for response
+     * @param pickerName Username of picker (player who accepted the blind)
      */
     public AcceptBlindResponse(String playerId, String gameId, String pickerName){
         super(playerId, gameId, "blindAccepted");
@@ -26,16 +26,16 @@ public class AcceptBlindResponse extends AbstractResponse{
     }
 
     /**
-     *
-     * @return
+     * Get the username of the picker
+     * @return Username of the picker
      */
     public String getPickerName() {
         return pickerName;
     }
 
     /**
-     *
-     * @param pickerName
+     * Set the name of the picker to name given
+     * @param pickerName Name of the picker to set to
      */
     public void setPickerName(String pickerName) {
         this.pickerName = pickerName;

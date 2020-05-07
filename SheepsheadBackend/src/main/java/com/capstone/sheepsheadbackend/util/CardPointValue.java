@@ -7,16 +7,16 @@ public enum CardPointValue {
     private int pointValue;
 
     /**
-     *
-     * @param i
+     * Create Card Point Value given by integer
+     * @param i card point value
      */
     CardPointValue(int i) {
         this.pointValue = i;
     }
 
     /**
-     *
-     * @return
+     * Get the point value as integer
+     * @return point value
      */
     public int getPointValue() {
         return pointValue;

@@ -11,9 +11,9 @@ public class Card implements Comparable<Card> {
     private final String value;
 
     /**
-     *
-     * @param suit
-     * @param value
+     * Create new Game Card
+     * @param suit Card Suit
+     * @param value Card Value
      */
     public Card(String suit, String value) {
         this.suit = suit;
@@ -21,8 +21,8 @@ public class Card implements Comparable<Card> {
     }
 
     /**
-     *
-     * @return
+     * Determine if the Card is a trump suit
+     * @return Whether this card is a trump suit
      */
     public boolean isTrumpSuit() {
         SheepsheadCardValue val = SheepsheadCardValue.fromStrValue(value);
@@ -32,16 +32,16 @@ public class Card implements Comparable<Card> {
     }
 
     /**
-     *
-     * @return
+     * Get Suit of the Card
+     * @return Suit of the card
      */
     public String getSuit() {
         return suit;
     }
 
     /**
-     *
-     * @return
+     * Get Value of the Card
+     * @return Value of the card
      */
     public String getValue() {
         return value;

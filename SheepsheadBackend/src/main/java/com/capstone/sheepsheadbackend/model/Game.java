@@ -27,8 +27,8 @@ public class Game {
     private String followSuit = null;
 
     /**
-     *
-     * @param numPlayers
+     * Create new Game with given number of players
+     * @param numPlayers Number of players
      */
     public Game(int numPlayers) {
         ugid = UUID.randomUUID().toString();
@@ -38,23 +38,23 @@ public class Game {
     }
 
     /**
-     *
-     * @param player
+     * Add given player to the game
+     * @param player Player to add to the game
      */
     public void addPlayer(Player player) {
         players.add(player);
     }
 
     /**
-     *
-     * @return
+     * Check if the game is full
+     * @return boolean of whether game is full or not
      */
     public boolean isGameFull(){
         return players.size() == MAX_PLAYERS;
     }
 
     /**
-     *
+     * Start the game
      */
     public void startGame() {
         if(!start) {
@@ -66,7 +66,7 @@ public class Game {
     }
 
     /**
-     *
+     * Deal the blind
      */
     private void dealBlind(){
         List<Card> pickerCards = this.currentPlayer.getHand().getCards();
@@ -75,17 +75,17 @@ public class Game {
     }
 
     /**
-     *
-     * @return
+     * Check if the game is ready
+     * @return boolean of whether the game is ready or not
      */
     public boolean isGameReady(){
         return this.start;
     }
 
     /**
-     *
-     * @param a
-     * @return
+     * Perform the given action on this game
+     * @param a Action to perform
+     * @return Response to performing the action
      */
     public AbstractResponse performAction(Action a) {
         switch(a.getAction()) {
@@ -160,8 +160,8 @@ public class Game {
     }
 
     /**
-     *
-     * @return
+     * Check if the trick has been won and return the player and the trick
+     * @return Pair of trick winning player and trick
      */
     Pair<Player, Trick> checkWonTrick() {
         List<Card> currentTrickCards = currentTrick.getCards();
@@ -176,8 +176,8 @@ public class Game {
     }
 
     /**
-     *
-     * @return
+     * Get the data of the trick
+     * @return List of players Id's and their number of tricks won
      */
     public List<Pair<String,Integer>> getGameTrickData() {
         // get the size off the tricks each player has
@@ -190,7 +190,7 @@ public class Game {
     }
 
     /**
-     *
+     * Check if the game has been won
      * @return AbstractResponse if the game if over or null if it isn't
      */
     AbstractResponse checkGameOver() {
@@ -228,24 +228,24 @@ public class Game {
     }
 
     /**
-     *
-     * @return
+     * Get the dealer of the game
+     * @return Dealer of the game
      */
     public Player getDealer() {
         return dealer;
     }
 
     /**
-     *
-     * @return
+     * Get the list of players in the game
+     * @return List of players in the game
      */
     public List<Player> getPlayers() {
         return players;
     }
 
     /**
-     *
-     * @return
+     * Get the Game Id
+     * @return Game Id
      */
     public String getUGID() {
         return ugid;
@@ -257,7 +257,7 @@ public class Game {
     }
 
     /**
-     *
+     * Initialize the dealer to a random player
      */
     public void initDealer() {
         int x = Util.getRandomIntBound(MAX_PLAYERS);
@@ -266,9 +266,9 @@ public class Game {
     }
 
     /**
-     *
-     * @param index
-     * @return
+     * Get the index of the next player
+     * @param index Index of current player
+     * @return Index of next player
      */
     private int nextPlayer(int index) {
         if(index+1 < MAX_PLAYERS) {
@@ -279,8 +279,8 @@ public class Game {
     }
 
     /**
-     *
-     * @param playerId
+     * Get the hand of the given player
+     * @param playerId Player Id to get hand of
      * @return
      */
     public List<Card> getPlayerHand(String playerId){
@@ -289,16 +289,16 @@ public class Game {
     }
 
     /**
-     *
-     * @param deck
+     * Set the blind to the given set of cards
+     * @param deck Set of cards to set blind to
      */
     public void setBlind(List<Card> deck) {
         this.blind = deck;
     }
 
     /**
-     *
-     * @return
+     * Get the current player of the game
+     * @return Current player of the game
      */
     public Player getCurrentPlayer() {
         return currentPlayer;

@@ -10,9 +10,9 @@ public class InitGameData {
     public String turnPlayerId;
 
     /**
-     *
-     * @param id
-     * @param cards
+     * Inital Game data used to begin creating a game
+     * @param id Player Id of player whose turn it is
+     * @param cards Set of cards
      */
     public InitGameData(String id, List<Card> cards){
         this.cards = cards;

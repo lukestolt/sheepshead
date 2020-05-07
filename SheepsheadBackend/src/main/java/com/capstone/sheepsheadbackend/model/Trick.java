@@ -14,8 +14,8 @@ public class Trick {
     private final int numPlayers;
 
     /**
-     *
-     * @param numPlayers
+     * Create new Trick with given number of players
+     * @param numPlayers number of players in the game
      */
     public Trick(int numPlayers) {
         this.numPlayers = numPlayers;
@@ -23,9 +23,9 @@ public class Trick {
     }
 
     /**
-     *
-     * @param c
-     * @param p
+     * Add a card to the trick
+     * @param c Card to add to the trick
+     * @param p Player that played the card
      */
     public void addCard(Card c, Player p) {
         if(cards.size() < numPlayers) {
@@ -35,8 +35,8 @@ public class Trick {
     }
 
     /**
-     *
-     * @return
+     * Get the winner of the trick
+     * @return Player who played to highest valued card
      */
     public Player getWinner() {
         Pair<Card, Player> max = cards.get(0);
@@ -51,8 +51,8 @@ public class Trick {
     }
 
     /**
-     *
-     * @return
+     * Get the score total for the trick
+     * @return Total score of the trick
      */
     public int getScore() {
         return score;
@@ -71,16 +71,16 @@ public class Trick {
     }
 
     /**
-     *
-     * @return
+     * Check if trick is empty
+     * @return Boolean value of whether the trick is empty or not
      */
     public boolean isEmpty() {
         return cards.isEmpty();
     }
 
     /**
-     *
-     * @return
+     * Get the cards in the trick
+     * @return Cards in the trick
      */
     public List<Card> getCards() {
         return cards.stream().map(Pair::getK).collect(Collectors.toList());

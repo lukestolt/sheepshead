@@ -13,11 +13,11 @@ public class BlindAction extends Action {
     public Card[] cards;
 
     /**
-     *
-     * @param action
-     * @param playerId
-     * @param gameId
-     * @param burriedCards
+     * Create new Blind Action
+     * @param action Action as String
+     * @param playerId Player Id of action
+     * @param gameId Game Id of action
+     * @param burriedCards Blind Cards
      */
     public BlindAction(String action, String playerId, String gameId, SimpleCard[] burriedCards){
         super(action, gameId, playerId);
@@ -25,30 +25,30 @@ public class BlindAction extends Action {
     }
 
     /**
-     *
+     * Create new Blind Action
      */
     public BlindAction(){
         super();
     }
 
     /**
-     *
-     * @return
+     * Get Blind Cards
+     * @return Blind Cards
      */
     public SimpleCard[] getBurriedCards() {
         return burriedCards;
     }
 
     /**
-     *
-     * @param burriedCards
+     * Set Blind Cards
+     * @param burriedCards Blind Cards
      */
     public void setBurriedCards(SimpleCard[] burriedCards){
         this.burriedCards = burriedCards;
     }
 
     /**
-     *
+     * Convert Blind Cards to Game Cards
      */
     public void convertCards() {
         if(burriedCards != null){

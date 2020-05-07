@@ -8,7 +8,7 @@ public class Hand {
     private int MAX_CAP;
 
     /**
-     *
+     * Create Hand for a game with the given number of players
      * @param numPlayers
      */
     public Hand(int numPlayers) {
@@ -17,23 +17,23 @@ public class Hand {
     }
 
     /**
-     *
+     * Create Empty Hand
      */
     public Hand(){
         hand = new ArrayList<>();
     }
 
     /**
-     *
-     * @return
+     * Get cards in this hand
+     * @return Cards in the hand
      */
     public List<Card> getCards() {
         return hand;
     }
 
     /**
-     *
-     * @param c
+     * Add a card to the hand
+     * @param c Card to add to the ahnd
      */
     public void addCard(Card c) {
         hand.add(c);

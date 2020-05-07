@@ -10,7 +10,7 @@ public class User {
     private String username;
 
     /**
-     *
+     * Create an empty user
      */
     public User() {
         this.username = "";
@@ -18,7 +18,7 @@ public class User {
     }
 
     /**
-     *
+     * Create User with given Id
      * @param id
      */
     public User(String id) {
@@ -26,9 +26,9 @@ public class User {
     }
 
     /**
-     *
-     * @param id
-     * @param username
+     * Create new User with given Id and username
+     * @param id Id of user
+     * @param username Username of user
      */
     public User(String id, String username){
         this.uuid = id;
@@ -36,16 +36,16 @@ public class User {
     }
 
     /**
-     *
-     * @return
+     * Get username of user
+     * @return username of user
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     *
-     * @return
+     * Get Id of User
+     * @return Id of user
      */
     public String getUuid() {
         return uuid;

@@ -7,10 +7,10 @@ public abstract class AbstractResponse {
     public String responseType;
 
     /**
-     *
-     * @param playerId
-     * @param gameId
-     * @param responseType
+     * Generic Response to Actions
+     * @param playerId Player Id for response
+     * @param gameId Game Id for response
+     * @param responseType Type of response
      */
     public AbstractResponse(String playerId, String gameId, String responseType){
         this.playerId = playerId;
@@ -19,8 +19,8 @@ public abstract class AbstractResponse {
     }
 
     /**
-     *
-     * @return
+     * Return Response as String
+     * @return String version of response
      */
     public abstract String createResponse();
 }

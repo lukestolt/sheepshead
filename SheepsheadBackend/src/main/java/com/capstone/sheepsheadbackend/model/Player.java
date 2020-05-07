@@ -12,8 +12,8 @@ public class Player {
     private int score = 0;
 
     /**
-     *
-     * @param user
+     * Create a new player for the given user
+     * @param user User to create player for
      */
     public Player(User user) {
         this.user = user;
@@ -22,38 +22,38 @@ public class Player {
     }
 
     /**
-     *
-     * @return
+     * Get user associated with the player
+     * @return User associated with the player
      */
     public User getUser() {
         return user;
     }
 
     /**
-     *
-     * @return
+     * Get The hand of the player
+     * @return Hand of the player
      */
     public Hand getHand() {
         return hand;
     }
 
     /**
-     *
-     * @return
+     * Get the number of tricks played so far
+     * @return Number of tricks played so far
      */
     public int getNumTricks(){return this.tricks.size();};
 
     /**
-     *
-     * @param hand
+     * Set hand to given hand
+     * @param hand Hand to use to set
      */
     public void setHand(Hand hand) {
         this.hand = hand;
     }
 
     /**
-     *
-     * @param cards
+     * Give blind to this player
+     * @param cards Cards to give to player
      */
     public void giveBlind(List<Card> cards){
         this.getHand().addCard(cards.get(0));
@@ -61,8 +61,8 @@ public class Player {
     }
 
     /**
-     *
-     * @param blind
+     * Remove Blind from player
+     * @param blind blind to remove
      */
     public void removeBlind(List<Card> blind){
         Iterator iterator = this.getHand().getCards().iterator();
@@ -76,8 +76,8 @@ public class Player {
     }
 
     /**
-     *
-     * @param trick
+     * Indicate that this player won the trick
+     * @param trick Trick that player won
      */
     public void wonTrick(Trick trick) {
         tricks.add(trick);
@@ -111,10 +111,10 @@ public class Player {
     }
 
     /**
-     *
-     * @param card
-     * @param followSuitTrump
-     * @param followSuit
+     * Play given card and verify that it follows suit
+     * @param card Card to play
+     * @param followSuitTrump Boolean of if follow suit is trump
+     * @param followSuit Actual suit of the follow suit card
      * @return
      */
     public Card playCard(Card card, boolean followSuitTrump, String followSuit) {
@@ -194,26 +194,26 @@ public class Player {
     }
 
     /**
-     *
-     * @return
+     * Get the players score
+     * @return score of the player
      */
     public int getScore() {
         return score;
     }
 
     /**
-     *
-     * @return
+     * Check if player has cards in hand
+     * @return Whether the player has cards in their hand
      */
     public boolean hasCards() {
         return !hand.getCards().isEmpty();
     }
 
     /**
-     *
-     * @param suit
-     * @param value
-     * @return
+     * Get given card from players hand
+     * @param suit Suit of card to get
+     * @param value Value of card to get
+     * @return Card from players hand or null if not there
      */
     public Card getCard(String suit, String value) {
         for (Card c: hand.getCards()) {

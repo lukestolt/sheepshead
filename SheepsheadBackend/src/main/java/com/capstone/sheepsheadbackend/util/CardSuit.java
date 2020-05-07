@@ -9,10 +9,10 @@ public enum CardSuit {
     private String strSuit;
 
     /**
-     *
-     * @param cardStrength
-     * @param cardScore
-     * @param strSuit
+     * Create card suit
+     * @param cardStrength Trump or Fail suit
+     * @param cardScore Rank of suit
+     * @param strSuit Suit as String
      */
     CardSuit(CardStrength cardStrength, int cardScore, String strSuit) {
         this.cardStrength = cardStrength;
@@ -21,29 +21,29 @@ public enum CardSuit {
     }
 
     /**
-     *
-     * @return
+     * Get the card strength of the suit
+     * @return Trump or Fail suit
      */
     public CardStrength getCardStrength() {
         return cardStrength;
     }
 
     /**
-     *
-     * @return
+     * Get the card score of the Suit
+     * @return rank of the suit
      */
     public int getCardScore() { return cardScore; }
 
     /**
-     *
-     * @return
+     * Get Suit as String
+     * @return Suit as String
      */
     public String getStrSuit() { return strSuit; }
 
     /**
-     *
-     * @param stringSuit
-     * @return
+     * Get Card Suit from String
+     * @param stringSuit Suit as String
+     * @return Card suit from String
      */
     public static CardSuit fromStrSuit(String stringSuit) {
         for(CardSuit s: CardSuit.values()) {

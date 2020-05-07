@@ -6,9 +6,9 @@ public class SimpleCard {
     String value;
 
     /**
-     *
-     * @param suit
-     * @param value
+     * Create a new Simple Card made of just suit and value as Strings
+     * @param suit String suit of card
+     * @param value String value of card
      */
     public SimpleCard(String suit, String value){
         this.suit = suit;
@@ -16,39 +16,39 @@ public class SimpleCard {
     }
 
     /**
-     *
+     * Create a new Simple Card
      */
     public SimpleCard(){
 
     }
 
     /**
-     *
-     * @return
+     * Get suit of card
+     * @return Suit of card
      */
     public String getSuit() {
         return suit;
     }
 
     /**
-     *
-     * @param suit
+     * Set suit of card to given suit
+     * @param suit Suit of card to set to
      */
     public void setSuit(String suit) {
         this.suit = suit;
     }
 
     /**
-     *
-     * @return
+     * Get value of card
+     * @return Value of card
      */
     public String getValue() {
         return value;
     }
 
     /**
-     *
-     * @param value
+     * Set value of card to given value
+     * @param value Value of card to set to
      */
     public void setValue(String value) {
         this.value = value;
