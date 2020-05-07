@@ -10,7 +10,7 @@ import { pbkdf2Sync } from 'crypto';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private formName: string = '';
+  formName: string = '';
 
   constructor(private _router: Router, private apiService: ApiService, private pds: PlayerDataService) { 
 

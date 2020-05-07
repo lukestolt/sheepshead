@@ -8,19 +8,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Trick {
-    public int getScore() {
-        return score;
-    }
 
     private int score;
     private List<Pair<Card, Player>> cards;
     private final int numPlayers;
 
+    /**
+     *
+     * @param numPlayers
+     */
     public Trick(int numPlayers) {
         this.numPlayers = numPlayers;
         cards = new ArrayList<>(numPlayers);
     }
 
+    /**
+     *
+     * @param c
+     * @param p
+     */
     public void addCard(Card c, Player p) {
         if(cards.size() < numPlayers) {
             cards.add(new Pair<>(c,p));
@@ -28,6 +34,10 @@ public class Trick {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getWinner() {
         Pair<Card, Player> max = cards.get(0);
         for(int i = 1; i < cards.size(); i++) {
@@ -38,6 +48,14 @@ public class Trick {
             }
         }
         return max.getV();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getScore() {
+        return score;
     }
 
     @Override
@@ -52,10 +70,18 @@ public class Trick {
         return str.toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isEmpty() {
         return cards.isEmpty();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Card> getCards() {
         return cards.stream().map(Pair::getK).collect(Collectors.toList());
     }

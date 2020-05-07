@@ -11,18 +11,27 @@ public class SheepsheadDeck {
     public static final int DECKSIZE = 32;
     private static SheepsheadDeck instance = new SheepsheadDeck();
 
+    /**
+     *
+     */
     private SheepsheadDeck(){}
 
+    /**
+     *
+     * @return
+     */
     public SheepsheadDeck getInstance() {
         return instance;
     }
 
+    /**
+     *
+     * @param g
+     */
     public static void deal(Game g) {
-        // TODO: remove this line to make the deck have the original size
-//        List<Card> deck = initDeck().subList(0,11);
         List<Card> deck = initDeck();
         shuffle(deck);
-        deck = deck.subList(0,11);
+//        deck = deck.subList(0,11);
         List<Card> newDeck = dealBlind(deck,g);
         dealHand(newDeck, g.getPlayers());
     }

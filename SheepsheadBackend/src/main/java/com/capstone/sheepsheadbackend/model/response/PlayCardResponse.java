@@ -15,6 +15,14 @@ public class PlayCardResponse extends AbstractResponse{
     String nextTurnId;
     List<Card> trick;
 
+    /**
+     *
+     * @param playerId
+     * @param gameId
+     * @param cards
+     * @param nextTurnId
+     * @param trick
+     */
     public PlayCardResponse(String playerId, String gameId, List<Card> cards, String nextTurnId, List<Card> trick) {
         super(playerId, gameId, "validCard");
         this.playerId = playerId;
@@ -29,18 +37,34 @@ public class PlayCardResponse extends AbstractResponse{
         this.trick = trick;
     }
 
+    /**
+     *
+     * @param cards
+     */
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNextTurnId() {
         return nextTurnId;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Card> getTrick() {
         return trick;
     }
 
+    /**
+     *
+     * @return
+     */
     public String createResponse() {
         String s = new Gson().toJson(this);
         return s;

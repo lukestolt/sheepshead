@@ -10,7 +10,7 @@ import { PlayerDataService } from '../services/player-data.service';
 })
 export class GameSearchComponent implements OnInit {
 
-  private numPlayersSelected: string[] = ["3"];
+  numPlayersSelected: string[] = ["3"];
 
   constructor(private _router:Router, private gameService: GameService, private pds: PlayerDataService) {
    }
@@ -21,7 +21,7 @@ export class GameSearchComponent implements OnInit {
   /**
    * navigate to the game component where the searching actaully happens
    */
-  private searchForGame(): void {
+  searchForGame(): void {
     this.gameService.findGame(this.pds.player.id, this.pds.player.name, this.numPlayersSelected).subscribe(res => {
       
       if(res == true) {
@@ -35,7 +35,7 @@ export class GameSearchComponent implements OnInit {
     });
   }
 
-  private playerNumClick(event: any, num: string): void {
+  playerNumClick(event: any, num: string): void {
     if(!this.numPlayersSelected.includes(num)) {
       this.numPlayersSelected.push(num);
     }

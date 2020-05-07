@@ -26,6 +26,10 @@ public class Game {
     private boolean followSuitTrump = false;
     private String followSuit = null;
 
+    /**
+     *
+     * @param numPlayers
+     */
     public Game(int numPlayers) {
         ugid = UUID.randomUUID().toString();
         MAX_PLAYERS = numPlayers;
@@ -33,14 +37,25 @@ public class Game {
         tricks = new ArrayList<>();
     }
 
+    /**
+     *
+     * @param player
+     */
     public void addPlayer(Player player) {
         players.add(player);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isGameFull(){
         return players.size() == MAX_PLAYERS;
     }
 
+    /**
+     *
+     */
     public void startGame() {
         if(!start) {
             start = true;
@@ -50,18 +65,28 @@ public class Game {
         }
     }
 
+    /**
+     *
+     */
     private void dealBlind(){
         List<Card> pickerCards = this.currentPlayer.getHand().getCards();
         // adds the blind to the end of the hand
         pickerCards.addAll(this.blind);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isGameReady(){
         return this.start;
     }
 
-    //TODO change to perform the action instead of enqueuing it
-    // return trick,
+    /**
+     *
+     * @param a
+     * @return
+     */
     public AbstractResponse performAction(Action a) {
         switch(a.getAction()) {
             case "PlayCard": {
@@ -134,6 +159,10 @@ public class Game {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     Pair<Player, Trick> checkWonTrick() {
         List<Card> currentTrickCards = currentTrick.getCards();
         Player p = null;
@@ -146,6 +175,10 @@ public class Game {
         return new Pair<Player, Trick>(p, currentTrick);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Pair<String,Integer>> getGameTrickData() {
         // get the size off the tricks each player has
         // return array of playerid and tricknumber
@@ -194,14 +227,26 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getDealer() {
         return dealer;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUGID() {
         return ugid;
     }
@@ -211,35 +256,20 @@ public class Game {
         return players.toString();
     }
 
+    /**
+     *
+     */
     public void initDealer() {
         int x = Util.getRandomIntBound(MAX_PLAYERS);
         dealer = players.get(x);
         currentPlayer = players.get(nextPlayer(x));
     }
 
-    public Player getPicker() {
-        //TODO need to figure out how to assign picker
-        // Via sockets
-//        Scanner sc = new Scanner(System.in);
-//        int ind = nextPlayer(players.indexOf(dealer));
-//        int cnt = 0;
-//        for(int i = ind; cnt < MAX_PLAYERS; i = nextPlayer(i)) {
-//            String inp = sc.nextLine();
-//            if(inp.equals("y")) {
-//                Trick t = new Trick(MAX_PLAYERS);
-//                for(int j = 0; j < blind.size(); j++) {
-//                    t.addCard(blind.get(i), players.get(i));
-//                }
-//                players.get(i).wonTrick(t);
-//                return players.get(i);
-//            }
-//            cnt++;
-//        }
-//        // Default to left of dealer
-//        return players.get(nextPlayer(players.indexOf(dealer)));
-        return null;
-    }
-
+    /**
+     *
+     * @param index
+     * @return
+     */
     private int nextPlayer(int index) {
         if(index+1 < MAX_PLAYERS) {
             return index+1;
@@ -248,15 +278,28 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @param playerId
+     * @return
+     */
     public List<Card> getPlayerHand(String playerId){
             Player p = this.getPlayer(playerId);
             return p.getHand().getCards();
     }
 
+    /**
+     *
+     * @param deck
+     */
     public void setBlind(List<Card> deck) {
         this.blind = deck;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }

@@ -33,16 +33,16 @@ export interface WinGameResponse extends Response {
 })
 
 export class GameComponent {
-  private opponents: Player[];
-  private curplayer: Player;
-  private curPlayerTurn: string;    // id of the current player
-  private gameId: string;
-  private curTrick: Card[] = [];
-  private isBlindState: boolean = true;
-  private burriedCards: Card[];
-  private pickerName: string;
+  opponents: Player[];
+   curplayer: Player;
+   curPlayerTurn: string;    // id of the current player
+   gameId: string;
+   curTrick: Card[] = [];
+   isBlindState: boolean = true;
+   burriedCards: Card[];
+   pickerName: string;
 
-  constructor(private _playerService:PlayerDataService,
+  constructor( _playerService:PlayerDataService,
      private gameService:GameService,
      public dialog: MatDialog,
      private route: Router) {

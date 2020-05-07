@@ -25,6 +25,10 @@ public class GamesManager {
         waitGame = new Game(numPlayers);
     }
 
+    /**
+     *
+     * @return
+     */
     public static GamesManager getInstance() {
         if (gm == null) {
             gm = new GamesManager();
@@ -80,24 +84,13 @@ public class GamesManager {
             }
         }
     }
-//    public class GameInitResponse{
-//        public List<Card> cards;
-//        public List<String> oppNames;
-//    }
 
-//    /**
-//     * @param gameId
-//     * @param playerId
-//     * @return players hand, and whose turn it is
-//     */
-////    public List<Card> getGameStartupData(String playerId){
-////        Game g = games.get(gameId);
-////        synchronized (g){
-////            List<Card> cards = g.getPlayerHand(playerId);
-////            return cards;
-////        }
-////    }
-
+    /**
+     *
+     * @param g
+     * @param playerId
+     * @return
+     */
     public List<Player> getOpponents(Game g, String playerId){
 //        Game g = this.games.get(gameId);
         // find the player and remove it so it gets the opponents
@@ -112,14 +105,27 @@ public class GamesManager {
         return opp;
     }
 
+    /**
+     *
+     * @return
+     */
     public Game getWait() {
         return waitGame;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getGames() {
         return games.size();
     }
 
+    /**
+     *
+     * @param action
+     * @return
+     */
     // annotate this so know what this returns given an action
     public AbstractResponse addAction(Action action) {
         Game g = games.get(action.getGameId());
@@ -131,6 +137,10 @@ public class GamesManager {
         }
     }
 
+    /**
+     *
+     * @param ms
+     */
     public void setMessageSender(SimpMessagingTemplate ms){
         this.messageSender = ms;
     }

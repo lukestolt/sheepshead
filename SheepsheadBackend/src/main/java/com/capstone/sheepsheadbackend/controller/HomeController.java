@@ -9,11 +9,11 @@ public class HomeController {
 
     private Gson gson = new Gson();
 
-    @RequestMapping("/")
-    public String hello() {
-        return "Hello";
-    }
-
+    /**
+     * Server Handler to create users
+     * @param name username of User to create
+     * @return New User
+     */
     @PostMapping("/createUser")
     public String createUser(@RequestBody String name){
         return gson.toJson(new User());

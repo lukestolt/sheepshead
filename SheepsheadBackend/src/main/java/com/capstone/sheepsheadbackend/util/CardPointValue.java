@@ -6,10 +6,18 @@ public enum CardPointValue {
 
     private int pointValue;
 
+    /**
+     *
+     * @param i
+     */
     CardPointValue(int i) {
         this.pointValue = i;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPointValue() {
         return pointValue;
     }

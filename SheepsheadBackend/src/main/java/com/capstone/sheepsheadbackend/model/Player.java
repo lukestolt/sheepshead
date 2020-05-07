@@ -11,30 +11,59 @@ public class Player {
     private List<Trick> tricks;
     private int score = 0;
 
+    /**
+     *
+     * @param user
+     */
     public Player(User user) {
         this.user = user;
         tricks = new ArrayList<>();
         hand = new Hand();
     }
 
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @return
+     */
     public Hand getHand() {
         return hand;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getNumTricks(){return this.tricks.size();};
 
+    /**
+     *
+     * @param hand
+     */
     public void setHand(Hand hand) {
         this.hand = hand;
     }
 
+    /**
+     *
+     * @param cards
+     */
     public void giveBlind(List<Card> cards){
         this.getHand().addCard(cards.get(0));
         this.getHand().addCard(cards.get(1));
     }
 
+    /**
+     *
+     * @param blind
+     */
     public void removeBlind(List<Card> blind){
         Iterator iterator = this.getHand().getCards().iterator();
         while(iterator.hasNext()){
@@ -46,6 +75,10 @@ public class Player {
 
     }
 
+    /**
+     *
+     * @param trick
+     */
     public void wonTrick(Trick trick) {
         tricks.add(trick);
         score += trick.getScore();
@@ -77,6 +110,13 @@ public class Player {
         return user.toString();
     }
 
+    /**
+     *
+     * @param card
+     * @param followSuitTrump
+     * @param followSuit
+     * @return
+     */
     public Card playCard(Card card, boolean followSuitTrump, String followSuit) {
 
         if(followSuitTrump){
@@ -153,15 +193,28 @@ public class Player {
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean hasCards() {
         return !hand.getCards().isEmpty();
     }
 
+    /**
+     *
+     * @param suit
+     * @param value
+     * @return
+     */
     public Card getCard(String suit, String value) {
         for (Card c: hand.getCards()) {
             if(c.equals(new Card(suit,value))) return c;

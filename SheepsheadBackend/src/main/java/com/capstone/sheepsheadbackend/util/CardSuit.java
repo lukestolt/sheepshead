@@ -8,18 +8,43 @@ public enum CardSuit {
     private int cardScore;
     private String strSuit;
 
+    /**
+     *
+     * @param cardStrength
+     * @param cardScore
+     * @param strSuit
+     */
     CardSuit(CardStrength cardStrength, int cardScore, String strSuit) {
         this.cardStrength = cardStrength;
         this.cardScore = cardScore;
         this.strSuit = strSuit;
     }
 
+    /**
+     *
+     * @return
+     */
     public CardStrength getCardStrength() {
         return cardStrength;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getCardScore() { return cardScore; }
+
+    /**
+     *
+     * @return
+     */
     public String getStrSuit() { return strSuit; }
 
+    /**
+     *
+     * @param stringSuit
+     * @return
+     */
     public static CardSuit fromStrSuit(String stringSuit) {
         for(CardSuit s: CardSuit.values()) {
             if(s.strSuit.equals(stringSuit)) return s;

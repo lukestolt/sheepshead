@@ -1,17 +1,14 @@
 package com.capstone.sheepsheadbackend.controller;
 
-import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.capstone.sheepsheadbackend.model.actions.BlindAction;
 import com.capstone.sheepsheadbackend.model.response.*;
-import com.capstone.sheepsheadbackend.controller.game.FindGameRequest;
+import com.capstone.sheepsheadbackend.model.game.FindGameRequest;
 import com.capstone.sheepsheadbackend.model.GamesManager;
 import com.capstone.sheepsheadbackend.model.actions.PlayCardAction;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.*;
 
 @RestController
 public class GameController {
@@ -22,6 +19,7 @@ public class GameController {
     private SimpMessagingTemplate messageSender;
 
     /**
+     * Handler for finding games. Creates player and adds them to a game. Returns Game ID.
      * @return the gameId
      */
     @PostMapping(value = "/findGame")
@@ -36,8 +34,8 @@ public class GameController {
      * this client should call this method via http so it can get an easier response and dont
      * have to create a subscription for the caller
      * all the other clients will be updated via the subscription
-     * @param action
-     * @return
+     * @param action Action that user wishes to perform
+     * @return Response of game to that action
      */
     @PostMapping("/gameAction")
     public String gameAction(@RequestBody PlayCardAction action) {
@@ -61,6 +59,10 @@ public class GameController {
         return response.createResponse();
     }
 
+    /**
+     * Server handler to handle picking the blind.
+     * @param action BlindAction with the details of who wants to take the blind
+     */
     @PostMapping("/gameBlindAction")
     public void gameAction(@RequestBody BlindAction action) {
         action.convertCards();
@@ -77,7 +79,6 @@ public class GameController {
         }
     }
 
-
     /**
      * this is called when the player is all set up and connected
      * @param gId
@@ -86,8 +87,5 @@ public class GameController {
     public void playerReady(@RequestBody String gId) {
         this.gm.broadcastInitGameInfo(gId);
     }
-
-
-
 
 }

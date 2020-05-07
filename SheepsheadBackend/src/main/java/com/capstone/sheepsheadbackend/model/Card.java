@@ -10,11 +10,20 @@ public class Card implements Comparable<Card> {
     private final String suit;
     private final String value;
 
+    /**
+     *
+     * @param suit
+     * @param value
+     */
     public Card(String suit, String value) {
         this.suit = suit;
         this.value = value;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isTrumpSuit() {
         SheepsheadCardValue val = SheepsheadCardValue.fromStrValue(value);
         CardSuit s = CardSuit.fromStrSuit(suit);
@@ -22,10 +31,18 @@ public class Card implements Comparable<Card> {
                 s.getCardStrength() == CardStrength.TRUMPSUIT;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSuit() {
         return suit;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getValue() {
         return value;
     }

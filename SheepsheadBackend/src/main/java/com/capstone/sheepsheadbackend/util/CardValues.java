@@ -8,10 +8,18 @@ public enum CardValues {
 
     private String strValue;
 
+    /**
+     *
+     * @param strValue
+     */
     CardValues(String strValue) {
         this.strValue = strValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStrValue() {
         return strValue;
     }

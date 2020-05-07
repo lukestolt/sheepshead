@@ -8,6 +8,12 @@ import java.util.List;
 public class BlindBroadcastResponse extends AbstractResponse{
     String nextTurnId;
 
+    /**
+     *
+     * @param playerId
+     * @param gameId
+     * @param nextTurnId
+     */
     public BlindBroadcastResponse(String playerId, String gameId, String nextTurnId){
         super(playerId, gameId, "blindAction");
         this.nextTurnId = nextTurnId;

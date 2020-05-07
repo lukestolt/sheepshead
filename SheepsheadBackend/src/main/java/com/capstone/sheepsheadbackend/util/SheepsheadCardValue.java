@@ -11,6 +11,13 @@ public enum SheepsheadCardValue {
     private CardStrength cardStrength;
     private int biasedValue;
 
+    /**
+     *
+     * @param strValue
+     * @param pointValue
+     * @param cardStrength
+     * @param biasedValue
+     */
     SheepsheadCardValue(String strValue, CardPointValue pointValue, CardStrength cardStrength, int biasedValue) {
         this.strValue = strValue;
         this.pointValue = pointValue;
@@ -18,18 +25,39 @@ public enum SheepsheadCardValue {
         this.biasedValue = biasedValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStrValue() {
         return strValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public CardPointValue getPointValue() {
         return pointValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public CardStrength getCardStrength() { return cardStrength; }
 
+    /**
+     *
+     * @return
+     */
     public int getBiasedValue() { return biasedValue; }
 
+    /**
+     *
+     * @param stringValue
+     * @return
+     */
     public static SheepsheadCardValue fromStrValue(String stringValue) {
         for(SheepsheadCardValue v: SheepsheadCardValue.values()) {
             if(v.strValue.equals(stringValue)) return v;
