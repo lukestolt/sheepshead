@@ -58,7 +58,6 @@ export class PlayerComponent{
         this.gameService.sendPlayerAction(action).subscribe(result => {
           if(result && result.responseType !== 'ERROR'){
             this.player.cards = result.cards
-            //TODO: show a message telling the user to play the correct type
           }
         });
       }      

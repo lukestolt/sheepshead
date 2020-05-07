@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "ip": "ng serve --host 192.168.0.114"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

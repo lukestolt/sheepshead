@@ -3,6 +3,7 @@ package com.capstone.sheepsheadbackend.model;
 import com.capstone.sheepsheadbackend.model.response.AbstractResponse;
 import com.capstone.sheepsheadbackend.model.actions.Action;
 import com.capstone.sheepsheadbackend.model.response.GameInitResponse;
+import com.capstone.sheepsheadbackend.model.response.WinningGameResponse;
 import com.google.gson.Gson;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
@@ -133,6 +134,9 @@ public class GamesManager {
             AbstractResponse a = g.performAction(action);
             // broadcast the trick information
             messageSender.convertAndSend("/topic/trickResponse/" + g.getUGID(), this.gson.toJson(g.getGameTrickData()));
+            if(a instanceof WinningGameResponse){
+                this.games.remove(g.getUGID());
+            }
             return a;
         }
     }
