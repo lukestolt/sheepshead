@@ -55,7 +55,7 @@ export class GameComponent {
     })
 
     /**
-     * this will be populated one the game starts
+     * information from the server when the game is initialized
      */
     this.gameService.ws.getInitGameInfo(this.curplayer.id).subscribe(info => {
       info = JSON.parse(info);
@@ -104,7 +104,7 @@ export class GameComponent {
     this.gameService.playerReady().subscribe(()=>{});
 
     /***
-     * handles the response that is broadcasted from the server when a player plays a valid card
+     * handles the game events that are broadcasted from the server
      */
     this.gameService.ws.getActionResponse().subscribe(info => {
 
@@ -190,24 +190,6 @@ export class GameComponent {
     }
   }
 
-
-  handleServerEvent(action: Response): void{
-    
-    if(action) {
-      // check the discriminator property 
-      if(action.responseType === 'PlayCardResponse'){
-        const pcr = action as PlayCardResponse
-        // find the person that played the card and reduce cards and put their card in trick pile
-        for(let opp of this.opponents) {
-          if(opp.id === pcr.playerId) {
-            opp.numCards = pcr.numCards;
-            this.curTrick.push(new Card(pcr.suit,pcr.value));
-            return;
-          }
-        }
-      }
-    }
-  }
 
   openDialog(data: any): void {
     const dialogRef = this.dialog.open(WinGameDialogComponent, {
